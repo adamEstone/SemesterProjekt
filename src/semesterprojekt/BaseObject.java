@@ -5,27 +5,22 @@
  */
 package semesterprojekt;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author Adam
  */
-
-
-import java.awt.image.BufferedImage;
-
-
-public class Enemy extends BaseObject{
+public class BaseObject {
     
-    String NameOfSprite ;
+    public String NameOfSprite = "SpaceShip.png";
     private BufferedImage TheImage;
 
-    private double lives = 1;
+    private int weapon = 0;
 
-    public static void move() {//ryk fjende
-        
-    }
-    public static void shoot() {//ryk fjende
-        
-    }
-
+    protected int xPos = 0;
+    protected int yPos = 0;
+    protected int width = 50;
+    protected int heigth = 50;
+    
 }

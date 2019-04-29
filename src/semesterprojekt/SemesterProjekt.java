@@ -37,6 +37,7 @@ public class SemesterProjekt {
         vindue.setResizable(false);
         vindue.init();
        // vindue.setDefaultCloseOperation(vindue.EXIT_ON_CLOSE);
+       
         //-------------- INPUT FRA BRUGER -------------------
         MultiMuselytter lytter = new MultiMuselytter();
         vindue.addMouseListener(lytter);

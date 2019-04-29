@@ -1,89 +1,72 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package semesterprojekt;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
-public class PlayerShip {
+public class PlayerShip extends BaseObject {
 
-/**
- *
- * @author Adam Aron Edelsten
- */
- 
+    /**
+     *
+     * @author Adam Aron Edelsten
+     */
+    
+    public String NameOfSprite = "SpaceShip.png";
+    private BufferedImage TheImage;
 
-	private Image TheImage;
-
-	private int sizeOfCoins = 50;
-	private int centerOfCoins = sizeOfCoins / 2;
-	
-	private double coinValue = 0;
-
-	private int xPos = 0;
-	private int yPos = 0;
-
-	
-	public PlayerShip(double value, String NameOfPicture) {
-
-		coinValue = value;
-		TheImage = Toolkit.getDefaultToolkit().getImage(NameOfPicture);
-
-	}
-	
-	
-	public PlayerShip(int x, int y, String NameOfPicture) {
-
-		xPos = x;
-		yPos = y;
-
-                TheImage = Toolkit.getDefaultToolkit().getImage(NameOfPicture);
-
-	}
+    private double lives = 0;
+    private int weapon = 0;
 
 
-	public Image getImage() {
+    public PlayerShip(int x, int y,int width,int heigth) {
 
-		return TheImage;
-	}
+        xPos = x;
+        yPos = y;
 
-	public void setXpos(int x) {
-		xPos = x;
-	}
+       // NameOfSprite = "";
 
-	public void setYpos(int y) {
-		yPos = y;
-	}
+    }
 
-	public int getXpos() {
-		return xPos;
-	}
+    public void loseLife() {
 
-	public int getYpos() {
-		return yPos;
-	}
+        lives--;
 
-	public void setValue(double value) {
-		coinValue = value;
-	}
+    }
+    
+    public void gainLife() {
 
-	public double getValue() {
-		return coinValue;
-	}
-	
-	public int getSize() {
-		return sizeOfCoins;
-	}
-	
-	public int getCenter(){
-		return centerOfCoins;
-	}
-	
+        lives++;
 
-	//return value
+    }
+
+    public BufferedImage getImage() {
+        return TheImage;
+    }
+
+    public void setXpos(int x) {
+        xPos = x;
+    }
+
+    public void setYpos(int y) {
+        yPos = y;
+    }
+
+    public int getXpos() {
+        return xPos;
+    }
+
+    public int getYpos() {
+        return yPos;
+    }
+
+    public void setLives(double value) {
+        lives = value;
+    }
+
+    public double getLives() {
+        return lives;
+    }
 
 
 }
