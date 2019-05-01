@@ -27,6 +27,11 @@ import javax.swing.JPanel;
  * @author Adam
  */
 public class GameLogic {
+    
+    
+    
+      private SoundPlayer backgroundMusic;
+    
 
     public static enum gameState {
         Loading,
@@ -52,6 +57,11 @@ public class GameLogic {
     private Graphics2D g2D;
 
     GameLogic(AktivVisning vindue) { //Constructor
+        
+        
+        //backgroundMusic = new SoundPlayer("Wii.wav");
+        //backgroundMusic.play(0);
+        
 
         theWindow = vindue;
 

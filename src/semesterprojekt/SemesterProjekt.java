@@ -23,6 +23,8 @@ TheImage = Toolkit.getDefaultToolkit().getImage(NameOfPicture);
  * @author Adam
  */
 public class SemesterProjekt {
+    
+  
 
     /**
      * @param args the command line arguments

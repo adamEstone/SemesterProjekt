@@ -10,15 +10,27 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     public static int mouseY = 0;
     public static boolean leftButtonDown = false;
     public static boolean rightButtonDown = false;
+    
+    
+          private SoundPlayer backgroundMusic;
+    
 
     public void mousePressed(MouseEvent hændelse) // kræves af MouseListener
     {
+        
+        backgroundMusic = new SoundPlayer("Wii.wav");
+        //backgroundMusic.play(0);
+        
+        
+        
         Point trykpunkt = hændelse.getPoint();
         if (hændelse.getButton() == 1) {
+            backgroundMusic.resume();
             leftButtonDown = true;
             System.out.println("Venstre Mus trykket ned i " + trykpunkt);
         }
         if (hændelse.getButton() == 3) {
+            backgroundMusic.pause();
             rightButtonDown = true;
             System.out.println("Højre Mus trykket ned i " + trykpunkt);
         }
