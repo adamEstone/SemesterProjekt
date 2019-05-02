@@ -28,11 +28,8 @@ import javax.swing.JPanel;
  */
 public class GameLogic {
     
-    
-    
-      private SoundPlayer backgroundMusic;
-    
-
+    private SoundPlayer backgroundMusic;
+   
     public static enum gameState {
         Loading,
         Menu,
@@ -46,7 +43,7 @@ public class GameLogic {
 
     private static AktivVisning theWindow = null; //pointer til
 
-    public static java.util.List<Enemy> enemies = new ArrayList<>();
+    //public static java.util.List<Enemy> enemies = new ArrayList<>();
 
     public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
 
@@ -58,20 +55,13 @@ public class GameLogic {
 
     GameLogic(AktivVisning vindue) { //Constructor
         
-        
-        //backgroundMusic = new SoundPlayer("Wii.wav");
-        //backgroundMusic.play(0);
-        
+        backgroundMusic = new SoundPlayer("Wii.wav");
+        backgroundMusic.play(0);
 
         theWindow = vindue;
 
-        vindue.createBufferStrategy(2);   // opret 2 buffere
-        BufferStrategy bufferStrategy = vindue.getBufferStrategy();
-
-        //vindue.init();
-        //
-        Enemy someEnemy = new Enemy();
-        enemies.add(someEnemy);
+        theWindow.createBufferStrategy(2);   // opret 2 buffere
+        BufferStrategy bufferStrategy = theWindow.getBufferStrategy();
 
         PlayerShip PlayerSpaceship = new PlayerShip(50, 50, 50, 50);
         LoadedSprites.add(findOrLoadSprite(PlayerSpaceship.NameOfSprite));
@@ -79,6 +69,9 @@ public class GameLogic {
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
         GameInstance myGameInstance = new GameInstance(); //create new game
+        
+        Enemy someEnemy = new Enemy();
+        myGameInstance.enemies.add(someEnemy);
 
         //----------------  Game state section -----------------
         mygamestate = gameState.RestartgameState; //start i stadiet
@@ -87,30 +80,32 @@ public class GameLogic {
 
             if (MultiMuselytter.leftButtonDown) {
                 mygamestate = gameState.Menu;
+                backgroundMusic.pause();
             }
             if (MultiMuselytter.rightButtonDown) {
                 mygamestate = gameState.Ingame;
+                backgroundMusic.resume();
             }
 
             switch (mygamestate) {
                 case Menu:
                     setCursor(true);
-                    vindue.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    vindue.tegnMenu();            // tegn på bufferens (med dens Graphics-objekt)
+                    theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
+                    theWindow.tegnMenu();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
-                    vindue.g2.dispose();      // frigiv bufferen så den er klar til genbrug
+                    theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
                     break;
                 case Ingame:
                     setCursor(false);
-                    vindue.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    vindue.tegnSpil(LoadedSprites); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
-                    g2D = vindue.g2;
+                    theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
+                    theWindow.tegnSpil(LoadedSprites); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
+                    g2D = theWindow.g2;
 
                     g2D.fillRect(400, 400, 50, 50);
 
-                    vindue.g2 = g2D;
+                    theWindow.g2 = g2D;
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
-                    vindue.g2.dispose();      // frigiv bufferen så den er klar til genbrug
+                    theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
                     myGameInstance.tickGame();//checks if enemys left,
                     //checkes for collision,
@@ -123,10 +118,10 @@ public class GameLogic {
                     break;
 
                 case Loading:
-                    vindue.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    vindue.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
+                    theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
+                    theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
-                    vindue.g2.dispose();      // frigiv bufferen så den er klar til genbrug
+                    theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
                     break;
 
@@ -199,7 +194,7 @@ public class GameLogic {
             }
 
         }
-
+        
         //hvis spriten ikke blev fundet i den loaded hukommelse-array
         try {
 

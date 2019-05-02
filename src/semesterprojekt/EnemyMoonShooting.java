@@ -9,6 +9,6 @@ package semesterprojekt;
  *
  * @author Adam
  */
-public class EnemyMoonShooting {
+public class EnemyMoonShooting extends Enemy {
     
 }

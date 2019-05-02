@@ -11,16 +11,12 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     public static boolean leftButtonDown = false;
     public static boolean rightButtonDown = false;
     
-   
-    
 
     public void mousePressed(MouseEvent hændelse) // kræves af MouseListener
     {
         
         //backgroundMusic.play(0);
-        
-        
-        
+
         Point trykpunkt = hændelse.getPoint();
         if (hændelse.getButton() == 1) {
             leftButtonDown = true;
