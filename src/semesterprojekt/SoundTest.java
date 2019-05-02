@@ -14,58 +14,50 @@ import java.util.*;
  * @author Mads
  */
 public class SoundTest {
-    
-              private SoundPlayer backgroundMusic;
-    
-              
-    
-    
-    
+
+    private SoundPlayer backgroundMusic;
+
     public static void main(String[] args) {
 
         new SoundTest().run();
     }
-    
-    public void run(){
-        
-        Scanner keyboard = new Scanner(System.in);        
-        
-       
-        backgroundMusic = new SoundPlayer("Wii.wav");        
+
+    public void run() {
+
+        Scanner keyboard = new Scanner(System.in);
+
+        backgroundMusic = new SoundPlayer("Wii.wav");
         char i = 0;
-        
-        while(true){
-            
+
+        while (true) {
+
             i = keyboard.next().charAt(0);
-            
+
             if (i == 'a') {
-                
-                        backgroundMusic.play(0);
-                
+
+                backgroundMusic.play(0);
+
             }
-            
+
             if (i == 'b') {
-                
-                        backgroundMusic.stop();
-                
+
+                backgroundMusic.stop();
+
             }
-            
-                        if (i == 'p') {
-                
-                        backgroundMusic.pause();
-                
+
+            if (i == 'p') {
+
+                backgroundMusic.pause();
+
             }
-            
-                                    if (i == 'r') {
-                
-                        backgroundMusic.resume();
-                
+
+            if (i == 'r') {
+
+                backgroundMusic.resume();
+
             }
-            
-            
+
         }
-           
-    
-    
+
     }
 }
