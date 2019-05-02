@@ -3,13 +3,16 @@ package semesterprojekt;
 
 import java.io.Console;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.*;
 
 
 public class SoundPlayer {
     
     private Clip soundClip;
-    private int currFramePos;
+    private long currFramePos;
     
     public SoundPlayer(String filename){
         
@@ -53,6 +56,7 @@ public class SoundPlayer {
         
         soundClip.setFramePosition(framePos);
         soundClip.start();
+        
     }
     
     
@@ -62,18 +66,16 @@ public class SoundPlayer {
             currFramePos = 0;
         }
        
-       currFramePos = soundClip.getFramePosition();
+       currFramePos = soundClip.getMicrosecondPosition();
        stop();
        
         
     }
     
     public void resume(){
-        if (soundClip == null){
-            return;
-        }
         
-        play(currFramePos);
+       soundClip.setFramePosition(currFramePos);
+        soundClip.start();
         
     }
     
@@ -82,14 +84,13 @@ public class SoundPlayer {
             return;
         }
         
-        //if (soundClip.isRunning() == true){
+        if (soundClip.isRunning() == true){
        
                     
         soundClip.stop();
         //soundClip.flush();
         //soundClip.close();
-        System.out.println("ØVVVVVVVVVVVVVVVVVVVVVVVVVVVV!");
-        //}
+        }
         
     }
     
