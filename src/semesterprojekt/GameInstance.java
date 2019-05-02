@@ -1,13 +1,15 @@
 package semesterprojekt;
 
+import java.util.ArrayList;
 import java.util.Date;
-import static semesterprojekt.GameLogic.enemies;
 
 /**
  *
  * @author Adam
  */
 public class GameInstance {
+    
+    public static java.util.List<Enemy> enemies = new ArrayList<>();
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 300, 100, 100);
     boolean ResartGame = false;
