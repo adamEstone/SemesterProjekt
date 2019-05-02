@@ -36,7 +36,7 @@ public class AktivVisning extends JFrame {
     }
 
     // public void paintComponent() {}           // definer IKKE - aktiv visning!
-    void tegnSpil(List<BufferedImage> sprites) {                 // venter lidt, tegner og opdaterer koordinater
+    void tegnSpil() {                 // venter lidt, tegner og opdaterer koordinater
         
         g2.setTransform(orgTrans);               // genskab orig. transformation
         g2.setColor(Color.WHITE);                  // rens skærmen selv
@@ -44,7 +44,7 @@ public class AktivVisning extends JFrame {
         g2.fillRect(0, 0, d.width, d.height);
         g2.setColor(Color.BLACK);
         g2.drawOval(MultiMuselytter.mouseX - (50 / 2), MultiMuselytter.mouseY - (50 / 2), 50, 50);
-        g2.drawImage(sprites.get(0), MultiMuselytter.mouseX-(sprites.get(0).getWidth()/2), 600, null);
+        //g2.drawImage(sprites.get(0), MultiMuselytter.mouseX-(sprites.get(0).getWidth()/2), 600, null);
 
     }
 
