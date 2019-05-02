@@ -7,20 +7,20 @@ package semesterprojekt;
 
 import java.awt.geom.*;
 import java.awt.Graphics2D;
-import javax.swing.JFrame;
+
 import java.awt.image.*;
-import java.awt.Rectangle;
+
 import java.awt.Toolkit;
-import javax.swing.JFrame;
+
 import java.awt.*;
-import java.awt.event.*;
+
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+
 
 /**
  *
@@ -55,7 +55,7 @@ public class GameLogic {
 
     GameLogic(AktivVisning vindue) { //Constructor
         
-        backgroundMusic = new SoundPlayer("Wii.wav");
+        backgroundMusic = new SoundPlayer("Wii2.wav");
         backgroundMusic.play(0);
 
         theWindow = vindue;
