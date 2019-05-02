@@ -45,15 +45,18 @@ public class GameLogic {
 
     //public static java.util.List<Enemy> enemies = new ArrayList<>();
 
-    public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
+    //public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
 
     private long fpsCount = 0;
     private long oldsecond = 0;
     private static boolean mouseState = true;
 
     private Graphics2D g2D;
+    
+    ResourceClass Res = new ResourceClass(); //use the resource 
 
     GameLogic(AktivVisning vindue) { //Constructor
+        
         
         backgroundMusic = new SoundPlayer("Wii2.wav");
         backgroundMusic.play(0);
@@ -64,7 +67,7 @@ public class GameLogic {
         BufferStrategy bufferStrategy = theWindow.getBufferStrategy();
 
         PlayerShip PlayerSpaceship = new PlayerShip(50, 50, 50, 50);
-        LoadedSprites.add(findOrLoadSprite(PlayerSpaceship.NameOfSprite));
+        //LoadedSprites.add(findOrLoadSprite(PlayerSpaceship.NameOfSprite));
 
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
@@ -98,12 +101,15 @@ public class GameLogic {
                 case Ingame:
                     setCursor(false);
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    theWindow.tegnSpil(LoadedSprites); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
+                    theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
+                    
                     g2D = theWindow.g2;
-
+                    
                     g2D.fillRect(400, 400, 50, 50);
-
                     theWindow.g2 = g2D;
+                    
+                    theWindow.g2=myGameInstance.drawGame(g2D);
+                    
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
@@ -153,7 +159,7 @@ public class GameLogic {
                 fpsCount = 0;
             }
 
-        }
+        }//end off gameloop
 
     }
 
@@ -180,32 +186,6 @@ public class GameLogic {
             } else {
                 hideCursor();
             }
-        }
-
-    }
-
-    public static BufferedImage findOrLoadSprite(String spriteString) {//læg
-
-        for (int i = 0; i < LoadedSprites.size(); i++) {
-
-            if (LoadedSprites.get(i).toString().equals(spriteString)) {
-
-                return LoadedSprites.get(i);
-            }
-
-        }
-        
-        //hvis spriten ikke blev fundet i den loaded hukommelse-array
-        try {
-
-            BufferedImage TempImg = ImageIO.read(new File("SpaceShip.png"));
-            LoadedSprites.add(TempImg);
-
-            return TempImg;
-
-        } catch (IOException e) {
-            System.out.println("ERROR LOADING IMAGE");
-            return null;
         }
 
     }
