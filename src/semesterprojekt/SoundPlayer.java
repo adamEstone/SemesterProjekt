@@ -20,6 +20,7 @@ public class SoundPlayer {
             soundClip.open(sourceStream);
             soundClip = this.soundClip;
             soundClip.addLineListener(audioListener);
+            
         } catch (Exception sp) {
             sp.printStackTrace();
         }
@@ -60,6 +61,7 @@ public class SoundPlayer {
     }
 
     public void resume() {
+        
 
         soundClip.setMicrosecondPosition(currFramePos);
         soundClip.start();

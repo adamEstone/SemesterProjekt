@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 /**
@@ -12,7 +14,10 @@ import javax.sound.sampled.Clip;
  * @author Adam
  */
 
+
+
 public class ResourceClass {
+    
 
     public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
     public static java.util.List<Clip> LoadedSounds = new ArrayList<>();
@@ -20,19 +25,11 @@ public class ResourceClass {
     ResourceClass() {
         System.out.println("LOADING:");
         LoadSprite("SpaceShip.png");
+        LoadSprite("Ghost.png");
     }
 
     public static void LoadSprite(String spriteString) {//læg
-/*
-        for (int i = 0; i < LoadedSprites.size(); i++) {
 
-            if (LoadedSprites.get(i).toString().equals(spriteString)) {
-
-                return LoadedSprites.get(i);
-            }
-
-        }
-*/
         //hvis spriten ikke blev fundet i den loaded hukommelse-array
         try {
 
@@ -47,5 +44,13 @@ public class ResourceClass {
         }
 
     }
+
+       public static void LoadSound(String soundString) {//læg
+
+
+
+    }
+    
+    
 
 }

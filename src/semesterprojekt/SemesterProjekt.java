@@ -23,8 +23,6 @@ TheImage = Toolkit.getDefaultToolkit().getImage(NameOfPicture);
  * @author Adam
  */
 public class SemesterProjekt {
-    
-  
 
     /**
      * @param args the command line arguments
@@ -48,7 +46,7 @@ public class SemesterProjekt {
         Tastetryk tast = new Tastetryk();
         vindue.addKeyListener(tast);
         //--------------------------------------------------
-        
+
         //opretter selve spillet i det vindue som er parrameter 
         GameLogic myGame = new GameLogic(vindue); 
         

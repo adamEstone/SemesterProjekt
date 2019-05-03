@@ -10,16 +10,15 @@ import java.util.Date;
  */
 public class GameInstance {
 
-    
-    
     public static java.util.List<Enemy> enemies = new ArrayList<>();
-
-    boolean ResartGame = false;
     
-    private PlayerShip myPlayerShip = new PlayerShip(300, 300, 100, 100);
+    boolean ResartGame = false;
+
+    private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
 
     GameInstance() {//constructor  or new game
-
+        Enemy someEnemy = new EnemyGhostShooting(20,20);
+        enemies.add(someEnemy);
     }
 
     private static int a = 0;
@@ -32,7 +31,7 @@ public class GameInstance {
         long millis = System.currentTimeMillis() % 1000;
 
         if (millis != oldMillis) {
-            System.out.println(a);
+            System.out.println("millis changed in tickGame(): " + a);
             a++;
         }
 
@@ -55,15 +54,19 @@ public class GameInstance {
 
     }
 
-    public static Graphics2D drawGame(Graphics2D bufferedGraphics) {
+    public Graphics2D drawGame(Graphics2D bufferedGraphics) {
+        
         Graphics2D tempG2D = bufferedGraphics;
         
-        tempG2D.drawImage(
-                ResourceClass.LoadedSprites.get(0), 
-                MultiMuselytter.mouseX-(ResourceClass.LoadedSprites.get(0).getWidth()/2),
-                600, null);
+        myPlayerShip.setXpos(MultiMuselytter.mouseX);
+         
+        tempG2D = myPlayerShip.draw(tempG2D);
         
-        return tempG2D ;
+        for (Enemy enemy : enemies) {
+            tempG2D = enemy.draw(tempG2D);
+        }
+
+        return tempG2D;
     }
 
 }

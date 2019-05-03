@@ -13,14 +13,12 @@ import java.awt.image.BufferedImage;
  */
 public class BaseObject {
     
-    public String NameOfSprite = "SpaceShip.png";
+    public String NameOfSprite = "";
     private BufferedImage TheImage;
 
-    private int weapon = 0;
-
-    protected int xPos = 0;
-    protected int yPos = 0;
-    protected int width = 50;
-    protected int heigth = 50;
+    public int xPos = 0;
+    public int yPos = 0;
+    public int width = 50;
+    public int heigth = 50;
     
 }

@@ -57,7 +57,6 @@ public class GameLogic {
 
     GameLogic(AktivVisning vindue) { //Constructor
         
-        
         backgroundMusic = new SoundPlayer("Wii2.wav");
         backgroundMusic.play(0);
 
@@ -72,9 +71,6 @@ public class GameLogic {
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
         GameInstance myGameInstance = new GameInstance(); //create new game
-        
-        Enemy someEnemy = new Enemy();
-        myGameInstance.enemies.add(someEnemy);
 
         //----------------  Game state section -----------------
         mygamestate = gameState.RestartgameState; //start i stadiet
@@ -92,13 +88,18 @@ public class GameLogic {
 
             switch (mygamestate) {
                 case Menu:
+                    
+                    backgroundMusic.pause();
                     setCursor(true);
+                    
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnMenu();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
                     break;
+                    
                 case Ingame:
+                    
                     setCursor(false);
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
@@ -106,16 +107,20 @@ public class GameLogic {
                     g2D = theWindow.g2;
                     
                     g2D.fillRect(400, 400, 50, 50);
-                    theWindow.g2 = g2D;
                     
-                    theWindow.g2=myGameInstance.drawGame(g2D);
+                    
+                    g2D=myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
+                    
+                    
+                    theWindow.g2=g2D;
                     
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
-                    myGameInstance.tickGame();//checks if enemys left,
-                    //checkes for collision,
-                    //moves enemies,makes enemies shoot
+                    myGameInstance.tickGame();
+                    //-checks if enemys left,
+                    //-checkes for collision,
+                    //-moves enemies,makes enemies shoot
 
                     break;
 

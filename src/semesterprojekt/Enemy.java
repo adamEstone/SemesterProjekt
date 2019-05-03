@@ -9,23 +9,46 @@ package semesterprojekt;
  *
  * @author Adam
  */
-
-
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+public class Enemy extends BaseObject {
 
-public class Enemy extends BaseObject{
-    
-    String NameOfSprite ;
+    private int spriteID = 0;
     private BufferedImage TheImage;
 
-    private double lives = 1;
+    private double lives = 1.0;
+    private int weapon = 0;
 
-    public static void move() {//ryk fjende
-        
+
+    public void move() {//ryk fjende
+
     }
-    public static void shoot() {//ryk fjende
-        
+
+    public void shoot() {
+
+    }
+
+    public Graphics2D draw(Graphics2D G2D) {//tegn
+        System.out.println("NOT USED?");
+        G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos, null);
+        return G2D;
+    }
+
+    public int getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(int weapon) {
+        this.weapon = weapon;
+    }
+
+    public double getLives() {
+        return lives;
+    }
+
+    public void setLives(double lives) {
+        this.lives = lives;
     }
 
 }
