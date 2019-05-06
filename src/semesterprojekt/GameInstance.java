@@ -13,15 +13,23 @@ public class GameInstance {
     public static java.util.List<Enemy> enemies = new ArrayList<>();
     
     boolean ResartGame = false;
+    
+    
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
 
     GameInstance() {//constructor  or new game
-        Enemy someEnemy = new EnemyGhostShooting(200,100);
-        enemies.add(someEnemy);
+        //Enemy someEnemy = new EnemyGhostShooting(200,100);
+        enemies.add(new EnemyGhostShooting(200,100));
+        enemies.add(new EnemyGhostShooting(100,100));
+        enemies.add(new EnemyGhostShooting(100,200));
         
-         Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
-        enemies.add(someOtherEnemy);   
+
+        System.out.println(enemies.size());
+   
+        
+        // Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
+        //enemies.add(someOtherEnemy);   
       
          
         
@@ -42,16 +50,13 @@ public class GameInstance {
         }
 
         
-        
-        //for (Enemy enemy : enemies) {
-            //move enemy()
+            enemies.forEach((enemy) -> enemy.move());        
 
             //check enemy for collision()
             //make enemy shoot() 
             //animation?
-            ///////enemy.move();
-            enemies.forEach((enemy) -> enemy.move());
-        //}
+            
+
 
         if (enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");
@@ -76,6 +81,9 @@ public class GameInstance {
         for (Enemy enemy : enemies) {
             tempG2D = enemy.draw(tempG2D);
         }
+
+        
+         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
 
         return tempG2D;
     }

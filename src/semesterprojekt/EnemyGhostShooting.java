@@ -21,8 +21,8 @@ public class EnemyGhostShooting extends Enemy {
     private int weapon = 1;
     private double lives = 1;
     
-    private int speedX = 2;
-    private int speedY = 2;
+    private int speedX;
+    private int speedY;
 
     EnemyGhostShooting(int Xpos_in, int Ypos_in) {
         System.out.println("WOWOWOOWOWOWOWOW");
@@ -45,7 +45,23 @@ public class EnemyGhostShooting extends Enemy {
           Random r = new Random();
           
           int minSped = 1;
-          int maxSped = 2;
+          int maxSped = 5;
+          int rand = r.nextInt(maxSped-minSped) + minSped;
+          
+          if (speedX > 0){
+              speedX = rand;
+          } else{
+              speedX = -rand;
+          }
+          
+          rand = r.nextInt(maxSped-minSped) + minSped;
+          
+          
+          if (speedY > 0){
+              speedY = rand;
+          } else{
+              speedY = -rand;
+          }
           
           
           if (xPos < 0 || xPos > 600){
@@ -55,8 +71,6 @@ public class EnemyGhostShooting extends Enemy {
           
           xPos = xPos + speedX;
           
-          
-          //int speedY = r.nextInt(maxSped-minSped) + minSped;
           
           if (yPos < 0 || yPos >= 300){
               speedY = -speedY;
@@ -71,7 +85,9 @@ public class EnemyGhostShooting extends Enemy {
 
     @Override
     public void shoot() {//ryk fjende
-
+        
+        
+        
     }
 
     @Override
