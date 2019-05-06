@@ -23,6 +23,8 @@ public class Enemy extends BaseObject {
 
     public void move() {//ryk fjende
 
+         
+        
     }
 
     public void shoot() {

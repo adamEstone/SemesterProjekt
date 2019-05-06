@@ -17,8 +17,11 @@ public class GameInstance {
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
 
     GameInstance() {//constructor  or new game
-        Enemy someEnemy = new EnemyGhostShooting(20,20);
+        Enemy someEnemy = new EnemyGhostShooting(200,100);
         enemies.add(someEnemy);
+         Enemy someOtherEnemy = new EnemyGhostShooting(500,10);
+        enemies.add(someOtherEnemy);
+        
     }
 
     private static int a = 0;
@@ -35,12 +38,17 @@ public class GameInstance {
             a++;
         }
 
-        for (Enemy enemy : enemies) {
+        
+        
+        //for (Enemy enemy : enemies) {
             //move enemy()
+
             //check enemy for collision()
             //make enemy shoot() 
             //animation?
-        }
+            ///////enemy.move();
+            enemies.forEach((enemy) -> enemy.move());
+        //}
 
         if (enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");

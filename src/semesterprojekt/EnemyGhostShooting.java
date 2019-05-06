@@ -36,7 +36,10 @@ public class EnemyGhostShooting extends Enemy {
 
     @Override
     public void move() {//ryk fjende
-
+          //System.out.println("HALLO!!!!!");
+          xPos = xPos + 1;
+          yPos = yPos - 1;
+        
     }
 
     @Override
@@ -49,7 +52,7 @@ public class EnemyGhostShooting extends Enemy {
         AffineTransform orgTrans;
 
         a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, null);
-        a.scale(0.3,0.3);          // flyt, skaler og rotér
+        //a.scale(0.3,0.3);          // flyt, skaler og rotér
         return a;
     }
 
