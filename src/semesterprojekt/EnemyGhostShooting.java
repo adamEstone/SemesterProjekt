@@ -6,6 +6,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 /**
@@ -45,7 +46,10 @@ public class EnemyGhostShooting extends Enemy {
 
     @Override
     public Graphics2D draw(Graphics2D a) {//ryk fjende
+        AffineTransform orgTrans;
+
         a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, null);
+        a.scale(0.3,0.3);          // flyt, skaler og rotér
         return a;
     }
 

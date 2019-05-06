@@ -1,5 +1,6 @@
 package semesterprojekt;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,44 +14,56 @@ import javax.sound.sampled.Clip;
  *
  * @author Adam
  */
-
-
-
 public class ResourceClass {
-    
 
     public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
     public static java.util.List<Clip> LoadedSounds = new ArrayList<>();
 
     ResourceClass() {
         System.out.println("LOADING:");
-        LoadSprite("SpaceShip.png");
-        LoadSprite("Ghost.png");
+        LoadSprite("SpaceShip.png",250,250);
+        LoadSprite("Ghost.png",100,100);
     }
 
-    public static void LoadSprite(String spriteString) {//læg
+    public static void LoadSprite(String spriteString,int spriteWidth,int spriteHeight) {//læg
 
-        //hvis spriten ikke blev fundet i den loaded hukommelse-array
-        try {
+        
+        try {//prøv at hente billede fra disken
 
             BufferedImage TempImg = ImageIO.read(new File(spriteString));
-            LoadedSprites.add(TempImg);
-            System.out.println("LOADED: "+ spriteString);
-            
+
+            //LoadedSprites.add(resize(spriteWidth, spriteHeight, TempImg));
+            LoadedSprites.add( TempImg);
+            System.out.println("LOADED: " + spriteString);
 
         } catch (IOException e) {
-            System.out.println("ERROR LOADING IMAGE");
-            
+            System.out.println("ERROR LOADING IMAGE: " + spriteString);
+
         }
 
     }
 
-       public static void LoadSound(String soundString) {//læg
-
-
+    public static void LoadSound(String soundString) {//læg
 
     }
     
     
+    //http://www.java2s.com/Tutorials/Java/Graphics_How_to/Image/Resize_image.htm
+    public static BufferedImage resize(int targetWidth, int targetHeight,
+            BufferedImage src) {
+        double scaleW = (double) targetWidth / (double) src.getWidth();
+        double scaleH = (double) targetHeight / (double) src.getHeight();
+
+        double scale = scaleW < scaleH ? scaleW : scaleH;
+
+        BufferedImage result = new BufferedImage((int) (src.getWidth() * scale),
+                (int) (src.getHeight() * scale), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = result.createGraphics();
+        g2d.drawImage(src, 0, 0, result.getWidth(), result.getHeight(), null);
+        g2d.dispose();
+
+        return result;
+    }
 
 }

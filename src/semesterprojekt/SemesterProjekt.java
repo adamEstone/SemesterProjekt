@@ -17,7 +17,7 @@ TheImage = Toolkit.getDefaultToolkit().getImage(NameOfPicture);
         for (Coin element : allCoins) {
 
         }
- */
+ *///
 /**
  *
  * @author Adam
