@@ -22,7 +22,8 @@ public class ResourceClass {
     ResourceClass() {
         System.out.println("LOADING:");
         LoadSprite("SpaceShip.png",250,250);
-        LoadSprite("Ghost.png",100,100);
+        //LoadSprite("Ghost.png",100,100);
+        LoadSprite("GhostV2.png",48,48);
     }
 
     public static void LoadSprite(String spriteString,int spriteWidth,int spriteHeight) {//læg

@@ -19,8 +19,11 @@ public class GameInstance {
     GameInstance() {//constructor  or new game
         Enemy someEnemy = new EnemyGhostShooting(200,100);
         enemies.add(someEnemy);
-         Enemy someOtherEnemy = new EnemyGhostShooting(500,10);
-        enemies.add(someOtherEnemy);
+        
+         Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
+        enemies.add(someOtherEnemy);   
+      
+         
         
     }
 

@@ -33,7 +33,7 @@ public class SemesterProjekt {
 //        SpilVindue panel = new SpilVindue();        // opret panelet
         AktivVisning vindue = new AktivVisning();    // opret et vindue på skærmen
         //vindue.add(panel);                          // vis panelet i vinduet
-        vindue.setSize(800, 800);
+        vindue.setSize(600, 700);
         vindue.setResizable(false);
         vindue.init();
        // vindue.setDefaultCloseOperation(vindue.EXIT_ON_CLOSE);

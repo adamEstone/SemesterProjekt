@@ -8,6 +8,7 @@ package semesterprojekt;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 /**
  *
@@ -19,6 +20,9 @@ public class EnemyGhostShooting extends Enemy {
 
     private int weapon = 1;
     private double lives = 1;
+    
+    private int speedX = 2;
+    private int speedY = 2;
 
     EnemyGhostShooting(int Xpos_in, int Ypos_in) {
         System.out.println("WOWOWOOWOWOWOWOW");
@@ -37,8 +41,31 @@ public class EnemyGhostShooting extends Enemy {
     @Override
     public void move() {//ryk fjende
           //System.out.println("HALLO!!!!!");
-          xPos = xPos + 1;
-          yPos = yPos - 1;
+          
+          Random r = new Random();
+          
+          int minSped = 1;
+          int maxSped = 2;
+          
+          
+          if (xPos < 0 || xPos > 600){
+              speedX = -speedX;
+              
+          }
+          
+          xPos = xPos + speedX;
+          
+          
+          //int speedY = r.nextInt(maxSped-minSped) + minSped;
+          
+          if (yPos < 0 || yPos >= 300){
+              speedY = -speedY;
+              
+          }
+          
+          yPos = yPos + speedY;
+          
+          System.out.println(yPos);
         
     }
 
