@@ -99,16 +99,11 @@ public class GameLogic {
                     }
 
                     setCursor(false);
+                    
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
 
-                    g2D = theWindow.g2;
-
-                    g2D.fillRect(400, 400, 50, 50);
-
-                    g2D = myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
-
-                    theWindow.g2 = g2D;
+                    myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
 
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
