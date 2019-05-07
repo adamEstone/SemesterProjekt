@@ -10,6 +10,17 @@ import java.util.Date;
  */
 public class GameInstance {
 
+    public enum gameState { //mulige spil stadier
+        Loading,
+        Menu,
+        Ingame,
+        Pause,
+        Settings,
+        RestartgameState
+    }
+
+    public gameState mygamestate;
+
     public static java.util.List<Enemy> enemies = new ArrayList<>();
 
     boolean ResartGame = false;
@@ -19,8 +30,8 @@ public class GameInstance {
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
-        //Enemy someEnemy = new EnemyGhostShooting(200,100);
 
+        //Enemy someEnemy = new EnemyGhostShooting(200,100);
         enemies.add(new EnemyGhostShooting(200, 100));
         enemies.add(new EnemyGhostShooting(100, 100));
         /*enemies.add(new EnemyGhostShooting(100,200));
@@ -38,8 +49,9 @@ public class GameInstance {
     private static int a = 0;
     private static long oldMillis = 0;
 
-    public static void tickGame() {
-
+    public void tickGame() {
+        
+        /*
         var today = new Date();
 
         long millis = System.currentTimeMillis() % 1000;
@@ -48,7 +60,8 @@ public class GameInstance {
             System.out.println("millis changed in tickGame(): " + a);
             a++;
         }
-
+         */
+        
         enemies.forEach((enemy) -> enemy.move());
 
         //check enemy for collision()
@@ -86,7 +99,7 @@ public class GameInstance {
     }
 
     public Graphics2D drawGame(Graphics2D bufferedGraphics) {
-        g2=bufferedGraphics;//vigtig! overføre bufferen til g2
+        g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         Graphics2D tempG2D = bufferedGraphics;
 
         myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
@@ -107,7 +120,6 @@ public class GameInstance {
 
     void drawObj(BaseObject b) {                                                //tegner det objekt som er parameter i drawObj på g2    
         b.draw(g2);                                                             //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
-        System.out.println("IIIIIIIIIIIIIIIIIIIII");
     }
 
 }

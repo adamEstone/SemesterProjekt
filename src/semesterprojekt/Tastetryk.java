@@ -6,10 +6,6 @@ import javax.swing.*;
 
 public class Tastetryk extends JPanel implements KeyListener {
 
-    SemesterProjekt spilllet;
-
-    GameLogic GameLogicPointer ;
-
     String tekst = "tast noget - pil op/ned rykker teksten ";
     Point pos = new Point(20, 20);
 
@@ -26,14 +22,9 @@ public class Tastetryk extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        System.out.print("der blev trykket: ");
+        System.out.print("Der blev trykket: ");
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.out.print("ESCAPE \n");
-            if(GameLogic.mygamestate==GameLogic.gameState.Ingame){
-                GameLogic.mygamestate=GameLogic.gameState.Menu;
-            }else{
-                GameLogic.mygamestate=GameLogic.gameState.Ingame;
-            }
             
             
         }

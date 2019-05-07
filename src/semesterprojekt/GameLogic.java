@@ -5,7 +5,7 @@
  */
 package semesterprojekt;
 
-import java.awt.geom.*;
+
 import java.awt.Graphics2D;
 
 import java.awt.image.*;
@@ -15,13 +15,9 @@ import java.awt.Toolkit;
 import java.awt.*;
 
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
+
 import java.util.Calendar;
-import javax.imageio.ImageIO;
-
-
 /**
  *
  * @author Adam
@@ -30,16 +26,7 @@ public class GameLogic {
     
     private SoundPlayer backgroundMusic;
    
-    public static enum gameState {
-        Loading,
-        Menu,
-        Ingame,
-        Pause,
-        Settings,
-        RestartgameState
-    }
 
-    public static gameState mygamestate;
 
     private static AktivVisning theWindow = null; //pointer til
 
@@ -73,20 +60,21 @@ public class GameLogic {
         GameInstance myGameInstance = new GameInstance(theWindow); //create new game
 
         //----------------  Game state section -----------------
-        mygamestate = gameState.Ingame; //start i stadiet
+        
+        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame; //start i stadiet
 
         while (true) { ///////  GameStateLoop /////////////
 
             if (MultiMuselytter.leftButtonDown) {
-                mygamestate = gameState.Menu;
+                myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
                 backgroundMusic.pause();
             }
             if (MultiMuselytter.rightButtonDown) {
-                mygamestate = gameState.Ingame;
+                myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
                 backgroundMusic.resume();
             }
 
-            switch (mygamestate) {
+            switch (myGameInstance.mygamestate) {
                 case Menu:
                     
                     backgroundMusic.pause();
@@ -108,7 +96,6 @@ public class GameLogic {
                     
                     g2D.fillRect(400, 400, 50, 50);
                     
-                    
                     g2D=myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
                     
                     
@@ -129,6 +116,7 @@ public class GameLogic {
                     break;
 
                 case Loading:
+                    
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
@@ -139,14 +127,15 @@ public class GameLogic {
                 case RestartgameState:
 
                     myGameInstance = new GameInstance(theWindow);//new bame
+                    
                     System.out.println("-- New Game started --");
 
-                    mygamestate = gameState.Ingame;
+                    myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
 
                     break;
             }
 
-            try {
+            try {/////vent 10ms
                 Thread.sleep(10);
             } catch (Exception e) {
             }// vent lidt

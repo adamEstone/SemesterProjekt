@@ -43,7 +43,6 @@ public class PlayerShip extends BaseObject {
 
     public void setXpos(int x) {
         xPos = x;
-        System.out.println("set");
     }
 
     public void setYpos(int y) {
