@@ -10,6 +10,7 @@ package semesterprojekt;
  * @author Adam
  */
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends BaseObject {
@@ -25,6 +26,11 @@ public class Enemy extends BaseObject {
 
          
         
+    }
+    
+    public Rectangle bounds(){ //Bruges til Collision detection
+        
+        return null;
     }
 
     public void shoot() {

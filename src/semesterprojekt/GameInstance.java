@@ -20,10 +20,14 @@ public class GameInstance {
 
     GameInstance() {//constructor  or new game
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
+        
         enemies.add(new EnemyGhostShooting(200,100));
         enemies.add(new EnemyGhostShooting(100,100));
-        enemies.add(new EnemyGhostShooting(100,200));
-        
+        /*enemies.add(new EnemyGhostShooting(100,200));
+        enemies.add(new EnemyGhostShooting(300,200));
+        enemies.add(new EnemyGhostShooting(50,250));
+        enemies.add(new EnemyGhostShooting(300,150));
+        */
 
         System.out.println(enemies.size());
    
@@ -53,6 +57,33 @@ public class GameInstance {
             enemies.forEach((enemy) -> enemy.move());        
 
             //check enemy for collision()
+            
+            for (int i = 0; i < enemies.size(); i++) {
+            
+                for (int j = 0; j < enemies.size(); j++) {
+                    
+                    if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
+                        
+                        if (enemies.get(i).bounds().x != enemies.get(j).bounds().x &&
+                            enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+                            
+                            
+                            
+                            
+                            System.out.println("Av! " + i);
+                            
+                        }
+                        
+                        
+                        
+                    }
+                    
+                }
+                
+        }
+            
+            
+            
             //make enemy shoot() 
             //animation?
             
@@ -79,7 +110,10 @@ public class GameInstance {
         tempG2D = myPlayerShip.draw(tempG2D);
         
         for (Enemy enemy : enemies) {
-            tempG2D = enemy.draw(tempG2D);
+            
+
+        
+        tempG2D = enemy.draw(tempG2D);
         }
 
         

@@ -6,8 +6,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -28,8 +27,13 @@ public class EnemyGhostShooting extends Enemy {
         System.out.println("WOWOWOOWOWOWOWOW");
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
+        
 
     }
+    
+    
+
+    
 
     EnemyGhostShooting(int Xpos_in, int Ypos_in, double Lives_in, int Weapon_in) {
         this.xPos = Xpos_in;
@@ -48,38 +52,38 @@ public class EnemyGhostShooting extends Enemy {
           int maxSped = 5;
           int rand = r.nextInt(maxSped-minSped) + minSped;
           
-          if (speedX > 0){
-              speedX = rand;
+          if (this.speedX > 0){
+              this.speedX = rand;
           } else{
-              speedX = -rand;
+              this.speedX = -rand;
           }
           
           rand = r.nextInt(maxSped-minSped) + minSped;
           
           
-          if (speedY > 0){
-              speedY = rand;
+          if (this.speedY > 0){
+              this.speedY = rand;
           } else{
-              speedY = -rand;
+              this.speedY = -rand;
           }
           
           
-          if (xPos < 0 || xPos > 600){
-              speedX = -speedX;
+          if (this.xPos < 0 || this.xPos > 600){
+              this.speedX = -this.speedX;
               
           }
           
-          xPos = xPos + speedX;
+          this.xPos = this.xPos + this.speedX;
           
           
-          if (yPos < 0 || yPos >= 300){
-              speedY = -speedY;
+          if (this.yPos < 0 || this.yPos >= 300){
+              this.speedY = -this.speedY;
               
           }
           
-          yPos = yPos + speedY;
+          this.yPos = this.yPos + this.speedY;
           
-          System.out.println(yPos);
+          //System.out.println(this.yPos);
         
     }
 
@@ -89,10 +93,15 @@ public class EnemyGhostShooting extends Enemy {
         
         
     }
+    
+    @Override   
+    public Rectangle bounds(){
+        return new Rectangle(this.xPos, this.yPos,48,48);
+    }
 
     @Override
     public Graphics2D draw(Graphics2D a) {//ryk fjende
-        AffineTransform orgTrans;
+    //    AffineTransform orgTrans;
 
         a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, null);
         //a.scale(0.3,0.3);          // flyt, skaler og rotér

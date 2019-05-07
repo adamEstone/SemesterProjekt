@@ -73,7 +73,7 @@ public class GameLogic {
         GameInstance myGameInstance = new GameInstance(); //create new game
 
         //----------------  Game state section -----------------
-        mygamestate = gameState.RestartgameState; //start i stadiet
+        mygamestate = gameState.Ingame; //start i stadiet
 
         while (true) { ///////  GameStateLoop /////////////
 
