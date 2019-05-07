@@ -49,8 +49,7 @@ public class GameInstance {
     private static int a = 0;
     private static long oldMillis = 0;
 
-    public void tickGame() {
-        
+    public void tickGame() {        
         /*
         var today = new Date();
 

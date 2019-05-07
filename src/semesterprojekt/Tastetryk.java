@@ -9,8 +9,7 @@ public class Tastetryk extends JPanel implements KeyListener {
     String tekst = "tast noget - pil op/ned rykker teksten ";
     Point pos = new Point(20, 20);
 
-    private boolean pauseTast = false;
-    private boolean escapeTast = false;
+    public static boolean escapeTast = false;
 
     public Tastetryk() {
         addKeyListener(this);
@@ -25,7 +24,7 @@ public class Tastetryk extends JPanel implements KeyListener {
         System.out.print("Der blev trykket: ");
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.out.print("ESCAPE \n");
-            
+            escapeTast=true;
             
         }
         if (e.getKeyCode() == KeyEvent.VK_P) {
@@ -41,6 +40,7 @@ public class Tastetryk extends JPanel implements KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){escapeTast=false;}
         System.out.println("ENTERRR2");
     } // kræves af KeyListener
 

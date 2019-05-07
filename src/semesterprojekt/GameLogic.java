@@ -5,7 +5,6 @@
  */
 package semesterprojekt;
 
-
 import java.awt.Graphics2D;
 
 import java.awt.image.*;
@@ -16,34 +15,30 @@ import java.awt.*;
 
 import java.awt.image.BufferStrategy;
 
-
 import java.util.Calendar;
+
 /**
  *
  * @author Adam
  */
 public class GameLogic {
-    
-    private SoundPlayer backgroundMusic;
-   
 
+    private SoundPlayer backgroundMusic;
 
     private static AktivVisning theWindow = null; //pointer til
 
     //public static java.util.List<Enemy> enemies = new ArrayList<>();
-
     //public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
-
     private long fpsCount = 0;
     private long oldsecond = 0;
     private static boolean mouseState = true;
 
     private Graphics2D g2D;
-    
+
     ResourceClass Res = new ResourceClass(); //use the resource 
 
     GameLogic(AktivVisning vindue) { //Constructor
-        
+
         backgroundMusic = new SoundPlayer("Wii2.wav");
         backgroundMusic.play(0);
 
@@ -60,7 +55,6 @@ public class GameLogic {
         GameInstance myGameInstance = new GameInstance(theWindow); //create new game
 
         //----------------  Game state section -----------------
-        
         myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame; //start i stadiet
 
         while (true) { ///////  GameStateLoop /////////////
@@ -76,31 +70,46 @@ public class GameLogic {
 
             switch (myGameInstance.mygamestate) {
                 case Menu:
-                    
+
+                    if (Tastetryk.escapeTast) {
+                        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
+                         try {/////vent 100ms
+                            Thread.sleep(100);
+                        } catch (Exception e) {
+                        }// vent lidt
+                    }
+
                     backgroundMusic.pause();
                     setCursor(true);
-                    
+
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnMenu();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
                     break;
-                    
+
                 case Ingame:
-                    
+                    if (Tastetryk.escapeTast) {
+
+                        myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
+                        try {/////vent 100ms
+                            Thread.sleep(100);
+                        } catch (Exception e) {
+                        }// vent lidt
+                    }
+
                     setCursor(false);
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
-                    
+
                     g2D = theWindow.g2;
-                    
+
                     g2D.fillRect(400, 400, 50, 50);
-                    
-                    g2D=myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
-                    
-                    
-                    theWindow.g2=g2D;
-                    
+
+                    g2D = myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
+
+                    theWindow.g2 = g2D;
+
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
@@ -116,7 +125,7 @@ public class GameLogic {
                     break;
 
                 case Loading:
-                    
+
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
@@ -127,7 +136,7 @@ public class GameLogic {
                 case RestartgameState:
 
                     myGameInstance = new GameInstance(theWindow);//new bame
-                    
+
                     System.out.println("-- New Game started --");
 
                     myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
@@ -144,7 +153,7 @@ public class GameLogic {
             fpsCount++;
 
             if (myGameInstance.ResartGame) {
-               // mygamestate = gameState.RestartgameState;
+                // mygamestate = gameState.RestartgameState;
             }
 
             if (oldsecond != calendar.getInstance().get(Calendar.SECOND)) {
