@@ -90,7 +90,7 @@ public class EnemyGhostShooting extends Enemy {
     public Boolean shoot() {//ryk fjende
         Random r = new Random();
         int minSped = 1;
-        int maxSped = 50;
+        int maxSped = 100;
         int rand = r.nextInt(maxSped-minSped) + minSped;
         
         if (rand == 2){
