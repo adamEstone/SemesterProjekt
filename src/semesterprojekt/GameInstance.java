@@ -11,32 +11,28 @@ import java.util.Date;
 public class GameInstance {
 
     public static java.util.List<Enemy> enemies = new ArrayList<>();
-    
+
     boolean ResartGame = false;
-    
-    
+
+    Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
 
-    GameInstance() {//constructor  or new game
+    GameInstance(AktivVisning theWindow) {//constructor  or new game
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        
-        enemies.add(new EnemyGhostShooting(200,100));
-        enemies.add(new EnemyGhostShooting(100,100));
+
+        enemies.add(new EnemyGhostShooting(200, 100));
+        enemies.add(new EnemyGhostShooting(100, 100));
         /*enemies.add(new EnemyGhostShooting(100,200));
         enemies.add(new EnemyGhostShooting(300,200));
         enemies.add(new EnemyGhostShooting(50,250));
         enemies.add(new EnemyGhostShooting(300,150));
-        */
+         */
 
         System.out.println(enemies.size());
-   
-        
+
         // Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
         //enemies.add(someOtherEnemy);   
-      
-         
-        
     }
 
     private static int a = 0;
@@ -53,42 +49,30 @@ public class GameInstance {
             a++;
         }
 
-        
-            enemies.forEach((enemy) -> enemy.move());        
+        enemies.forEach((enemy) -> enemy.move());
 
-            //check enemy for collision()
-            
-            for (int i = 0; i < enemies.size(); i++) {
-            
-                for (int j = 0; j < enemies.size(); j++) {
-                    
-                    if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
-                        
-                        if (enemies.get(i).bounds().x != enemies.get(j).bounds().x &&
-                            enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                            
-                            
-                            
-                            
-                            System.out.println("Av! " + i);
-                            
-                        }
-                        
-                        
-                        
+        //check enemy for collision()
+        for (int i = 0; i < enemies.size(); i++) {
+
+            for (int j = 0; j < enemies.size(); j++) {
+
+                if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
+
+                    if (enemies.get(i).bounds().x != enemies.get(j).bounds().x
+                            && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+
+                        System.out.println("Av! " + i);
+
                     }
-                    
+
                 }
-                
+
+            }
+
         }
-            
-            
-            
-            //make enemy shoot() 
-            //animation?
-            
 
-
+        //make enemy shoot() 
+        //animation?
         if (enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");
         } //next level
@@ -102,24 +86,28 @@ public class GameInstance {
     }
 
     public Graphics2D drawGame(Graphics2D bufferedGraphics) {
-        
+        g2=bufferedGraphics;//vigtig! overføre bufferen til g2
         Graphics2D tempG2D = bufferedGraphics;
-        
-        myPlayerShip.setXpos(MultiMuselytter.mouseX);
-         
-        tempG2D = myPlayerShip.draw(tempG2D);
-        
-        for (Enemy enemy : enemies) {
-            
 
-        
-        tempG2D = enemy.draw(tempG2D);
+        myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
+
+        drawObj(myPlayerShip);
+
+        //tempG2D = myPlayerShip.draw(tempG2D);
+        for (Enemy enemy : enemies) {
+
+            drawObj(enemy);
+
+            //tempG2D = enemy.draw(tempG2D);
         }
 
-        
-         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
-
+        //enemies.forEach((enemy) -> enemy.draw(tempG2D));
         return tempG2D;
+    }
+
+    void drawObj(BaseObject b) {                                                //tegner det objekt som er parameter i drawObj på g2    
+        b.draw(g2);                                                             //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
+        System.out.println("IIIIIIIIIIIIIIIIIIIII");
     }
 
 }

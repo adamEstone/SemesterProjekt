@@ -5,6 +5,7 @@
  */
 package semesterprojekt;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -21,4 +22,7 @@ public class BaseObject {
     public int width = 50;
     public int heigth = 50;
     
+    public void draw(Graphics2D g2){
+    
+    }
 }

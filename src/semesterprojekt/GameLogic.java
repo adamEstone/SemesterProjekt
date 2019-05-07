@@ -70,7 +70,7 @@ public class GameLogic {
 
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
-        GameInstance myGameInstance = new GameInstance(); //create new game
+        GameInstance myGameInstance = new GameInstance(theWindow); //create new game
 
         //----------------  Game state section -----------------
         mygamestate = gameState.Ingame; //start i stadiet
@@ -138,7 +138,7 @@ public class GameLogic {
 
                 case RestartgameState:
 
-                    myGameInstance = new GameInstance();//new bame
+                    myGameInstance = new GameInstance(theWindow);//new bame
                     System.out.println("-- New Game started --");
 
                     mygamestate = gameState.Ingame;

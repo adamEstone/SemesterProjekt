@@ -18,10 +18,11 @@ public class PlayerShip extends BaseObject {
 
     }
 
-    public Graphics2D draw(Graphics2D G2D) {
+    @Override
+    public void draw(Graphics2D G2D) {
         
         G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos, null);
-        return G2D;
+        
     }
 
     public void loseLife() {

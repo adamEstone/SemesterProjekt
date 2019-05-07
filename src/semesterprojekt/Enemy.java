@@ -24,8 +24,7 @@ public class Enemy extends BaseObject {
 
     public void move() {//ryk fjende
 
-         
-        
+   
     }
     
     public Rectangle bounds(){ //Bruges til Collision detection
@@ -37,10 +36,9 @@ public class Enemy extends BaseObject {
 
     }
 
-    public Graphics2D draw(Graphics2D G2D) {//tegn
+    public void draw(Graphics2D G2D) {//tegn
         System.out.println("NOT USED?");
         G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos, null);
-        return G2D;
     }
 
     public int getWeapon() {
