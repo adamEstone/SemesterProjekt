@@ -59,10 +59,6 @@ public class GameLogic {
 
         while (true) { ///////  GameStateLoop /////////////
 
-            if (MultiMuselytter.leftButtonDown) {
-                myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
-                backgroundMusic.pause();
-            }
             if (MultiMuselytter.rightButtonDown) {
                 myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
                 backgroundMusic.resume();
@@ -73,13 +69,15 @@ public class GameLogic {
 
                     if (Tastetryk.escapeTast) {
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
+                        
                          try {/////vent 100ms
-                            Thread.sleep(100);
+                            Thread.sleep(200);
                         } catch (Exception e) {
                         }// vent lidt
+                         
+                         backgroundMusic.resume();
                     }
 
-                    backgroundMusic.pause();
                     setCursor(true);
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
@@ -93,9 +91,12 @@ public class GameLogic {
 
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
                         try {/////vent 100ms
-                            Thread.sleep(100);
+                            Thread.sleep(200);
                         } catch (Exception e) {
+                            
                         }// vent lidt
+                        
+                        backgroundMusic.pause();//pause musik
                     }
 
                     setCursor(false);
@@ -122,7 +123,9 @@ public class GameLogic {
                 case Loading:
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
+                    
                     theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
+                    
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
@@ -146,10 +149,6 @@ public class GameLogic {
 
             //FPS counting
             fpsCount++;
-
-            if (myGameInstance.ResartGame) {
-                // mygamestate = gameState.RestartgameState;
-            }
 
             if (oldsecond != calendar.getInstance().get(Calendar.SECOND)) {
                 oldsecond = calendar.getInstance().get(Calendar.SECOND);

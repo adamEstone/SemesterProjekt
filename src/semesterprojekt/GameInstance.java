@@ -28,12 +28,21 @@ public class GameInstance {
     Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
-
+    
+    /////////////////////////  knapper ///////////////////////////////
+    MenuButton btnResume =  new MenuButton(50, 50, 200, 50, "Resume",38);
+    
+    MenuButton btnNewGame = new MenuButton(50, 110, 200, 50, "New Game",48);
+    
+    MenuButton btnQuit =    new MenuButton(50, 170, 200, 50, "Quit",20);
+    //////////////////////////////////////////////////////////////
+    
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
         enemies.add(new EnemyGhostShooting(200, 100));
         enemies.add(new EnemyGhostShooting(100, 100));
+        
         /*enemies.add(new EnemyGhostShooting(100,200));
         enemies.add(new EnemyGhostShooting(300,200));
         enemies.add(new EnemyGhostShooting(50,250));
@@ -112,7 +121,17 @@ public class GameInstance {
 
             //tempG2D = enemy.draw(tempG2D);
         }
-
+        
+        ///////////// tegn knapper //////////////////
+        
+        drawObj(btnResume);
+        drawObj(btnNewGame);
+        drawObj(btnQuit);
+        
+        
+        mygamestate = btnResume.buttonPressedAction(mygamestate, gameState.Menu);
+        
+        ////////////////////////////////////////////
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
         return tempG2D;
     }

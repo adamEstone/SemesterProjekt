@@ -20,7 +20,7 @@ public class BaseObject {
     public int xPos = 0;
     public int yPos = 0;
     public int width = 50;
-    public int heigth = 50;
+    public int height = 50;
     
     public void draw(Graphics2D g2){
     
