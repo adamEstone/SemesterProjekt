@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package semesterprojekt;
 
 import java.awt.Graphics2D;
@@ -30,11 +26,7 @@ public class EnemyGhostShooting extends Enemy {
         
 
     }
-    
-    
-
-    
-
+  
     EnemyGhostShooting(int Xpos_in, int Ypos_in, double Lives_in, int Weapon_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;

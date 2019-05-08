@@ -81,12 +81,13 @@ public class GameLogic {
                     setCursor(true);
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    theWindow.tegnMenu();            // tegn på bufferens (med dens Graphics-objekt)
+                    myGameInstance.drawMenu(theWindow.g2);            // tegn på bufferens (med dens Graphics-objekt)
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
                     break;
 
                 case Ingame:
+                    
                     if (Tastetryk.escapeTast) {
 
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
@@ -124,7 +125,7 @@ public class GameLogic {
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     
-                    theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
+                    //theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
                     
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
@@ -132,7 +133,7 @@ public class GameLogic {
                     break;
 
                 case RestartgameState:
-
+                    
                     myGameInstance = new GameInstance(theWindow);//new bame
 
                     System.out.println("-- New Game started --");
