@@ -145,7 +145,7 @@ public class GameLogic {
             }
 
             try {/////vent 10ms
-                Thread.sleep(10);
+                Thread.sleep(5);
             } catch (Exception e) {
             }// vent lidt
 

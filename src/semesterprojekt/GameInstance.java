@@ -39,15 +39,15 @@ public class GameInstance {
         
         
         
-        enemyShots.add(new EnemyShot(100, 100));
-        /*enemies.add(new EnemyGhostShooting(300,200));
+        //enemyShots.add(new EnemyShot(100, 100));
+        enemies.add(new EnemyGhostShooting(300,200));
         enemies.add(new EnemyGhostShooting(50,250));
         enemies.add(new EnemyGhostShooting(300,150));
         enemies.add(new EnemyGhostShooting(400,100));
         enemies.add(new EnemyGhostShooting(100,150));
         enemies.add(new EnemyGhostShooting(200,250));
         enemies.add(new EnemyGhostShooting(300,200));
-        */ 
+        
 
         System.out.println(enemies.size());
 
