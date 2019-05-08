@@ -25,6 +25,7 @@ public class ResourceClass {
         //LoadSprite("Ghost.png",100,100);
         LoadSprite("GhostV2.png",48,48);
         LoadSprite("ShotV1.png",30,30);
+        LoadSprite("PlayerShotV1.png",30,30);
     }
 
     public static void LoadSprite(String spriteString,int spriteWidth,int spriteHeight) {//læg

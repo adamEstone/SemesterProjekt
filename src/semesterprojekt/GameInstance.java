@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -24,11 +25,17 @@ public class GameInstance {
 
     public gameState mygamestate;
 
-    private java.util.List<Enemy> enemies = new ArrayList<>();
-    private java.util.List<EnemyShot> enemyShots = new ArrayList<>();
-
+    public  java.util.List<Enemy> enemies = new ArrayList<>();
+    public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
+    public  java.util.List<PlayerShot> playerShots = new ArrayList<>();
     boolean ResartGame = false;
 
+    
+    private java.util.List<Integer> enemiesRemove = new ArrayList<>();
+    private java.util.List<Integer> shotsRemove = new ArrayList<>();
+    
+            int test = 1;
+    
     Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
@@ -40,18 +47,10 @@ public class GameInstance {
         gameWindow=theWindow;
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        enemies.add(new EnemyGhostShooting(200, 100));
-        enemies.add(new EnemyGhostShooting(100, 100));
-        enemies.add(new EnemyGhostShooting(100, 200));
-
-        //enemyShots.add(new EnemyShot(100, 100));
-        enemies.add(new EnemyGhostShooting(300, 200));
-        enemies.add(new EnemyGhostShooting(50, 250));
-        enemies.add(new EnemyGhostShooting(300, 150));
-        enemies.add(new EnemyGhostShooting(400, 100));
-        enemies.add(new EnemyGhostShooting(100, 150));
-        enemies.add(new EnemyGhostShooting(200, 250));
-        enemies.add(new EnemyGhostShooting(300, 200));
+        
+        
+        generateEnemies(20);
+        
 
         System.out.println(enemies.size());
 
@@ -61,48 +60,44 @@ public class GameInstance {
 
     private static int a = 0;
     private static long oldMillis = 0;
+    private long millis = 0;
 
-    public void tickGame() {
-        /*
+    public void tickGame() {        
+        
         var today = new Date();
 
-        long millis = System.currentTimeMillis() % 1000;
+        millis = System.currentTimeMillis();
+        System.out.println(millis);
 
+        /*
         if (millis != oldMillis) {
             System.out.println("millis changed in tickGame(): " + a);
             a++;
         }
-         */
+*/
+         
+        
         enemies.forEach((enemy) -> enemy.move());
         enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+        
+        
+            enemyShot(); //Enemy shoot at random
+            checkEnemyCollision(); //Checks if enemies collide with eachother, and changes thire direction
+            checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
+            removeDeadObjects(); //Remove dead shots and enemies
+       
+        
+            playerShot(500);
+           
 
-        //check enemy for collision()
-        for (int i = 0; i < enemies.size(); i++) {
 
-            for (int j = 0; j < enemies.size(); j++) {
-
-                if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
-
-                    if (enemies.get(i).bounds().x != enemies.get(j).bounds().x
-                            && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-
-                        enemies.get(i).changeDirection();
-                        //enemies.get(j).changeDirection();
-                        System.out.println("Av! " + i);
-
-                    }
-
-                }
-
-            }
-            if (enemies.get(i).shoot() == true) {
-                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
-            }
-
+        
+        for (PlayerShot playerShot : playerShots){
+            playerShot.move();
         }
-
-        //make enemy shoot() 
+           
         //animation?
+        
         if (enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");
         } //next level
@@ -180,5 +175,113 @@ public class GameInstance {
         return tempG2D;
 
     }
+    
+    
+    private void checkEnemyCollision(){
+                for (int i = 0; i < enemies.size(); i++) {
 
+            for (int j = 0; j < enemies.size(); j++) {
+
+                if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
+
+                    if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+                         
+                            enemies.get(i).changeDirection();
+                            enemies.get(j).changeDirection();
+                    }
+                }
+            }   
+        }    
+    }
+    
+    private void checkEnemyPlayerShotCollision(){
+        
+                        enemiesRemove.clear();
+                shotsRemove.clear();
+        
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = 0; j < playerShots.size(); j++) {      
+                 if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
+                enemiesRemove.add(i);
+                shotsRemove.add(j);
+                 }
+            }
+        }    
+    }
+    
+    private void removeDeadObjects(){
+        
+        try {
+           
+        for (int i = 0; i < enemiesRemove.size(); i++) {  
+        int k = enemiesRemove.get(i);
+        enemies.remove(k);
+        }
+        
+        
+        for (int i = 0; i < shotsRemove.size(); i++) { 
+            int k = shotsRemove.get(i);
+            playerShots.remove(k);
+        }
+        
+        
+                for (int i = 0; i < enemyShots.size(); i++) {
+            
+            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
+                
+                myPlayerShip.loseLife();
+                enemyShots.remove(i);
+                
+            }  
+        }   
+                
+         } catch (Exception e) {
+                            
+             System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
+        }
+    }
+    
+    private void enemyShot(){
+                for (int i = 0; i < enemies.size(); i++) {
+                if (enemies.get(i).shoot() == true) {
+                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
+            }
+        }
+    }
+    
+    private void generateEnemies(int numberOfEnemies){
+        
+        Random r = new Random();
+        
+        int minX = 2;
+        int maxX = 538;
+        int minY = 28;
+        int maxY = 298;
+        int randX;
+        int randY;
+        
+        for (int i = 0; i < numberOfEnemies; i++) {
+            
+         randX = r.nextInt(maxX-minX) + minX;
+         randY = r.nextInt(maxY-minY) + minY;
+        
+         enemies.add(new EnemyGhostShooting(randX,randY));
+            
+        }
+        
+    }
+    
+    private void playerShot(int delayms){
+        
+                if (MultiMuselytter.leftButtonDown == true) {
+            
+            if ((oldMillis + delayms) <= millis) {
+                oldMillis = millis;
+                playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
+            }   
+        }
+    }
+    
+    
+    
 }

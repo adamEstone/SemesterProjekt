@@ -13,14 +13,14 @@ import java.util.Random;
  *
  * @author Mads
  */
-public class EnemyShot extends Enemy {
+public class PlayerShot extends Enemy {
     
-    int spriteID = 2;
+    int spriteID = 3;
 
     
     private int speedY;
 
-    EnemyShot(int Xpos_in, int Ypos_in) {
+    PlayerShot(int Xpos_in, int Ypos_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
         
@@ -30,7 +30,7 @@ public class EnemyShot extends Enemy {
         
     @Override
         public void move(){
-            this.yPos = this.yPos + 2;
+            this.yPos = this.yPos - 2;
         }
         
             @Override   
