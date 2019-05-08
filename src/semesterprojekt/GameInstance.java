@@ -54,8 +54,8 @@ public class GameInstance {
         //enemies.add(someOtherEnemy);   
     }
 
-    private static int a = 0;
-    private static long oldMillis = 0;
+    private int a = 0;
+    private long oldMillis = 0;
     private long millis = 0;
 
     public void tickGame() {

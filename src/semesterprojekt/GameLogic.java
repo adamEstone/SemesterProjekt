@@ -25,13 +25,13 @@ public class GameLogic {
 
     private SoundPlayer backgroundMusic;
 
-    private static AktivVisning theWindow = null; //pointer til
+    private  AktivVisning theWindow = null; //pointer til
 
     //public static java.util.List<Enemy> enemies = new ArrayList<>();
     //public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
     private long fpsCount = 0;
     private long oldsecond = 0;
-    private static boolean mouseState = true;
+    private boolean mouseState = true;
 
     private Graphics2D g2D;
 
@@ -161,7 +161,7 @@ public class GameLogic {
 
     }
 
-    private static void hideCursor() {
+    private  void hideCursor() {
         // http://www.java2s.com/Code/Java/2D-Graphics-GUI/HidethemousecursoruseatransparentGIFasthecursor.htm
         int[] pixels = new int[16 * 16];
         Image image = Toolkit.getDefaultToolkit().createImage(
@@ -172,11 +172,11 @@ public class GameLogic {
 
     }
 
-    private static void showCursor() {
+    private  void showCursor() {
         theWindow.setCursor(Cursor.getDefaultCursor());
     }
 
-    private static void setCursor(boolean state) {
+    private  void setCursor(boolean state) {
         if (state != mouseState) {
             mouseState = state;
             if (mouseState) {
