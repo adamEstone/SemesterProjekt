@@ -50,7 +50,7 @@ public class GameInstance {
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
         
         
-        generateEnemies(100);
+        generateEnemies(20);
         
 
         System.out.println(enemies.size());
@@ -61,18 +61,22 @@ public class GameInstance {
 
     private static int a = 0;
     private static long oldMillis = 0;
+    private long millis = 0;
 
     public void tickGame() {        
-        /*
+        
         var today = new Date();
 
-        long millis = System.currentTimeMillis() % 1000;
+        millis = System.currentTimeMillis();
+        System.out.println(millis);
 
+        /*
         if (millis != oldMillis) {
             System.out.println("millis changed in tickGame(): " + a);
             a++;
         }
-         */
+*/
+         
         
         enemies.forEach((enemy) -> enemy.move());
         enemyShots.forEach((EnemyShot) -> EnemyShot.move());
@@ -84,14 +88,10 @@ public class GameInstance {
             removeDeadObjects(); //Remove dead shots and enemies
        
         
-        if (MultiMuselytter.leftButtonDown == true && test == 1) {
-            playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
-            test = 0;
-        }
-        
-        if (MultiMuselytter.rightButtonDown == true) {
-            test = 1;
-        }
+            playerShot(500);
+           
+
+
         
         for (PlayerShot playerShot : playerShots){
             playerShot.move();
@@ -247,6 +247,17 @@ public class GameInstance {
             
         }
         
+    }
+    
+    private void playerShot(int delayms){
+        
+                if (MultiMuselytter.leftButtonDown == true) {
+            
+            if ((oldMillis + delayms) <= millis) {
+                oldMillis = millis;
+                playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
+            }   
+        }
     }
     
     
