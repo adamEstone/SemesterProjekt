@@ -25,17 +25,16 @@ public class GameInstance {
 
     public gameState mygamestate;
 
-    public  java.util.List<Enemy> enemies = new ArrayList<>();
+    public java.util.List<Enemy> enemies = new ArrayList<>();
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
-    public  java.util.List<PlayerShot> playerShots = new ArrayList<>();
+    public java.util.List<PlayerShot> playerShots = new ArrayList<>();
     boolean ResartGame = false;
 
-    
     private java.util.List<Integer> enemiesRemove = new ArrayList<>();
     private java.util.List<Integer> shotsRemove = new ArrayList<>();
-    
-            int test = 1;
-    
+
+    int test = 1;
+
     Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
@@ -43,14 +42,11 @@ public class GameInstance {
     private AktivVisning gameWindow;
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
-        
-        gameWindow=theWindow;
+
+        gameWindow = theWindow;
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        
-        
         generateEnemies(20);
-        
 
         System.out.println(enemies.size());
 
@@ -62,8 +58,8 @@ public class GameInstance {
     private static long oldMillis = 0;
     private long millis = 0;
 
-    public void tickGame() {        
-        
+    public void tickGame() {
+
         var today = new Date();
 
         millis = System.currentTimeMillis();
@@ -74,44 +70,33 @@ public class GameInstance {
             System.out.println("millis changed in tickGame(): " + a);
             a++;
         }
-*/
-         
-        
+         */
         enemies.forEach((enemy) -> enemy.move());
         enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-        
-        
-            enemyShot(); //Enemy shoot at random
-            checkEnemyCollision(); //Checks if enemies collide with eachother, and changes thire direction
-            checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
-            removeDeadObjects(); //Remove dead shots and enemies
-       
-        
-            playerShot(500);
-           
 
+        enemyShot(); //Enemy shoot at random
+        checkEnemyCollision(); //Checks if enemies collide with eachother, and changes thire direction
+        checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
+        removeDeadObjects(); //Remove dead shots and enemies
 
-        
-        for (PlayerShot playerShot : playerShots){
+        playerShot(500);
+
+        for (PlayerShot playerShot : playerShots) {
             playerShot.move();
         }
-           
+
         //animation?
-        
         if (enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");
         } //next level
 
     }
 
-    
     /////////////////////////  Drawing Calls///////////////////////////////
-    
     void drawObj(BaseObject b) {                                                //tegner det objekt som er parameter i drawObj på g2    
         b.draw(g2);                                                             //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
     }
 
-    
     //DRAW GAME
     public Graphics2D drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
@@ -133,38 +118,36 @@ public class GameInstance {
         return tempG2D;
     }
 
-    
-    
     //DRAW MENU
-    private int menuWidth=300;
-    private int menuHeight=400;
-    
-    private Point menuLocation = new Point(150 , 100);
-    
-    private int menuButtonWidth=200;
-    private int menuButtonHeight=50;
+    private int menuWidth = 300;
+    private int menuHeight = 400;
 
-    private MenuButton btnResume = new MenuButton(menuLocation.x + (menuWidth/2)-(menuButtonWidth/2), menuLocation.y    +100 + 50, menuButtonWidth, menuButtonHeight, "Resume", 38);
+    private Point menuLocation = new Point(150, 100);
 
-    private MenuButton btnNewGame = new MenuButton(menuLocation.x + (menuWidth/2)-(menuButtonWidth/2), menuLocation.y   +100 + 120, menuButtonWidth, menuButtonHeight, "New Game", 48);
+    private int menuButtonWidth = 200;
+    private int menuButtonHeight = 50;
 
-    private MenuButton btnQuit = new MenuButton(menuLocation.x + (menuWidth/2)-(menuButtonWidth/2), menuLocation.y      +100 + 190, menuButtonWidth, menuButtonHeight, "Quit", 20);
+    private MenuButton btnResume = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 50, menuButtonWidth, menuButtonHeight, "Resume", 38);
+
+    private MenuButton btnNewGame = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 120, menuButtonWidth, menuButtonHeight, "New Game", 48);
+
+    private MenuButton btnQuit = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 190, menuButtonWidth, menuButtonHeight, "Quit", 20);
 
     public Graphics2D drawMenu(Graphics2D bufferedGraphics) {
-    
+
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         Graphics2D tempG2D = bufferedGraphics;
-        
+
         g2.setColor(Color.LIGHT_GRAY);
         g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight()); //tegn overlay så man ikke kan se spillet
 
         g2.setColor(Color.GRAY);
-        g2.fillRect(menuLocation.x, menuLocation.y,  menuWidth, menuHeight);
-        
+        g2.fillRect(menuLocation.x, menuLocation.y, menuWidth, menuHeight);
+
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("default", Font.BOLD, 50));
-        g2.drawString("Menu",menuLocation.x + (menuWidth/2) - 65,menuLocation.y + 90);//Menu Tekst
-        
+        g2.drawString("Menu", menuLocation.x + (menuWidth / 2) - 65, menuLocation.y + 90);//Menu Tekst
+
         drawObj(btnResume);
         drawObj(btnNewGame);
         drawObj(btnQuit);
@@ -175,113 +158,108 @@ public class GameInstance {
         return tempG2D;
 
     }
-    
-    
-    private void checkEnemyCollision(){
-                for (int i = 0; i < enemies.size(); i++) {
+
+    private void checkEnemyCollision() {
+        for (int i = 0; i < enemies.size(); i++) {
 
             for (int j = 0; j < enemies.size(); j++) {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                         
-                            enemies.get(i).changeDirection();
-                            enemies.get(j).changeDirection();
+
+                        enemies.get(i).changeDirection();
+                        enemies.get(j).changeDirection();
                     }
                 }
-            }   
-        }    
-    }
-    
-    private void checkEnemyPlayerShotCollision(){
-        
-                        enemiesRemove.clear();
-                shotsRemove.clear();
-        
-        for (int i = 0; i < enemies.size(); i++) {
-            for (int j = 0; j < playerShots.size(); j++) {      
-                 if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-                enemiesRemove.add(i);
-                shotsRemove.add(j);
-                 }
             }
-        }    
+        }
     }
-    
-    private void removeDeadObjects(){
-        
+
+    private void checkEnemyPlayerShotCollision() {
+
+        enemiesRemove.clear();
+        shotsRemove.clear();
+
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = 0; j < playerShots.size(); j++) {
+                if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
+                    enemiesRemove.add(i);
+                    shotsRemove.add(j);
+                }
+            }
+        }
+    }
+
+    private void removeDeadObjects() {
+
         try {
-           
-        for (int i = 0; i < enemiesRemove.size(); i++) {  
-        int k = enemiesRemove.get(i);
-        enemies.remove(k);
-        }
-        
-        
-        for (int i = 0; i < shotsRemove.size(); i++) { 
-            int k = shotsRemove.get(i);
-            playerShots.remove(k);
-        }
-        
-        
-                for (int i = 0; i < enemyShots.size(); i++) {
-            
-            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-                
-                myPlayerShip.loseLife();
-                enemyShots.remove(i);
-                
-            }  
-        }   
-                
-         } catch (Exception e) {
-                            
-             System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
+
+            for (int i = 0; i < enemiesRemove.size(); i++) {
+                int k = enemiesRemove.get(i);
+                enemies.remove(k);
+            }
+
+            for (int i = 0; i < shotsRemove.size(); i++) {
+                int k = shotsRemove.get(i);
+                playerShots.remove(k);
+            }
+
+            for (int i = 0; i < enemyShots.size(); i++) {
+
+                if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
+
+                    myPlayerShip.loseLife();
+                    enemyShots.remove(i);
+
+                }
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
         }
     }
-    
-    private void enemyShot(){
-                for (int i = 0; i < enemies.size(); i++) {
-                if (enemies.get(i).shoot() == true) {
+
+    private void enemyShot() {
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).shoot() == true) {
                 enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
             }
         }
     }
-    
-    private void generateEnemies(int numberOfEnemies){
-        
+
+    private void generateEnemies(int numberOfEnemies) {
+
         Random r = new Random();
-        
+
         int minX = 2;
         int maxX = 538;
         int minY = 28;
         int maxY = 298;
         int randX;
         int randY;
-        
+
         for (int i = 0; i < numberOfEnemies; i++) {
-            
-         randX = r.nextInt(maxX-minX) + minX;
-         randY = r.nextInt(maxY-minY) + minY;
-        
-         enemies.add(new EnemyGhostShooting(randX,randY));
-            
+
+            randX = r.nextInt(maxX - minX) + minX;
+            randY = r.nextInt(maxY - minY) + minY;
+
+            enemies.add(new EnemyGhostShooting(randX, randY));
+
         }
-        
+
     }
-    
-    private void playerShot(int delayms){
-        
-                if (MultiMuselytter.leftButtonDown == true) {
-            
+
+    private void playerShot(int delayms) {
+
+        if (MultiMuselytter.leftButtonDown == true) {
+
             if ((oldMillis + delayms) <= millis) {
                 oldMillis = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
-            }   
+            }
         }
     }
-    
-    
-    
+
 }
