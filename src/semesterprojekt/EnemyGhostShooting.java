@@ -67,22 +67,34 @@ public class EnemyGhostShooting extends Enemy {
               this.speedY = -rand;
           }
           
-          
-          if (this.xPos <= 0 || this.xPos >= 540){
+          //X constrain
+          if (this.xPos <= 0){
               this.speedX = -this.speedX;
-              
+              xPos = 2;
           }
+          if (this.xPos >= 540) {
+              this.speedX = -this.speedX;  
+              xPos = 538;
+        }
+        
           
           this.xPos = this.xPos + this.speedX;
+          //////
           
-          
-          if (this.yPos <= 30 || this.yPos >= 300){
+          //Y constrain
+          if (this.yPos <= 30){
               this.speedY = -this.speedY;
+              yPos = 28;
           }
           
-          this.yPos = this.yPos + this.speedY;
+          if (this.yPos >= 300) {
+            this.speedY = -this.speedY;
+            yPos = 298;
+        }
           
-          //System.out.println(this.yPos);
+          this.yPos = this.yPos + this.speedY;
+          //////
+
         
     }
 

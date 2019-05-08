@@ -3,6 +3,7 @@ package semesterprojekt;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -47,20 +48,9 @@ public class GameInstance {
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        enemies.add(new EnemyGhostShooting(200, 100));
-        enemies.add(new EnemyGhostShooting(100, 100));
-        enemies.add(new EnemyGhostShooting(100,200));
         
         
-        
-        //enemyShots.add(new EnemyShot(100, 100));
-        enemies.add(new EnemyGhostShooting(300,200));
-        enemies.add(new EnemyGhostShooting(50,250));
-        enemies.add(new EnemyGhostShooting(300,150));
-        enemies.add(new EnemyGhostShooting(400,100));
-        enemies.add(new EnemyGhostShooting(100,150));
-        enemies.add(new EnemyGhostShooting(200,250));
-        enemies.add(new EnemyGhostShooting(300,200));
+        generateEnemies(100);
         
 
         System.out.println(enemies.size());
@@ -175,6 +165,7 @@ public class GameInstance {
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
                          
                             enemies.get(i).changeDirection();
+                            enemies.get(j).changeDirection();
                     }
                 }
             }   
@@ -197,6 +188,9 @@ public class GameInstance {
     }
     
     private void removeDeadObjects(){
+        
+        try {
+           
         for (int i = 0; i < enemiesRemove.size(); i++) {  
         int k = enemiesRemove.get(i);
         enemies.remove(k);
@@ -215,17 +209,46 @@ public class GameInstance {
                 
                 myPlayerShip.loseLife();
                 enemyShots.remove(i);
+                
             }  
+        }   
+                
+         } catch (Exception e) {
+                            
+             System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
         }
-        
     }
     
-    public void enemyShot(){
+    private void enemyShot(){
                 for (int i = 0; i < enemies.size(); i++) {
                 if (enemies.get(i).shoot() == true) {
                 enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
             }
         }
     }
-
+    
+    private void generateEnemies(int numberOfEnemies){
+        
+        Random r = new Random();
+        
+        int minX = 2;
+        int maxX = 538;
+        int minY = 28;
+        int maxY = 298;
+        int randX;
+        int randY;
+        
+        for (int i = 0; i < numberOfEnemies; i++) {
+            
+         randX = r.nextInt(maxX-minX) + minX;
+         randY = r.nextInt(maxY-minY) + minY;
+        
+         enemies.add(new EnemyGhostShooting(randX,randY));
+            
+        }
+        
+    }
+    
+    
+    
 }
