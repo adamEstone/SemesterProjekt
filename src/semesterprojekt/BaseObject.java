@@ -6,6 +6,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -25,4 +26,5 @@ public class BaseObject {
     public void draw(Graphics2D g2){
     
     }
+    
 }

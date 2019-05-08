@@ -1,6 +1,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class PlayerShip extends BaseObject {
@@ -29,6 +30,11 @@ public class PlayerShip extends BaseObject {
 
         lives--;
 
+    }
+    
+    
+    public Rectangle bounds(){
+        return new Rectangle(this.xPos, this.yPos,250,250);
     }
 
     public void gainLife() {
@@ -64,5 +70,6 @@ public class PlayerShip extends BaseObject {
     public double getLives() {
         return lives;
     }
+    
 
 }

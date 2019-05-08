@@ -89,9 +89,9 @@ public class EnemyGhostShooting extends Enemy {
     @Override
     public Boolean shoot() {//ryk fjende
         Random r = new Random();
-        int minSped = 1;
-        int maxSped = 100;
-        int rand = r.nextInt(maxSped-minSped) + minSped;
+        int minShot = 1;
+        int maxShot = 500;
+        int rand = r.nextInt(maxShot-minShot) + minShot;
         
         if (rand == 2){
             return true;
