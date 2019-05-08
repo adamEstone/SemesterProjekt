@@ -68,7 +68,7 @@ public class EnemyGhostShooting extends Enemy {
           }
           
           
-          if (this.xPos < 0 || this.xPos > 600){
+          if (this.xPos <= 0 || this.xPos >= 540){
               this.speedX = -this.speedX;
               
           }
@@ -76,9 +76,8 @@ public class EnemyGhostShooting extends Enemy {
           this.xPos = this.xPos + this.speedX;
           
           
-          if (this.yPos < 0 || this.yPos >= 300){
+          if (this.yPos <= 30 || this.yPos >= 300){
               this.speedY = -this.speedY;
-              
           }
           
           this.yPos = this.yPos + this.speedY;
@@ -88,9 +87,22 @@ public class EnemyGhostShooting extends Enemy {
     }
 
     @Override
-    public void shoot() {//ryk fjende
+    public Boolean shoot() {//ryk fjende
+        Random r = new Random();
+        int minSped = 1;
+        int maxSped = 100;
+        int rand = r.nextInt(maxSped-minSped) + minSped;
         
-        
+        if (rand == 2){
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public void changeDirection(){
+        this.speedX = -this.speedX;
+        this.speedY = -this.speedY;
         
     }
     

@@ -32,8 +32,9 @@ public class Enemy extends BaseObject {
         return null;
     }
 
-    public void shoot() {
-
+    public Boolean shoot() {
+        
+        return false;
     }
 
     public void draw(Graphics2D G2D) {//tegn
@@ -51,6 +52,9 @@ public class Enemy extends BaseObject {
 
     public double getLives() {
         return lives;
+    }
+    
+        public void changeDirection(){
     }
 
     public void setLives(double lives) {

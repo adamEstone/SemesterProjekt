@@ -22,6 +22,7 @@ public class GameInstance {
     public gameState mygamestate;
 
     public static java.util.List<Enemy> enemies = new ArrayList<>();
+    public static java.util.List<EnemyShot> enemyShots = new ArrayList<>();
 
     boolean ResartGame = false;
 
@@ -42,12 +43,19 @@ public class GameInstance {
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
         enemies.add(new EnemyGhostShooting(200, 100));
         enemies.add(new EnemyGhostShooting(100, 100));
+        enemies.add(new EnemyGhostShooting(100,200));
         
-        /*enemies.add(new EnemyGhostShooting(100,200));
+        
+        
+        //enemyShots.add(new EnemyShot(100, 100));
         enemies.add(new EnemyGhostShooting(300,200));
         enemies.add(new EnemyGhostShooting(50,250));
         enemies.add(new EnemyGhostShooting(300,150));
-         */
+        enemies.add(new EnemyGhostShooting(400,100));
+        enemies.add(new EnemyGhostShooting(100,150));
+        enemies.add(new EnemyGhostShooting(200,250));
+        enemies.add(new EnemyGhostShooting(300,200));
+        
 
         System.out.println(enemies.size());
 
@@ -71,6 +79,7 @@ public class GameInstance {
          */
         
         enemies.forEach((enemy) -> enemy.move());
+        enemyShots.forEach((EnemyShot) -> EnemyShot.move());
 
         //check enemy for collision()
         for (int i = 0; i < enemies.size(); i++) {
@@ -81,7 +90,9 @@ public class GameInstance {
 
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x
                             && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-
+                            
+                            enemies.get(i).changeDirection();
+                            //enemies.get(j).changeDirection();
                         System.out.println("Av! " + i);
 
                     }
@@ -89,7 +100,10 @@ public class GameInstance {
                 }
 
             }
-
+                if (enemies.get(i).shoot() == true) {
+                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
+            }
+            
         }
 
         //make enemy shoot() 
@@ -114,12 +128,12 @@ public class GameInstance {
 
         drawObj(myPlayerShip);
 
-        //tempG2D = myPlayerShip.draw(tempG2D);
         for (Enemy enemy : enemies) {
-
             drawObj(enemy);
-
-            //tempG2D = enemy.draw(tempG2D);
+        }
+        
+        for (EnemyShot shot : enemyShots){
+            drawObj(shot);
         }
         
         ///////////// tegn knapper //////////////////
@@ -135,6 +149,8 @@ public class GameInstance {
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
         return tempG2D;
     }
+    
+    
 
     void drawObj(BaseObject b) {                                                //tegner det objekt som er parameter i drawObj på g2    
         b.draw(g2);                                                             //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
