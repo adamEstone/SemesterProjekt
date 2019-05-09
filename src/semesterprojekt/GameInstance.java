@@ -89,7 +89,7 @@ public class GameInstance {
         checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
         removeDeadObjects(); //Remove dead shots and enemies
 
-        playerShot(500);
+        playerShot(400);
 
         for (PlayerShot playerShot : playerShots) {
             playerShot.move();
