@@ -30,7 +30,7 @@ public class PlayerShot extends Enemy {
         
     @Override
         public void move(){
-            this.yPos = this.yPos - 2;
+            this.yPos = this.yPos - 5;
         }
         
             @Override   

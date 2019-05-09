@@ -19,10 +19,10 @@ public class EnemyGhostShooting extends Enemy {
     private int speedX;
     private int speedY;
 
-    EnemyGhostShooting(int Xpos_in, int Ypos_in) {
+    EnemyGhostShooting(int xpos_in, int ypos_in) {
         System.out.println("EnemyGhostShooting constructor run");
-        this.xPos = Xpos_in;
-        this.yPos = Ypos_in;
+        this.xPos = xpos_in;
+        this.yPos = ypos_in;
     }
   
     EnemyGhostShooting(int Xpos_in, int Ypos_in, double Lives_in, int Weapon_in) {
@@ -39,7 +39,7 @@ public class EnemyGhostShooting extends Enemy {
           Random r = new Random();
           
           int minSped = 1;
-          int maxSped = 5;
+          int maxSped = 4;
           int rand = r.nextInt(maxSped-minSped) + minSped;
           
           if (this.speedX > 0){
@@ -48,8 +48,8 @@ public class EnemyGhostShooting extends Enemy {
               this.speedX = -rand;
           }
           
-          rand = r.nextInt(maxSped-minSped) + minSped;
           
+          rand = r.nextInt(maxSped-minSped) + minSped;
           
           if (this.speedY > 0){
               this.speedY = rand;
@@ -83,8 +83,6 @@ public class EnemyGhostShooting extends Enemy {
         }
           
           this.yPos = this.yPos + this.speedY;
-          //////
-
         
     }
 

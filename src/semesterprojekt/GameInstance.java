@@ -51,8 +51,9 @@ public class GameInstance {
         gameWindow = theWindow;
 
         //generateEnemies(10, enemyTypes.Ghost);
-        generateEnemies(2, enemyTypes.Moon);
-        generateEnemies(5, enemyTypes.Ghost);
+        
+        generateEnemies(3, enemyTypes.Moon);
+        generateEnemies(2, enemyTypes.Ghost);
 
         System.out.println(enemies.size());
 

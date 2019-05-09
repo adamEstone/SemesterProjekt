@@ -21,11 +21,29 @@ public class ResourceClass {
 
     ResourceClass() {
         System.out.println("LOADING:");
-        LoadSprite("SpaceShip.png",250,250);
+        LoadSprite("SpaceShip.png");
         //LoadSprite("Ghost.png",100,100);
         LoadSprite("GhostV2.png",48,48);
         LoadSprite("ShotV1.png",30,30);
         LoadSprite("PlayerShotV1.png",30,30);
+        LoadSprite("moon_look_rightV2.png",48,48);
+    }
+    
+    public static void LoadSprite(String spriteString) {//læg
+
+        try {//prøv at hente billede fra disken
+
+            BufferedImage TempImg = ImageIO.read(new File(spriteString));
+
+            //LoadedSprites.add(resize(spriteWidth, spriteHeight, TempImg));
+            LoadedSprites.add( TempImg);
+            System.out.println("LOADED: " + spriteString);
+
+        } catch (IOException e) {
+            System.out.println("ERROR LOADING IMAGE: " + spriteString);
+
+        }
+
     }
 
     public static void LoadSprite(String spriteString,int spriteWidth,int spriteHeight) {//læg
@@ -35,8 +53,8 @@ public class ResourceClass {
 
             BufferedImage TempImg = ImageIO.read(new File(spriteString));
 
-            //LoadedSprites.add(resize(spriteWidth, spriteHeight, TempImg));
-            LoadedSprites.add( TempImg);
+            LoadedSprites.add(resize(spriteWidth, spriteHeight, TempImg));
+            //LoadedSprites.add( TempImg);
             System.out.println("LOADED: " + spriteString);
 
         } catch (IOException e) {

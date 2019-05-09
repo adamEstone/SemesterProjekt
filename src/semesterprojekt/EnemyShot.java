@@ -39,7 +39,7 @@ public class EnemyShot extends Enemy {
     }
         
     
-        @Override
+     @Override
     public void draw(Graphics2D a) {//ryk fjende
     //    AffineTransform orgTrans;
 

@@ -2,13 +2,9 @@ package semesterprojekt;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class AktivVisning extends JFrame {
     
