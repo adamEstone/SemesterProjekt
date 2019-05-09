@@ -28,16 +28,5 @@ public class AktivVisning extends JFrame {
 
     }
 
-    // public void paintComponent() {}           // definer IKKE - aktiv visning!
-    void tegnSpil() {                 // venter lidt, tegner og opdaterer koordinater
-
-        // genskab orig. transformation
-        g2.setColor(Color.BLACK);                  // rens skærmen selv
-        Dimension d = getSize();
-        g2.fillRect(0, 0, d.width, d.height);
-        //g2.setColor(Color.BLACK);
-
-        //g2.drawImage(sprites.get(0), MultiMuselytter.mouseX-(sprites.get(0).getWidth()/2), 600, null);
-    }
 
 }

@@ -81,7 +81,8 @@ public class GameLogic {
                     setCursor(false);
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
+                     // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
+
 
                     myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
 
