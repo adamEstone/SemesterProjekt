@@ -113,6 +113,10 @@ public class GameInstance {
         for (EnemyShot shot : enemyShots) {
             drawObj(shot);
         }
+        
+        for (PlayerShot shot : playerShots) {
+            drawObj(shot);
+        }
 
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
         return tempG2D;
@@ -254,7 +258,7 @@ public class GameInstance {
     private void playerShot(int delayms) {
 
         if (MultiMuselytter.leftButtonDown == true) {
-
+            
             if ((oldMillis + delayms) <= millis) {
                 oldMillis = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
