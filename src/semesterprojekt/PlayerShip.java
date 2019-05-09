@@ -12,16 +12,26 @@ public class PlayerShip extends BaseObject {
     private double lives = 0;
     private int weapon = 0;
 
-    public PlayerShip(int x, int y, int width, int heigth) {
+    
+    public PlayerShip(int x, int y) {
 
         xPos = x;
         yPos = y;
 
     }
+    /*
+    public PlayerShip(int x, int y, int width, int heigth) {
+
+        xPos = x;
+        yPos = y;
+
+    }*/
 
     @Override
     public void draw(Graphics2D G2D) {
         
+        //G2D.drawOval(MultiMuselytter.mouseX - (50 / 2), MultiMuselytter.mouseY - (50 / 2), 50, 50);
+
         G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos, null);
         
     }

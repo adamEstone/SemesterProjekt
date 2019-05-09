@@ -21,11 +21,10 @@ public class ResourceClass {
 
     ResourceClass() {
         System.out.println("LOADING:");
-        LoadSprite("SpaceShip.png");
-        //LoadSprite("Ghost.png",100,100);
-        LoadSprite("GhostV2.png",48,48);
-        LoadSprite("ShotV1.png",30,30);
-        LoadSprite("PlayerShotV1.png",30,30);
+        LoadSprite("shipA1.png",60,70);
+        LoadSprite("EnemyShip1.png",48,48);
+        LoadSprite("Beam1.png",30,60);
+        LoadSprite("Beam2.png",30,60);
         LoadSprite("moon_look_rightV2.png",48,48);
     }
     

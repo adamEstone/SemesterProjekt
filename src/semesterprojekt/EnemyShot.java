@@ -16,14 +16,13 @@ import java.util.Random;
 public class EnemyShot extends Enemy {
     
     int spriteID = 2;
-
     
     private int speedY;
-
+   SoundPlayer shotSound = new SoundPlayer("EnemyShot1.wav");
     EnemyShot(int Xpos_in, int Ypos_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
-        
+        shotSound.play(0);
 
     }
         

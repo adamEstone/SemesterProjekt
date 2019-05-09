@@ -19,12 +19,14 @@ public class PlayerShot extends Enemy {
 
     
     private int speedY;
+    SoundPlayer shotSound = new SoundPlayer("LaserGun1.wav");
 
     PlayerShot(int Xpos_in, int Ypos_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
         
-
+        shotSound.play(0);
+            
     }
         
         

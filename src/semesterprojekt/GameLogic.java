@@ -25,7 +25,7 @@ public class GameLogic {
 
     private SoundPlayer backgroundMusic;
 
-    private  AktivVisning theWindow = null; //pointer til
+    private AktivVisning theWindow = null; //pointer til
 
     //public static java.util.List<Enemy> enemies = new ArrayList<>();
     //public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
@@ -37,18 +37,17 @@ public class GameLogic {
 
     ResourceClass Res = new ResourceClass(); //use the resource 
 
+    //private int
+    
     GameLogic(AktivVisning vindue) { //Constructor
 
-        backgroundMusic = new SoundPlayer("Wii2.wav");
+        backgroundMusic = new SoundPlayer("BackgroundMusic.wav");
         backgroundMusic.play(0);
 
         theWindow = vindue;
 
         theWindow.createBufferStrategy(2);   // opret 2 buffere
         BufferStrategy bufferStrategy = theWindow.getBufferStrategy();
-
-        PlayerShip PlayerSpaceship = new PlayerShip(50, 50, 50, 50);
-        //LoadedSprites.add(findOrLoadSprite(PlayerSpaceship.NameOfSprite));
 
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
@@ -65,43 +64,22 @@ public class GameLogic {
             }
 
             switch (myGameInstance.mygamestate) {
-                case Menu:
-
-                    if (Tastetryk.escapeTast) {
-                        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
-                        
-                         try {/////vent 100ms
-                            Thread.sleep(200);
-                        } catch (Exception e) {
-                        }// vent lidt
-                         
-                         backgroundMusic.resume();
-                    }
-
-                    setCursor(true);
-
-                    theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    myGameInstance.drawMenu(theWindow.g2);            // tegn på bufferens (med dens Graphics-objekt)
-                    bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
-                    theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
-                    break;
-
                 case Ingame:
-                    
+
                     if (Tastetryk.escapeTast) {
 
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
                         try {/////vent 100ms
                             Thread.sleep(200);
                         } catch (Exception e) {
-                            
+
                         }// vent lidt
-                        
+
                         backgroundMusic.pause();//pause musik
                     }
 
                     setCursor(false);
-                    
+
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
                     theWindow.tegnSpil(); // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
 
@@ -117,6 +95,27 @@ public class GameLogic {
 
                     break;
 
+                case Menu:
+
+                    if (Tastetryk.escapeTast) {
+                        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
+
+                        try {/////vent 100ms
+                            Thread.sleep(200);
+                        } catch (Exception e) {
+                        }// vent lidt
+
+                        backgroundMusic.resume();
+                    }
+
+                    setCursor(true);
+
+                    theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
+                    myGameInstance.drawMenu(theWindow.g2);            // tegn på bufferens (med dens Graphics-objekt)
+                    bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
+                    theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
+                    break;
+
                 case Pause:
 
                     break;
@@ -124,16 +123,15 @@ public class GameLogic {
                 case Loading:
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    
+
                     //theWindow.tegnLoading();            // tegn på bufferens (med dens Graphics-objekt)
-                    
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
 
                     break;
 
                 case RestartgameState:
-                    
+
                     myGameInstance = new GameInstance(theWindow);//new bame
 
                     System.out.println("-- New Game started --");
@@ -161,7 +159,7 @@ public class GameLogic {
 
     }
 
-    private  void hideCursor() {
+    private void hideCursor() {
         // http://www.java2s.com/Code/Java/2D-Graphics-GUI/HidethemousecursoruseatransparentGIFasthecursor.htm
         int[] pixels = new int[16 * 16];
         Image image = Toolkit.getDefaultToolkit().createImage(
@@ -172,11 +170,11 @@ public class GameLogic {
 
     }
 
-    private  void showCursor() {
+    private void showCursor() {
         theWindow.setCursor(Cursor.getDefaultCursor());
     }
 
-    private  void setCursor(boolean state) {
+    private void setCursor(boolean state) {
         if (state != mouseState) {
             mouseState = state;
             if (mouseState) {

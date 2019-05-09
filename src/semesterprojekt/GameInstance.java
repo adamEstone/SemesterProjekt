@@ -42,7 +42,7 @@ public class GameInstance {
 
     Graphics2D g2;
 
-    private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
+    private PlayerShip myPlayerShip = new PlayerShip(300, 600);
 
     private AktivVisning gameWindow;
 
@@ -51,11 +51,11 @@ public class GameInstance {
         gameWindow = theWindow;
 
         //generateEnemies(10, enemyTypes.Ghost);
-        
         generateEnemies(3, enemyTypes.Moon);
         generateEnemies(2, enemyTypes.Ghost);
 
         System.out.println(enemies.size());
+        
 
         // Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
         //enemies.add(someOtherEnemy);   
@@ -64,7 +64,7 @@ public class GameInstance {
     private int a = 0;
     private long oldMillisShoot = 0;
     private long oldMillisMove = 0;
-    
+
     private long millis = 0;
 
     public void tickGame() {
@@ -80,17 +80,13 @@ public class GameInstance {
             a++;
         }
          */
-        
-        checkEnemyCollision(); 
-        
-        if ((oldMillisMove + 10) <= millis) {
-                oldMillisMove = millis;
-              enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-              enemies.forEach((enemy) -> enemy.move());
-            }
-        
-  
+        checkEnemyCollision();
 
+        if ((oldMillisMove + 10) <= millis) {
+            oldMillisMove = millis;
+            enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+            enemies.forEach((enemy) -> enemy.move());
+        }
 
         enemyShot(); //Enemy shoot at random
         checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
@@ -190,19 +186,16 @@ public class GameInstance {
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                  
-                        
+
                         enemies.get(i).changeDirection();
 
                         enemies.get(j).changeDirection();
-
 
                     }
                 }
             }
         }
     }
-        
 
     private void checkEnemyPlayerShotCollision() {
 
@@ -297,7 +290,7 @@ public class GameInstance {
     private void playerShot(int delayms) {
 
         if (MultiMuselytter.leftButtonDown == true) {
-            
+
             if ((oldMillisShoot + delayms) <= millis) {
                 oldMillisShoot = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));

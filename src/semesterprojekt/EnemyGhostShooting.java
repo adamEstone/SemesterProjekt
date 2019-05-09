@@ -20,7 +20,6 @@ public class EnemyGhostShooting extends Enemy {
     private int speedX;
     private int speedY;
     
-    
 
     EnemyGhostShooting(int xpos_in, int ypos_in) {
         System.out.println("EnemyGhostShooting constructor run");
