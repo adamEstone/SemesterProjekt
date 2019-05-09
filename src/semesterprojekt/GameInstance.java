@@ -62,7 +62,9 @@ public class GameInstance {
     }
 
     private int a = 0;
-    private long oldMillis = 0;
+    private long oldMillisShoot = 0;
+    private long oldMillisMove = 0;
+    
     private long millis = 0;
 
     public void tickGame() {
@@ -72,15 +74,29 @@ public class GameInstance {
         millis = System.currentTimeMillis();
         System.out.println(millis);
 
-        enemies.forEach((enemy) -> enemy.move());
-        enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+        /*
+        if (millis != oldMillis) {
+            System.out.println("millis changed in tickGame(): " + a);
+            a++;
+        }
+         */
+        
+        checkEnemyCollision(); 
+        
+        if ((oldMillisMove + 10) <= millis) {
+                oldMillisMove = millis;
+              enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+              enemies.forEach((enemy) -> enemy.move());
+            }
+        
+  
+
 
         enemyShot(); //Enemy shoot at random
-        checkEnemyCollision(); //Checks if enemies collide with eachother, and changes thire direction
         checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
         removeDeadObjects(); //Remove dead shots and enemies
 
-        playerShot(500);
+        playerShot(400);
 
         for (PlayerShot playerShot : playerShots) {
             playerShot.move();
@@ -174,14 +190,19 @@ public class GameInstance {
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-
+                  
+                        
                         enemies.get(i).changeDirection();
-                        //enemies.get(j).changeDirection();
+
+                        enemies.get(j).changeDirection();
+
+
                     }
                 }
             }
         }
     }
+        
 
     private void checkEnemyPlayerShotCollision() {
 
@@ -276,9 +297,9 @@ public class GameInstance {
     private void playerShot(int delayms) {
 
         if (MultiMuselytter.leftButtonDown == true) {
-
-            if ((oldMillis + delayms) <= millis) {
-                oldMillis = millis;
+            
+            if ((oldMillisShoot + delayms) <= millis) {
+                oldMillisShoot = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
             }
         }
