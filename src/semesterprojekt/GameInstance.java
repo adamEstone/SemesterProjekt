@@ -33,8 +33,6 @@ public class GameInstance {
     private java.util.List<Integer> enemiesRemove = new ArrayList<>();
     private java.util.List<Integer> shotsRemove = new ArrayList<>();
 
-    int test = 1;
-
     Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 500, 100, 100);
@@ -46,7 +44,7 @@ public class GameInstance {
         gameWindow = theWindow;
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        generateEnemies(10);
+        generateEnemies(20);
 
         System.out.println(enemies.size());
 
@@ -74,20 +72,22 @@ public class GameInstance {
         }
          */
         
-        checkEnemyCollision(); 
+
         
         if ((oldMillisMove + 10) <= millis) {
                 oldMillisMove = millis;
               enemyShots.forEach((EnemyShot) -> EnemyShot.move());
               enemies.forEach((enemy) -> enemy.move());
+                      checkEnemyCollision(); 
+                      enemyShot(); //Enemy shoot at random
+                      checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
+                      removeDeadObjects(); //Remove dead shots and enemies
             }
         
   
 
 
-        enemyShot(); //Enemy shoot at random
-        checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
-        removeDeadObjects(); //Remove dead shots and enemies
+
 
         playerShot(500);
 
@@ -180,15 +180,13 @@ public class GameInstance {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                    if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                  
+                    //if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
                         
+                        //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
+                    
                         enemies.get(i).changeDirection();
-
                         enemies.get(j).changeDirection();
-
-
-                    }
+                    //}
                 }
             }
         }
@@ -202,28 +200,27 @@ public class GameInstance {
 
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = 0; j < playerShots.size(); j++) {
+                
+                try {
+                
                 if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-                    enemiesRemove.add(i);
-                    shotsRemove.add(j);
-                }
+                        enemies.remove(i);
+                        playerShots.remove(j);
+                    
+                    }
+                    //enemiesRemove.add(i);
+                    //shotsRemove.add(j);
+                
+                
+                } catch (Exception e) {
+                      System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
             }
         }
     }
+    }
 
     private void removeDeadObjects() {
-
-        try {
-
-            for (int i = 0; i < enemiesRemove.size(); i++) {
-                int k = enemiesRemove.get(i);
-                enemies.remove(k);
-            }
-
-            for (int i = 0; i < shotsRemove.size(); i++) {
-                int k = shotsRemove.get(i);
-                playerShots.remove(k);
-            }
-
+        
             for (int i = 0; i < enemyShots.size(); i++) {
 
                 if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
@@ -233,11 +230,6 @@ public class GameInstance {
 
                 }
             }
-
-        } catch (Exception e) {
-
-            System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
-        }
     }
 
     private void enemyShot() {
@@ -267,7 +259,6 @@ public class GameInstance {
             enemies.add(new EnemyGhostShooting(randX, randY));
 
         }
-
     }
 
     private void playerShot(int delayms) {
@@ -280,5 +271,4 @@ public class GameInstance {
             }
         }
     }
-
 }
