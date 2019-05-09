@@ -46,7 +46,7 @@ public class GameInstance {
         gameWindow = theWindow;
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        generateEnemies(20);
+        generateEnemies(100);
 
         System.out.println(enemies.size());
 
