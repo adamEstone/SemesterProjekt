@@ -46,7 +46,7 @@ public class GameInstance {
         gameWindow = theWindow;
 
         //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        generateEnemies(100);
+        generateEnemies(10);
 
         System.out.println(enemies.size());
 
@@ -71,11 +71,13 @@ public class GameInstance {
             a++;
         }
          */
+        
+        checkEnemyCollision(); 
         enemies.forEach((enemy) -> enemy.move());
         enemyShots.forEach((EnemyShot) -> EnemyShot.move());
 
         enemyShot(); //Enemy shoot at random
-        checkEnemyCollision(); //Checks if enemies collide with eachother, and changes thire direction
+        //Checks if enemies collide with eachother, and changes thire direction
         checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
         removeDeadObjects(); //Remove dead shots and enemies
 
@@ -171,14 +173,19 @@ public class GameInstance {
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-
+                  
+                        
                         enemies.get(i).changeDirection();
+
                         enemies.get(j).changeDirection();
+
+
                     }
                 }
             }
         }
     }
+        
 
     private void checkEnemyPlayerShotCollision() {
 

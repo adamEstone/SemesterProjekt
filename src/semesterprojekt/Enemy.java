@@ -21,6 +21,7 @@ public class Enemy extends BaseObject {
     private double lives = 1.0;
     private int weapon = 0;
 
+    public int moveSpeed = 1;
 
     public void move() {//ryk fjende
 

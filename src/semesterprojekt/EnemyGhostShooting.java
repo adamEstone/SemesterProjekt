@@ -16,8 +16,11 @@ public class EnemyGhostShooting extends Enemy {
     private int weapon = 1;
     private double lives = 1;
     
+    
     private int speedX;
     private int speedY;
+    
+    
 
     EnemyGhostShooting(int Xpos_in, int Ypos_in) {
         System.out.println("EnemyGhostShooting constructor run");
@@ -103,9 +106,8 @@ public class EnemyGhostShooting extends Enemy {
     
     @Override
     public void changeDirection(){
-        this.speedX = -this.speedX;
-        this.speedY = -this.speedY;
-        
+         this.speedX = -this.speedX;  
+         this.speedY = -this.speedY;  
     }
     
     @Override   
