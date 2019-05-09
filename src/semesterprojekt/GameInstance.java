@@ -23,6 +23,11 @@ public class GameInstance {
         RestartgameState
     }
 
+    private enum enemyTypes { //mulige spil stadier
+        Ghost,
+        Moon,
+    }
+
     public gameState mygamestate;
 
     public java.util.List<Enemy> enemies = new ArrayList<>();
@@ -45,8 +50,9 @@ public class GameInstance {
 
         gameWindow = theWindow;
 
-        //Enemy someEnemy = new EnemyGhostShooting(200,100);
-        generateEnemies(100);
+        //generateEnemies(10, enemyTypes.Ghost);
+        generateEnemies(2, enemyTypes.Moon);
+        generateEnemies(5, enemyTypes.Ghost);
 
         System.out.println(enemies.size());
 
@@ -65,12 +71,6 @@ public class GameInstance {
         millis = System.currentTimeMillis();
         System.out.println(millis);
 
-        /*
-        if (millis != oldMillis) {
-            System.out.println("millis changed in tickGame(): " + a);
-            a++;
-        }
-         */
         enemies.forEach((enemy) -> enemy.move());
         enemyShots.forEach((EnemyShot) -> EnemyShot.move());
 
@@ -113,7 +113,7 @@ public class GameInstance {
         for (EnemyShot shot : enemyShots) {
             drawObj(shot);
         }
-        
+
         for (PlayerShot shot : playerShots) {
             drawObj(shot);
         }
@@ -137,10 +137,8 @@ public class GameInstance {
 
     private MenuButton btnQuit = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 190, menuButtonWidth, menuButtonHeight, "Quit", 20);
 
-    public Graphics2D drawMenu(Graphics2D bufferedGraphics) {
-
+    private void drawMenuBackground(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
-        Graphics2D tempG2D = bufferedGraphics;
 
         g2.setColor(Color.LIGHT_GRAY);
         g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight()); //tegn overlay så man ikke kan se spillet
@@ -152,6 +150,11 @@ public class GameInstance {
         g2.setFont(new Font("default", Font.BOLD, 50));
         g2.drawString("Menu", menuLocation.x + (menuWidth / 2) - 65, menuLocation.y + 90);//Menu Tekst
 
+    }
+
+    public void drawMenu(Graphics2D bufferedGraphics) {
+        g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
+        drawMenuBackground(g2);
         drawObj(btnResume);
         drawObj(btnNewGame);
         drawObj(btnQuit);
@@ -159,10 +162,9 @@ public class GameInstance {
         mygamestate = btnResume.buttonPressedAction(mygamestate, gameState.Ingame);
         mygamestate = btnNewGame.buttonPressedAction(mygamestate, gameState.RestartgameState);
 
-        return tempG2D;
-
     }
 
+    //GameObjects functions
     private void checkEnemyCollision() {
         for (int i = 0; i < enemies.size(); i++) {
 
@@ -173,7 +175,7 @@ public class GameInstance {
                     if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
 
                         enemies.get(i).changeDirection();
-                        enemies.get(j).changeDirection();
+                        //enemies.get(j).changeDirection();
                     }
                 }
             }
@@ -233,9 +235,7 @@ public class GameInstance {
         }
     }
 
-    private void generateEnemies(int numberOfEnemies) {
-
-        Random r = new Random();
+    public void generateEnemies(int numberOfEnemies, enemyTypes typeOfEnemy) {
 
         int minX = 2;
         int maxX = 538;
@@ -244,13 +244,30 @@ public class GameInstance {
         int randX;
         int randY;
 
-        for (int i = 0; i < numberOfEnemies; i++) {
+        switch (typeOfEnemy) {
+            case Ghost:
+                for (int i = 0; i < numberOfEnemies; i++) {
+                    Random r = new Random();
 
-            randX = r.nextInt(maxX - minX) + minX;
-            randY = r.nextInt(maxY - minY) + minY;
+                    randX = r.nextInt(maxX - minX) + minX;
+                    randY = r.nextInt(maxY - minY) + minY;
 
-            enemies.add(new EnemyGhostShooting(randX, randY));
+                    enemies.add(new EnemyGhostShooting(randX, randY));//add the enemy to the array of enemies
+                }
 
+                break;
+            case Moon:
+
+                for (int i = 0; i < numberOfEnemies; i++) {
+                    Random r = new Random();
+
+                    randX = r.nextInt(maxX - minX) + minX;
+                    randY = r.nextInt(maxY - minY) + minY;
+
+                    enemies.add(new EnemyMoonShooting(randX, randY));//add the enemy to the array of enemies
+                }
+
+                break;
         }
 
     }
@@ -258,7 +275,7 @@ public class GameInstance {
     private void playerShot(int delayms) {
 
         if (MultiMuselytter.leftButtonDown == true) {
-            
+
             if ((oldMillis + delayms) <= millis) {
                 oldMillis = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
