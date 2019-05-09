@@ -55,7 +55,9 @@ public class GameInstance {
     }
 
     private int a = 0;
-    private long oldMillis = 0;
+    private long oldMillisShoot = 0;
+    private long oldMillisMove = 0;
+    
     private long millis = 0;
 
     public void tickGame() {
@@ -73,11 +75,17 @@ public class GameInstance {
          */
         
         checkEnemyCollision(); 
-        enemies.forEach((enemy) -> enemy.move());
-        enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+        
+        if ((oldMillisMove + 10) <= millis) {
+                oldMillisMove = millis;
+              enemyShots.forEach((EnemyShot) -> EnemyShot.move());
+              enemies.forEach((enemy) -> enemy.move());
+            }
+        
+  
+
 
         enemyShot(); //Enemy shoot at random
-        //Checks if enemies collide with eachother, and changes thire direction
         checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
         removeDeadObjects(); //Remove dead shots and enemies
 
@@ -266,8 +274,8 @@ public class GameInstance {
 
         if (MultiMuselytter.leftButtonDown == true) {
             
-            if ((oldMillis + delayms) <= millis) {
-                oldMillis = millis;
+            if ((oldMillisShoot + delayms) <= millis) {
+                oldMillisShoot = millis;
                 playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
             }
         }
