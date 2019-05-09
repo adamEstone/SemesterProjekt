@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 import java.util.Calendar;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -25,8 +26,9 @@ public class GameLogic {
 
     private SoundPlayer backgroundMusic;
 
-    private AktivVisning theWindow = null; //pointer til
-
+    private AktivVisning theWindow = null; //pointer til vindue
+    private GameInstance myGameInstance = null;
+    private Calendar calendar;
     //public static java.util.List<Enemy> enemies = new ArrayList<>();
     //public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
     private long fpsCount = 0;
@@ -38,30 +40,33 @@ public class GameLogic {
     ResourceClass Res = new ResourceClass(); //use the resource 
 
     //private int
-    
     GameLogic(AktivVisning vindue) { //Constructor
+
+        theWindow = vindue;
+
+        theWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
+
+        theGame();
+
+    }
+
+    private void theGame() {
+
+        //----------------  Game state section -----------------
+        GameInstance myGameInstance = new GameInstance(theWindow); //create new game
+
+        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame; //start i stadiet
 
         backgroundMusic = new SoundPlayer("BackgroundMusic.wav");
         backgroundMusic.play(0);
 
-        theWindow = vindue;
-
         theWindow.createBufferStrategy(2);   // opret 2 buffere
         BufferStrategy bufferStrategy = theWindow.getBufferStrategy();
 
-        Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
-
-        GameInstance myGameInstance = new GameInstance(theWindow); //create new game
-
-        //----------------  Game state section -----------------
-        myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame; //start i stadiet
-
-        while (true) { ///////  GameStateLoop /////////////
-
-            if (MultiMuselytter.rightButtonDown) {
-                myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
-                backgroundMusic.resume();
-            }
+        /////////////////////////////////////  GameStateLoop ///////////////////////////////
+        while (myGameInstance.mygamestate != myGameInstance.mygamestate.QuitGame) {
 
             switch (myGameInstance.mygamestate) {
                 case Ingame:
@@ -69,11 +74,7 @@ public class GameLogic {
                     if (Tastetryk.escapeTast) {
 
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
-                        try {/////vent 100ms
-                            Thread.sleep(200);
-                        } catch (Exception e) {
-
-                        }// vent lidt
+                        pause(200);
 
                         backgroundMusic.pause();//pause musik
                     }
@@ -81,8 +82,7 @@ public class GameLogic {
                     setCursor(false);
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                     // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
-
+                    // tegn på bufferens (med dens Graphics-objekt) og brug de loaded billeder fra parameter variablen
 
                     myGameInstance.drawGame(theWindow.g2); //TEGN SPILLET
 
@@ -100,11 +100,7 @@ public class GameLogic {
 
                     if (Tastetryk.escapeTast) {
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
-
-                        try {/////vent 100ms
-                            Thread.sleep(200);
-                        } catch (Exception e) {
-                        }// vent lidt
+                        pause(200);
 
                         backgroundMusic.resume();
                     }
@@ -112,12 +108,9 @@ public class GameLogic {
                     setCursor(true);
 
                     theWindow.g2 = (Graphics2D) bufferStrategy.getDrawGraphics(); // få buffer
-                    myGameInstance.drawMenu(theWindow.g2);            // tegn på bufferens (med dens Graphics-objekt)
+                    myGameInstance.drawMenu(theWindow.g2);            // tegn på bufferens (med dens Graphics-objekt) 
                     bufferStrategy.show();    // vis grafikken EFTER at der er tegnet færdigt
                     theWindow.g2.dispose();      // frigiv bufferen så den er klar til genbrug
-                    break;
-
-                case Pause:
 
                     break;
 
@@ -131,9 +124,11 @@ public class GameLogic {
 
                     break;
 
-                case RestartgameState:
+                case RestartGameState:
 
                     myGameInstance = new GameInstance(theWindow);//new bame
+
+                    backgroundMusic.play(0);
 
                     System.out.println("-- New Game started --");
 
@@ -142,21 +137,36 @@ public class GameLogic {
                     break;
             }
 
-            try {/////vent 10ms
-                Thread.sleep(10);
-            } catch (Exception e) {
-            }// vent lidt
-
-            //FPS counting
-            fpsCount++;
-
-            if (oldsecond != calendar.getInstance().get(Calendar.SECOND)) {
-                oldsecond = calendar.getInstance().get(Calendar.SECOND);
-                // System.out.println(fpsCount + " fps");
-                fpsCount = 0;
-            }
+            pause(10);
+            
+            CalculateFPS();
 
         }//end off gameloop
+
+        theWindow.dispose();
+
+        System.out.println("Game has quit");
+
+    }
+
+    private void CalculateFPS() {
+        
+        //FPS counting
+        fpsCount++;
+
+        if (oldsecond != calendar.getInstance().get(Calendar.SECOND)) {
+            oldsecond = calendar.getInstance().get(Calendar.SECOND);
+            System.out.println(fpsCount + " fps");
+            fpsCount = 0;
+        }
+
+    }
+
+    private void pause(int waitTime) {
+        try {/////vent 10ms
+            Thread.sleep(waitTime);
+        } catch (Exception e) {
+        }// vent lidt
 
     }
 

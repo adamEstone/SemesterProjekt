@@ -44,7 +44,9 @@ public class PlayerShip extends BaseObject {
     
     
     public Rectangle bounds(){
-        return new Rectangle(this.xPos, this.yPos,250,250);
+        return new Rectangle(this.xPos, this.yPos,
+                ResourceClass.LoadedSprites.get(spriteID).getWidth(),
+                ResourceClass.LoadedSprites.get(spriteID).getHeight());
     }
 
     public void gainLife() {

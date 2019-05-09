@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -16,12 +17,11 @@ import java.util.Random;
 public class GameInstance {
 
     public enum gameState { //mulige spil stadier
+        Ingame,
         Loading,
         Menu,
-        Ingame,
-        Pause,
-        Settings,
-        RestartgameState
+        QuitGame,
+        RestartGameState
     }
 
     private enum enemyTypes { //mulige spil stadier
@@ -48,6 +48,7 @@ public class GameInstance {
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
+        
 
         //generateEnemies(10, enemyTypes.Ghost);
         generateEnemies(3, enemyTypes.Moon);
@@ -134,6 +135,7 @@ public class GameInstance {
             drawObj(shot);
         }
 
+        
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
     }
 
@@ -181,7 +183,8 @@ public class GameInstance {
         drawObj(btnQuit);
 
         mygamestate = btnResume.buttonPressedAction(mygamestate, gameState.Ingame);
-        mygamestate = btnNewGame.buttonPressedAction(mygamestate, gameState.RestartgameState);
+        mygamestate = btnNewGame.buttonPressedAction(mygamestate, gameState.RestartGameState);
+        mygamestate = btnQuit.buttonPressedAction(mygamestate, gameState.QuitGame);
 
     }
 

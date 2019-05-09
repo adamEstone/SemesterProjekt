@@ -12,12 +12,14 @@ public class AktivVisning extends JFrame {
     //GeneralPath fig = new Java2DDemo().fig;      // stjæl 'smiley' fra andet eks.
     double[][] koord = new double[50][6];        // koordinater på figurer // koordinater på figurer // koordinater på figurer // koordinater på figurer
 
+    
     @Override
     public void setTitle(String title) {
         super.setTitle(title); //To change body of generated methods, choose Tools | Templates.
     }
+    
     void init() {
-        setTitle("benis");
+        setTitle("Spil");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setIgnoreRepaint(true);      // system skal IKKE kalde paintComponent()
         this.setVisible(true);

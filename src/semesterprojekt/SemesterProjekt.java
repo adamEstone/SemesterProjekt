@@ -2,6 +2,7 @@
 package semesterprojekt;
 
 import java.awt.*;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -28,6 +29,7 @@ public class SemesterProjekt {
 
         Tastetryk tast = new Tastetryk();
         vindue.addKeyListener(tast);
+        vindue.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //--------------------------------------------------
 
         //opretter selve spillet i det vindue som er parrameter 
