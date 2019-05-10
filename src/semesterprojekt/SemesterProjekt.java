@@ -17,7 +17,9 @@ public class SemesterProjekt {
 //        SpilVindue panel = new SpilVindue();        // opret panelet
         AktivVisning vindue = new AktivVisning();    // opret et vindue på skærmen
         //vindue.add(panel);                          // vis panelet i vinduet
-        vindue.setSize(600, 700);
+        vindue.setSize(AreaCoordinates.AC.getPlayableAreaX() + 
+                       AreaCoordinates.AC.getInfoAreaX(),
+                       AreaCoordinates.AC.getPlayableAreaY());
         vindue.setResizable(false);
         vindue.init();
        // vindue.setDefaultCloseOperation(vindue.EXIT_ON_CLOSE);
@@ -34,6 +36,9 @@ public class SemesterProjekt {
         
         //opretter selve spillet i det vindue som er parrameter 
         GameLogic myGame = new GameLogic(vindue); 
+        
+        //TODO:
+        //myGame.runthegame();
         
     }
 

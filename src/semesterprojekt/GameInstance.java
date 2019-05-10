@@ -31,13 +31,13 @@ public class GameInstance {
 
     public gameState mygamestate;
 
-    public java.util.List<Enemy> enemies = new ArrayList<>();
-    public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
-    public java.util.List<PlayerShot> playerShots = new ArrayList<>();
-    boolean ResartGame = false;
 
-    private java.util.List<Integer> enemiesRemove = new ArrayList<>();
-    private java.util.List<Integer> shotsRemove = new ArrayList<>();
+    boolean ResartGame = false;
+    
+        private long millis = 0;
+
+    GameCalculations GC = new GameCalculations();
+
 
     Graphics2D g2;
 
@@ -47,25 +47,23 @@ public class GameInstance {
     
     private Backgrounds theBackground = new Backgrounds();
 
+    
+    
+    
+    
+    
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
         
-        //generateEnemies(10, enemyTypes.Ghost);
-        generateEnemies(3, enemyTypes.Moon);
-        generateEnemies(5, enemyTypes.Ghost);
 
-        System.out.println(enemies.size());
 
-        // Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
-        //enemies.add(someOtherEnemy);   
+        GC.spawnEnemies(10,2);
+        
+        System.out.println(GC.enemies.size());
+
     }
 
-    private int a = 0;
-    private long oldMillisShoot = 0;
-    private long oldMillisMove = 0;
-
-    private long millis = 0;
 
     public void tickGame() {
 
@@ -74,36 +72,13 @@ public class GameInstance {
         millis = System.currentTimeMillis();
         System.out.println(millis);
 
-        /*
-        if (millis != oldMillis) {
-            System.out.println("millis changed in tickGame(): " + a);
-            a++;
-        }
-         */
-        if ((oldMillisMove + 10) <= millis) {
-            oldMillisMove = millis;
-            enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-            enemies.forEach((enemy) -> enemy.move());
-            checkEnemyCollision();
-            enemyShot(); //Enemy shoot at random
-            checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
-            removeDeadObjects(); //Remove dead shots and enemies
-        }
 
-        if ((oldMillisMove + 10) <= millis) {
-            oldMillisMove = millis;
-            enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-            enemies.forEach((enemy) -> enemy.move());
-        }
 
-        playerShot(500);
+        GC.update(millis, myPlayerShip);
 
-        for (PlayerShot playerShot : playerShots) {
-            playerShot.move();
-        }
 
         //animation?
-        if (enemies.isEmpty()) {
+        if (GC.enemies.isEmpty()) {
             System.out.println("NEXT LEVEL");
         } //next level
 
@@ -121,19 +96,20 @@ public class GameInstance {
         //DrawBackground(g2);//temporary solution
         theBackground.draw(g2);
 
+        //TODO: musens placering er her i forhold til skibet
         myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
 
         drawObj(myPlayerShip);
 
-        for (Enemy enemy : enemies) {
+        for (Enemy enemy : GC.enemies) {
             drawObj(enemy);
         }
 
-        for (EnemyShot shot : enemyShots) {
+        for (EnemyShot shot : GC.enemyShots) {
             drawObj(shot);
         }
 
-        for (PlayerShot shot : playerShots) {
+        for (PlayerShot shot : GC.playerShots) {
             drawObj(shot);
         }
 
@@ -189,115 +165,5 @@ public class GameInstance {
         mygamestate = btnQuit.buttonPressedAction(mygamestate, gameState.QuitGame);
 
     }
-
-    //GameObjects functions
-    private void checkEnemyCollision() {
-        for (int i = 0; i < enemies.size(); i++) {
-
-            for (int j = 0; j < enemies.size(); j++) {
-
-                if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
-
-                   // if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                    //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
-                    enemies.get(i).changeDirection();
-                    enemies.get(j).changeDirection();
-                    //}
-                }
-            }
-        }
-    }
-
-    private void checkEnemyPlayerShotCollision() {
-
-        enemiesRemove.clear();
-        shotsRemove.clear();
-
-        for (int i = 0; i < enemies.size(); i++) {
-            for (int j = 0; j < playerShots.size(); j++) {
-
-                try {
-
-                    if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-                        enemies.remove(i);
-                        playerShots.remove(j);
-
-                    }
-                    //enemiesRemove.add(i);
-                    //shotsRemove.add(j);
-
-                } catch (Exception e) {
-                    System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
-                }
-            }
-        }
-    }
-
-    private void removeDeadObjects() {
-
-        for (int i = 0; i < enemyShots.size(); i++) {
-
-            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-
-                myPlayerShip.loseLife();
-                enemyShots.remove(i);
-
-            }
-        }
-    }
-
-    private void enemyShot() {
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).shoot() == true) {
-                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
-            }
-        }
-    }
-
-    public void generateEnemies(int numberOfEnemies, enemyTypes typeOfEnemy) {
-
-        int minX = 2;
-        int maxX = 538;
-        int minY = 28;
-        int maxY = 298;
-        int randX;
-        int randY;
-
-        switch (typeOfEnemy) {
-            case Ghost:
-                for (int i = 0; i < numberOfEnemies; i++) {
-                    Random r = new Random();
-
-                    randX = r.nextInt(maxX - minX) + minX;
-                    randY = r.nextInt(maxY - minY) + minY;
-
-                    enemies.add(new EnemyGhostShooting(randX, randY));//add the enemy to the array of enemies
-                }
-
-                break;
-            case Moon:
-
-                for (int i = 0; i < numberOfEnemies; i++) {
-                    Random r = new Random();
-
-                    randX = r.nextInt(maxX - minX) + minX;
-                    randY = r.nextInt(maxY - minY) + minY;
-
-                    enemies.add(new EnemyMoonShooting(randX, randY));//add the enemy to the array of enemies
-                }
-
-                break;
-        }
-    }
-
-    private void playerShot(int delayms) {
-        //playership
-        if (MultiMuselytter.leftButtonDown == true) {
-
-            if ((oldMillisShoot + delayms) <= millis) {
-                oldMillisShoot = millis;
-                playerShots.add(new PlayerShot(myPlayerShip.xPos, myPlayerShip.yPos));
-            }
-        }
-    }
+  
 }

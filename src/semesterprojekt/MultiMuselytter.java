@@ -10,8 +10,8 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     public static int mouseY = 0;
     public static boolean leftButtonDown = false;
     public static boolean rightButtonDown = false;
-    
 
+    @Override
     public void mousePressed(MouseEvent hændelse) // kræves af MouseListener
     {
         
@@ -29,6 +29,7 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
 
     }
 
+    @Override
     public void mouseReleased(MouseEvent hændelse) // kræves af MouseListener
     {
         Point slippunkt = hændelse.getPoint();
@@ -46,25 +47,46 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     //--------------------------------------------------------------------
     //  Ubrugte hændelser (skal defineres for at implementere MouseListener)
     //--------------------------------------------------------------------
+    @Override
     public void mouseClicked(MouseEvent hændelse) // kræves af MouseListener
     {
     }
 
+    @Override
     public void mouseEntered(MouseEvent event) {
     }	// kræves af MouseListener
 
+    @Override
     public void mouseExited(MouseEvent event) {
     }	// kræves af MouseListener
 
+    @Override
     public void mouseDragged(MouseEvent hændelse) {
-        mouseX = hændelse.getX();
+        int x = AreaCoordinates.AC.getPlayableAreaX();
+        if (hændelse.getX() >= x)
+        {
+            mouseX = x;
+        }
+        else
+        {
+            mouseX = hændelse.getX();
+        }
         mouseY = hændelse.getY();
     } // kræves af MouseMotionListener
 
+    @Override
     public void mouseMoved(MouseEvent hændelse) {
         //mousePos.x = hændelse.getX();
-
-        mouseX = hændelse.getX();
+        int x = AreaCoordinates.AC.getPlayableAreaX();
+        if (hændelse.getX() >= x)
+        {
+            mouseX = x;
+        }
+        else
+        {
+            mouseX = hændelse.getX();
+        }
+        
         mouseY = hændelse.getY();
         System.out.println("mus rykket til: " + hændelse.getX());
     } //kræves af MouseMotionListener
