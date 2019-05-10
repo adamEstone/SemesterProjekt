@@ -107,7 +107,7 @@ public class EnemyGhostShooting extends Enemy {
     public void changeDirection(){
          this.speedX = -this.speedX;  
          this.speedY = -this.speedY;
-       
+          
     }
     
     @Override   

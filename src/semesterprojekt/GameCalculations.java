@@ -30,10 +30,35 @@ public class GameCalculations {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                   // if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+                   //if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
                     //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
-                    enemies.get(i).changeDirection();
-                    enemies.get(j).changeDirection();
+                    
+                    if (enemies.get(i).spriteID != 4) {
+                        enemies.get(i).changeDirection();    
+                    }
+                    
+                    if (enemies.get(j).spriteID != 4) {
+                        enemies.get(j).changeDirection();    
+                    }
+
+                    
+                    
+                    if ( enemies.get(i).xPos < enemies.get(j).xPos) {
+                        enemies.get(i).xPos = enemies.get(i).xPos -2;
+                        enemies.get(j).xPos = enemies.get(j).xPos +2;
+                    } else{
+                        enemies.get(i).xPos = enemies.get(i).xPos +2;
+                        enemies.get(j).xPos = enemies.get(j).xPos -2;
+                    }
+                    
+                    if ( enemies.get(i).yPos < enemies.get(j).yPos) {
+                        enemies.get(i).yPos = enemies.get(i).yPos -2;
+                        enemies.get(j).yPos = enemies.get(j).yPos +2;
+                    } else{
+                        enemies.get(i).yPos = enemies.get(i).yPos +2;
+                        enemies.get(j).yPos = enemies.get(j).yPos -2;
+                    }
+                    
                     //}
                 }
             }
