@@ -1,4 +1,5 @@
 package semesterprojekt;
+
 import java.util.Random;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -8,20 +9,20 @@ import java.util.ArrayList;
  * @author Mads
  */
 public class GameCalculations {
-    
+
     //These ArrayLists keeps track of the enemies, thire shots, and the players shots
     public java.util.List<Enemy> enemies = new ArrayList<>();
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
     public java.util.List<PlayerShot> playerShots = new ArrayList<>();
-    
+
     public enum enemyTypes { //mulige spil stadier
         Ghost,
         Moon,
     }
-        
-        long oldMillisShoot = 0;
-        long oldMillisMove = 0;
-        
+
+    long oldMillisShoot = 0;
+    long oldMillisMove = 0;
+
     //GameObjects functions
     private void checkEnemyCollision() {
         for (int i = 0; i < enemies.size(); i++) {
@@ -30,7 +31,7 @@ public class GameCalculations {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                   // if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+                    // if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
                     //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
                     enemies.get(i).changeDirection();
                     enemies.get(j).changeDirection();
@@ -63,9 +64,9 @@ public class GameCalculations {
     }
 
     private void removeDeadObjects(PlayerShip myPlayerShip) {
-        
+
         for (int i = 0; i < playerShots.size(); i++) {
-                    
+
             if (playerShots.get(i).yPos < 0) {
                 playerShots.remove(i);
             }
@@ -73,22 +74,22 @@ public class GameCalculations {
 
         for (int i = 0; i < enemyShots.size(); i++) {
             try {
-                
-            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-                myPlayerShip.loseLife();
-                enemyShots.remove(i);
-            }
-            
+
+                if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
+                    myPlayerShip.loseLife();
+                    enemyShots.remove(i);
+                }
+
                 if (enemyShots.get(i).yPos > 700) {
                     enemyShots.remove(i);
                 }
-                
+
             } catch (Exception e) {
-                                System.out.println("Out of bounds");
+                System.out.println("Out of bounds");
             }
 
         }
-       
+
     }
 
     private void enemyShot() {
@@ -98,8 +99,8 @@ public class GameCalculations {
             }
         }
     }
-    
-    public void spawnEnemies(int i, int j){
+
+    public void spawnEnemies(int i, int j) {
         generateEnemies(i, enemyTypes.Ghost);
         generateEnemies(j, enemyTypes.Moon);
     }
@@ -150,23 +151,20 @@ public class GameCalculations {
             }
         }
     }
-    
-    
-    
-    void update(long millis, PlayerShip player){
+
+    void update(long millis, PlayerShip player) {
         if ((oldMillisMove + 10) <= millis) {
-            
+
             enemies.forEach((enemy) -> enemy.move());
             enemyShots.forEach((EnemyShot) -> EnemyShot.move());
             playerShots.forEach((playerShot) -> playerShot.move());
 
-            
-            playerShot(500, millis, player.xPos, player.yPos);
+            playerShot(400, millis, player.xPos, player.yPos);
             checkEnemyCollision();
             enemyShot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects(player);
 
         }
-    }    
+    }
 }

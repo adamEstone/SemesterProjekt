@@ -19,7 +19,7 @@ public class Backgrounds {
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
-    private int numberOfStart = 50;
+    private int numberOfStart = 100;
             
     Backgrounds() {
        
