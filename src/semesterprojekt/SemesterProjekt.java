@@ -31,17 +31,11 @@ public class SemesterProjekt {
         vindue.addKeyListener(tast);
         vindue.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //--------------------------------------------------
-
+        
         //opretter selve spillet i det vindue som er parrameter 
         GameLogic myGame = new GameLogic(vindue); 
         
     }
 
-    public static void initFuldskærm(Frame vindue) {
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice dev = env.getDefaultScreenDevice();
-        vindue.setUndecorated(true); // vis ikke vinduesramme, titel, luk-knap etc.
-        dev.setFullScreenWindow(vindue);
-    }
 
 }

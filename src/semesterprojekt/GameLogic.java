@@ -101,7 +101,6 @@ public class GameLogic {
                     if (Tastetryk.escapeTast) {
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
                         pause(200);
-
                         backgroundMusic.resume();
                     }
 

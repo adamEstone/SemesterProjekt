@@ -4,6 +4,8 @@ package semesterprojekt;
 import java.awt.Graphics2D;
 import java.awt.*;
 import java.util.Random;
+import semesterprojekt.Enemy;
+import semesterprojekt.ResourceClass;
 
 /**
  *

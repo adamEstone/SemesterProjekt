@@ -44,15 +44,16 @@ public class GameInstance {
     private PlayerShip myPlayerShip = new PlayerShip(300, 600);
 
     private AktivVisning gameWindow;
+    
+    private Backgrounds theBackground = new Backgrounds();
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
         
-
         //generateEnemies(10, enemyTypes.Ghost);
         generateEnemies(3, enemyTypes.Moon);
-        generateEnemies(2, enemyTypes.Ghost);
+        generateEnemies(5, enemyTypes.Ghost);
 
         System.out.println(enemies.size());
 
@@ -116,8 +117,9 @@ public class GameInstance {
     //DRAW GAME
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
-
-        DrawBackground(g2);//temporary solution
+        
+        //DrawBackground(g2);//temporary solution
+        theBackground.draw(g2);
 
         myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
 
@@ -289,7 +291,7 @@ public class GameInstance {
     }
 
     private void playerShot(int delayms) {
-
+        //playership
         if (MultiMuselytter.leftButtonDown == true) {
 
             if ((oldMillisShoot + delayms) <= millis) {
