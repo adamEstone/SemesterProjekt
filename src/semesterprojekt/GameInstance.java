@@ -93,6 +93,7 @@ public class GameInstance {
 
         DrawBackground(g2);//temporary solution
 
+        //TODO: musens placering er her i forhold til skibet
         myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
 
         drawObj(myPlayerShip);
