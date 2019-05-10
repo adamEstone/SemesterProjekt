@@ -33,6 +33,8 @@ public class GameInstance {
 
 
     boolean ResartGame = false;
+    
+        private long millis = 0;
 
     GameCalculations GC = new GameCalculations();
 
@@ -43,31 +45,23 @@ public class GameInstance {
 
     private AktivVisning gameWindow;
 
+    
+    
+    
+    
+    
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
         
-        
-        
 
-
-        //generateEnemies(10, enemyTypes.Ghost);
-        //generateEnemies(3, enemyTypes.Moon);
-        //generateEnemies(2, enemyTypes.Ghost);
 
         GC.spawnEnemies(10,2);
         
         System.out.println(GC.enemies.size());
 
-        // Enemy someOtherEnemy = new EnemyGhostShooting(20,10);
-        //enemies.add(someOtherEnemy);   
     }
 
-    private int a = 0;
-    private long oldMillisShoot = 0;
-    private long oldMillisMove = 0;
-
-    private long millis = 0;
 
     public void tickGame() {
 
@@ -76,30 +70,9 @@ public class GameInstance {
         millis = System.currentTimeMillis();
         System.out.println(millis);
 
-        /*
-        if (millis != oldMillis) {
-            System.out.println("millis changed in tickGame(): " + a);
-            a++;
-        }
-         */
-        if ((oldMillisMove + 10) <= millis) {
-          /*  oldMillisMove = millis;
-            enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-            enemies.forEach((enemy) -> enemy.move());
-            checkEnemyCollision();
-            enemyShot(); //Enemy shoot at random
-            checkEnemyPlayerShotCollision(); //Check if shots collide with enemies/player
-            removeDeadObjects(); //Remove dead shots and enemies
-            enemyShots.forEach((EnemyShot) -> EnemyShot.move());
-            enemies.forEach((enemy) -> enemy.move());
-            */
-        }
+
 
         GC.update(millis, myPlayerShip);
-
-
-       // playerShot(500);
-
 
 
         //animation?

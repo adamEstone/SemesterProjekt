@@ -63,16 +63,32 @@ public class GameCalculations {
     }
 
     private void removeDeadObjects(PlayerShip myPlayerShip) {
-
-        for (int i = 0; i < enemyShots.size(); i++) {
-
-            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-
-                myPlayerShip.loseLife();
-                enemyShots.remove(i);
-
+        
+        for (int i = 0; i < playerShots.size(); i++) {
+                    
+            if (playerShots.get(i).yPos < 0) {
+                playerShots.remove(i);
             }
         }
+
+        for (int i = 0; i < enemyShots.size(); i++) {
+            try {
+                
+            if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
+                myPlayerShip.loseLife();
+                enemyShots.remove(i);
+            }
+            
+                if (enemyShots.get(i).yPos > 700) {
+                    enemyShots.remove(i);
+                }
+                
+            } catch (Exception e) {
+                                System.out.println("Out of bounds");
+            }
+
+        }
+       
     }
 
     private void enemyShot() {
@@ -150,7 +166,6 @@ public class GameCalculations {
             enemyShot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects(player);
-          
 
         }
     }    
