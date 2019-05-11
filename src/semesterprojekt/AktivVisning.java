@@ -10,7 +10,7 @@ public class AktivVisning extends JFrame {
     Graphics2D g2;
     AffineTransform orgTrans;
     //GeneralPath fig = new Java2DDemo().fig;      // stjæl 'smiley' fra andet eks.
-    double[][] koord = new double[50][6];        // koordinater på figurer // koordinater på figurer // koordinater på figurer // koordinater på figurer
+   // double[][] koord = new double[50][6];        // koordinater på figurer // koordinater på figurer // koordinater på figurer // koordinater på figurer
 
     
     @Override
