@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Mads
  */
 public class PlayerShot extends Enemy {
-    
+
     int spriteID = 3;
 
     private int speedY;
@@ -23,30 +23,35 @@ public class PlayerShot extends Enemy {
     PlayerShot(int Xpos_in, int Ypos_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
-        
-        shotSound.play(0);
-            
-    }
-        
-        
-    @Override
-        public void move(){
-            this.yPos = this.yPos - 5;
-        }
-        
-            @Override   
-    public Rectangle bounds(){
-        return new Rectangle(this.xPos, this.yPos,30,30);
-    }
-        
-    
-        @Override
-    public void draw(Graphics2D a) {//ryk fjende
-    //    AffineTransform orgTrans;
 
-        a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, null);
-        //a.scale(0.3,0.3);          // flyt, skaler og rotér
-        
+        shotSound.play(0);
+
     }
-    
+
+    PlayerShot(int Xpos_in, int Ypos_in, int width_in, int height_in) {
+        this.xPos = Xpos_in;
+        this.yPos = Ypos_in;
+        this.width = width_in;
+        this.height = height_in;
+        shotSound.play(0);
+
+    }
+
+    @Override
+    public void move() {
+        this.yPos = this.yPos - 5;
+    }
+
+    @Override
+    public Rectangle bounds() {
+        return new Rectangle(this.xPos, this.yPos, 30, 30);
+    }
+
+    @Override
+    public void draw(Graphics2D a) {//tegn 
+
+        a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos,this.width,this.height, null);
+
+    }
+
 }

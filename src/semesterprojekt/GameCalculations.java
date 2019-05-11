@@ -178,7 +178,7 @@ public class GameCalculations {
 
             if ((oldMillisShoot + delayms) <= millis) {
                 oldMillisShoot = millis;
-                playerShots.add(new PlayerShot(xPos, yPos));
+                playerShots.add(new PlayerShot(xPos-(30/2), yPos,30,40));
             }
         }
     }
