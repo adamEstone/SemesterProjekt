@@ -31,6 +31,11 @@ public class Enemy extends BaseObject {
         
         return null;
     }
+    
+    public void explode() {
+        
+        
+    }
 
     public Boolean shoot() {
         
