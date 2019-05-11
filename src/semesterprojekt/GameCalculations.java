@@ -1,7 +1,7 @@
 package semesterprojekt;
 
 import java.util.Random;
-import java.awt.Graphics2D;
+
 import java.util.ArrayList;
 
 /**
@@ -15,7 +15,7 @@ public class GameCalculations {
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
     public java.util.List<PlayerShot> playerShots = new ArrayList<>();
 
-    public enum enemyTypes { //mulige spil stadier
+    public enum enemyTypes { //mulige typer af fjender
         Ghost,
         Moon,
     }
@@ -49,7 +49,10 @@ public class GameCalculations {
                 try {
 
                     if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
+                        
+                        enemies.get(i).explode();
                         enemies.remove(i);
+                        
                         playerShots.remove(j);
 
                     }
@@ -68,7 +71,8 @@ public class GameCalculations {
         for (int i = 0; i < playerShots.size(); i++) {
 
             if (playerShots.get(i).yPos < 0) {
-                playerShots.remove(i);
+               playerShots.get(i).shotSound.remove();
+               playerShots.remove(i);
             }
         }
 
@@ -77,10 +81,12 @@ public class GameCalculations {
 
                 if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
                     myPlayerShip.loseLife();
+                    enemyShots.get(i).shotSound.remove();
                     enemyShots.remove(i);
                 }
 
-                if (enemyShots.get(i).yPos > 700) {
+                if (enemyShots.get(i).yPos > AreaCoordinates.AC.getPlayableAreaY()) {
+                    enemyShots.get(i).shotSound.remove();
                     enemyShots.remove(i);
                 }
 
@@ -141,7 +147,7 @@ public class GameCalculations {
         }
     }
 
-    private void playerShot(int delayms, long millis, int xPos, int yPos) {
+    private void playerShoot(int delayms, long millis, int xPos, int yPos) {
 
         if (MultiMuselytter.leftButtonDown == true) {
 
@@ -151,15 +157,15 @@ public class GameCalculations {
             }
         }
     }
-
+        
     void update(long millis, PlayerShip player) {
-        if ((oldMillisMove + 10) <= millis) {
-
+        if ((oldMillisMove + 8) <= millis) {
+            oldMillisMove=millis;
             enemies.forEach((enemy) -> enemy.move());
             enemyShots.forEach((EnemyShot) -> EnemyShot.move());
             playerShots.forEach((playerShot) -> playerShot.move());
 
-            playerShot(400, millis, player.xPos, player.yPos);
+            playerShoot(250, millis, player.xPos, player.yPos);
             checkEnemyCollision();
             enemyShot();
             checkEnemyPlayerShotCollision();
