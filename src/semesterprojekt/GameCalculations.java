@@ -124,7 +124,7 @@ public class GameCalculations {
     private void enemyShoot() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).shoot() == true) {
-                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos,20,40));
+                enemyShots.add(new EnemyShot(enemies.get(i).xPos+(25/2), enemies.get(i).yPos,25,40));
             }
         }
     }
