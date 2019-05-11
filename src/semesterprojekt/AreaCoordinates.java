@@ -9,48 +9,62 @@ package semesterprojekt;
  *
  * @author FK
  */
-public class AreaCoordinates
-{
+public class AreaCoordinates {
+
     //TODO rykkes ind i AreaCoordinates for at lave en singleton, næst bedst metode
     static AreaCoordinates AC = new AreaCoordinates();
-    
+
+    private int WindowTopOffset = 30;//toppen af vinduet (Title Bar )
+
     private int playableAreaX = 600;
     private int playableAreaY = 700;
     private int infoAreaX = 200;
     private int infoAreaY = 700;
-    
-    AreaCoordinates(){
+
+    AreaCoordinates() {
     }
-    
-    public void setPlayableAreaX(int x){
+
+    public void setPlayableAreaX(int x) {
         playableAreaX = x;
     }
-    
-    public int getPlayableAreaX(){
+
+    public int getPlayableAreaX() {
         return playableAreaX;
     }
-    
-    public void setPlayableAreay(int y){
+
+    public int getWindowTopOffset() {
+        return WindowTopOffset;
+    }
+
+    public void setWindowTopOffset(int WindowTopOffset) {
+        this.WindowTopOffset = WindowTopOffset;
+    }
+
+    public void setPlayableAreaY(int playableAreaY) {
+        this.playableAreaY = playableAreaY;
+    }
+
+    public void setPlayableAreay(int y) {
         playableAreaY = y;
     }
-    
-    public int getPlayableAreaY(){
+
+    public int getPlayableAreaY() {
         return playableAreaY;
     }
-    
-    public void setInfoAreaX(int x){
+
+    public void setInfoAreaX(int x) {
         infoAreaX = x;
     }
-    
-    public int getInfoAreaX(){
+
+    public int getInfoAreaX() {
         return infoAreaX;
     }
-    
-    public void setInfoAreaY(int y){
+
+    public void setInfoAreaY(int y) {
         infoAreaY = y;
     }
-    
-    public int getInfoAreaY(){
+
+    public int getInfoAreaY() {
         return infoAreaY;
     }
 }

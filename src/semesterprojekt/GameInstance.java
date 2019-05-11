@@ -37,17 +37,19 @@ public class GameInstance {
 
     Graphics2D g2;
 
-    private PlayerShip myPlayerShip = new PlayerShip(300, 600);
+    private PlayerShip myPlayerShip = new PlayerShip(300, 600,60,70);
 
     private AktivVisning gameWindow;
 
     private Backgrounds theBackground = new Backgrounds();
+    
+    private SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
 
-        GC.spawnEnemies(10, 2);
+        GC.spawnEnemies(6, 0);
 
         System.out.println(GC.enemies.size());
 
@@ -57,10 +59,7 @@ public class GameInstance {
 
     public void tickGame() {
 
-        var today = new Date();
-
         millis = System.currentTimeMillis();
-        //System.out.println(millis);
 
         GC.update(millis, myPlayerShip);
 
@@ -69,15 +68,21 @@ public class GameInstance {
         if (GC.enemies.isEmpty()) { //if no more enemies is left
             
             theBackground.moveStartsFast(true);
+            winSound.playOnce(0);
+            
             
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
+                winSound.playOnceReset();
+                
                 System.out.println("NEXT LEVEL BEGINS");
-                 Random r = new Random();
+                
+                Random r = new Random();
                 
                 theBackground.moveStartsFast(false);
                 //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
                 GC.spawnEnemies(r.nextInt(8), r.nextInt(8));
+                
             }
             
             //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
@@ -94,11 +99,9 @@ public class GameInstance {
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
 
-        //DrawBackground(g2);//temporary solution
         theBackground.draw(g2);
 
-        //TODO: musens placering er her i forhold til skibet
-        myPlayerShip.setXpos(MultiMuselytter.mouseX);//opdatere rumskibet 
+        myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
 
@@ -115,11 +118,6 @@ public class GameInstance {
         }
 
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
-    }
-
-    private void DrawBackground(Graphics2D g2) {
-        g2.setColor(Color.BLACK);                  // rens skærmen selv
-        g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight());
     }
 
     //DRAW MENU

@@ -13,26 +13,19 @@ public class PlayerShip extends BaseObject {
     private int weapon = 0;
 
     
-    public PlayerShip(int x, int y) {
+    public PlayerShip(int x, int y,int w,int h) {
 
         xPos = x;
         yPos = y;
+        width = w;
+        height=h;
 
     }
-    /*
-    public PlayerShip(int x, int y, int width, int heigth) {
-
-        xPos = x;
-        yPos = y;
-
-    }*/
 
     @Override
     public void draw(Graphics2D G2D) {
-        
-        //G2D.drawOval(MultiMuselytter.mouseX - (50 / 2), MultiMuselytter.mouseY - (50 / 2), 50, 50);
 
-        G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos, null);
+        G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos,width,height, null);
         
     }
 
@@ -43,10 +36,8 @@ public class PlayerShip extends BaseObject {
     }
     
     
-    public Rectangle bounds(){
-        return new Rectangle(this.xPos, this.yPos,
-                ResourceClass.LoadedSprites.get(spriteID).getWidth(),
-                ResourceClass.LoadedSprites.get(spriteID).getHeight());
+    public Rectangle bounds(){//bounds is smaller than the player ship which feels nicer
+        return new Rectangle(this.xPos+(width/3), this.yPos+(height/3), width-((width/3)*2), height-((height/3)*2));
     }
 
     public void gainLife() {

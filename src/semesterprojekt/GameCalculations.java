@@ -31,10 +31,33 @@ public class GameCalculations {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                    // if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
+                   //if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
                     //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
-                    enemies.get(i).changeDirection();
-                    enemies.get(j).changeDirection();
+                    
+                    if (enemies.get(i).spriteID != 4) {
+                        enemies.get(i).changeDirection();    
+                    }
+                    
+                    if (enemies.get(j).spriteID != 4) {
+                        enemies.get(j).changeDirection();    
+                    }
+                    
+                    if ( enemies.get(i).xPos < enemies.get(j).xPos) {
+                        enemies.get(i).xPos = enemies.get(i).xPos -2;
+                        enemies.get(j).xPos = enemies.get(j).xPos +2;
+                    } else{
+                        enemies.get(i).xPos = enemies.get(i).xPos +2;
+                        enemies.get(j).xPos = enemies.get(j).xPos -2;
+                    }
+                    
+                    if ( enemies.get(i).yPos < enemies.get(j).yPos) {
+                        enemies.get(i).yPos = enemies.get(i).yPos -2;
+                        enemies.get(j).yPos = enemies.get(j).yPos +2;
+                    } else{
+                        enemies.get(i).yPos = enemies.get(i).yPos +2;
+                        enemies.get(j).yPos = enemies.get(j).yPos -2;
+                    }
+                    
                     //}
                 }
             }
@@ -98,10 +121,10 @@ public class GameCalculations {
 
     }
 
-    private void enemyShot() {
+    private void enemyShoot() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).shoot() == true) {
-                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos));
+                enemyShots.add(new EnemyShot(enemies.get(i).xPos, enemies.get(i).yPos,20,40));
             }
         }
     }
@@ -127,8 +150,8 @@ public class GameCalculations {
 
                     randX = r.nextInt(maxX - minX) + minX;
                     randY = r.nextInt(maxY - minY) + minY;
-
-                    enemies.add(new EnemyGhostShooting(randX, randY));//add the enemy to the array of enemies
+                    int size = r.nextInt(20);           
+                    enemies.add(new EnemyGhostShooting(randX, randY,30+size,30+size));//add the enemy to the array of enemies
                 }
 
                 break;
@@ -139,8 +162,10 @@ public class GameCalculations {
 
                     randX = r.nextInt(maxX - minX) + minX;
                     randY = r.nextInt(maxY - minY) + minY;
+                    
+                    int size = r.nextInt(20);
 
-                    enemies.add(new EnemyMoonShooting(randX, randY));//add the enemy to the array of enemies
+                    enemies.add(new EnemyMoonShooting(randX, randY,30+size,30+size));//add the enemy to the array of enemies
                 }
 
                 break;
@@ -165,9 +190,9 @@ public class GameCalculations {
             enemyShots.forEach((EnemyShot) -> EnemyShot.move());
             playerShots.forEach((playerShot) -> playerShot.move());
 
-            playerShoot(250, millis, player.xPos, player.yPos);
+            playerShoot(250, millis, player.xPos+(player.width/2), player.yPos);
             checkEnemyCollision();
-            enemyShot();
+            enemyShoot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects(player);
 

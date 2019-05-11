@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class Enemy extends BaseObject {
 
-    private int spriteID = 0;
+    public int spriteID = 0;
     private BufferedImage TheImage;
 
     private double lives = 1.0;
@@ -54,7 +54,7 @@ public class Enemy extends BaseObject {
         return lives;
     }
     
-        public void changeDirection(){
+    public void changeDirection(){
     }
 
     public void setLives(double lives) {

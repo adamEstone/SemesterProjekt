@@ -21,7 +21,7 @@ public class ResourceClass {
 
     ResourceClass() {
         System.out.println("LOADING:");
-        LoadSprite("shipA1.png",60,70);
+        LoadSprite("shipA1.png");
         LoadSprite("EnemyShip1.png",48,48);
         LoadSprite("Beam1.png",30,60);
         LoadSprite("Beam2.png",30,60);

@@ -20,9 +20,11 @@ public class EnemyShot extends Enemy {
     
     public SoundPlayer shotSound = new SoundPlayer("EnemyShot1.wav");
     
-    EnemyShot(int Xpos_in, int Ypos_in) {
+    EnemyShot(int Xpos_in, int Ypos_in,int width_in,int height_in ) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
+        width =width_in;
+        height= height_in;
         shotSound.play(0);
 
     }
@@ -35,7 +37,7 @@ public class EnemyShot extends Enemy {
         
             @Override   
     public Rectangle bounds(){
-        return new Rectangle(this.xPos, this.yPos,30,30);
+        return new Rectangle(this.xPos, this.yPos,width,height);
     }
         
     
@@ -43,7 +45,7 @@ public class EnemyShot extends Enemy {
     public void draw(Graphics2D a) {//ryk fjende
     //    AffineTransform orgTrans;
 
-        a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, null);
+        a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos,width,height, null);
         //a.scale(0.3,0.3);          // flyt, skaler og rotér
         
     }

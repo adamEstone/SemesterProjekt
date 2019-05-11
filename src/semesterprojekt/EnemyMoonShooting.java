@@ -25,15 +25,26 @@ public class EnemyMoonShooting extends Enemy {
     private int speedX;
     private int speedY;//not used
     private int imageDirection = -1; //changes between: 1 and -1
-    
 
+    private Random r = new Random();
+    
     EnemyMoonShooting(int Xpos_in, int Ypos_in) {
         System.out.println("EnemyMoonShooting constructor run");
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
     }
 
+    EnemyMoonShooting(int Xpos_in, int Ypos_in, int width_in, int height_in) {
+        System.out.println("EnemyMoonShooting constructor run");
+        this.xPos = Xpos_in;
+        this.yPos = Ypos_in;
+        this.width = width_in;
+        this.height = height_in;
+
+    }
+
     EnemyMoonShooting(int Xpos_in, int Ypos_in, double Lives_in, int Weapon_in) {
+        System.out.println("EnemyMoonShooting constructor run");
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;
         this.lives = Lives_in;
@@ -48,8 +59,6 @@ public class EnemyMoonShooting extends Enemy {
 
     @Override
     public void move() {//ryk fjende
-
-        Random r = new Random();
 
         int minSped = 1;
         int maxSped = 5;
@@ -69,20 +78,19 @@ public class EnemyMoonShooting extends Enemy {
             xPos = 2;
             imageDirection = imageDirection * -1;
         }
-        if (this.xPos >= 540) {
+        if (this.xPos + this.width >= AreaCoordinates.AC.getPlayableAreaX()) {
             this.speedX = -this.speedX;
-            xPos = 538;
+            xPos = AreaCoordinates.AC.getPlayableAreaX() - width;
             imageDirection = imageDirection * -1;
         }
 
         this.xPos = this.xPos + this.speedX;
 
     }
-    Random r = new Random();
-    
+
     @Override
     public Boolean shoot() {//ryk fjende
-        
+
         int minShot = 1;
         int maxShot = 500;
         int rand = r.nextInt(maxShot - minShot) + minShot;
@@ -101,7 +109,7 @@ public class EnemyMoonShooting extends Enemy {
 
     @Override
     public Rectangle bounds() {
-        return new Rectangle(this.xPos, this.yPos, 48, 48);
+        return new Rectangle(this.xPos, this.yPos, this.width, this.height);
     }
 
     @Override
@@ -110,10 +118,9 @@ public class EnemyMoonShooting extends Enemy {
         //a.scale(2,1);          // flyt, skaler og roté
         BufferedImage theImage = ResourceClass.LoadedSprites.get(spriteID);
         if (imageDirection == 1) {
-            a.drawImage(theImage, this.xPos, this.yPos, theImage.getWidth(), theImage.getHeight(), null);
+            a.drawImage(theImage, this.xPos, this.yPos, this.width, this.height, null);
         } else {
-            a.drawImage(theImage, theImage.getWidth()+this.xPos, this.yPos, -theImage.getWidth(), theImage.getHeight(), null);
+            a.drawImage(theImage, this.width + this.xPos, this.yPos, -this.width, this.height, null);
         }
-        //a.drawImage(ResourceClass.LoadedSprites.get(spriteID), this.xPos, this.yPos, orgTrans, null);
     }
 }

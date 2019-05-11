@@ -62,7 +62,7 @@ public class GameLogic {
         backgroundMusic = new SoundPlayer("BackgroundMusic.wav");
         backgroundMusic.play(0);
 
-        theWindow.createBufferStrategy(5);   // opret 2 buffere
+        theWindow.createBufferStrategy(2);   // opret 2 buffere
         BufferStrategy bufferStrategy = theWindow.getBufferStrategy();
 
         /////////////////////////////////////  GameStateLoop ///////////////////////////////
