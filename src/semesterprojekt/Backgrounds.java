@@ -7,9 +7,8 @@ package semesterprojekt;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 /**
  *
@@ -19,33 +18,36 @@ public class Backgrounds {
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
-    private int numberOfStart = 100;
-            
-    Backgrounds() {
-       
-        for (int i = 0; i < numberOfStart; i++) {
+    private int numberOfStart = 75;
+
+    Backgrounds() {//cons
+
+        for (int i = 0; i < numberOfStart; i++) { //make star objects
             StarPosition.add(new Star());
         }
 
     }
 
     public void draw(Graphics2D g2) {
-        
-        g2.setColor(Color.BLACK);                  // rens skærmen selv
-        g2.fillRect(0, 0, 600, 700);
-        
-        for (Star thisStar : StarPosition) {
-            
-            int alpha = 150; // 50% transparent
-            Color myColour = new Color(255, 200, 255, alpha);
-            g2.setColor(myColour);
-            
-            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 2, 2);  
-            
+
+        g2.setColor(Color.BLACK);//tegn sort skærm
+        g2.fillRect(0, 0, AreaCoordinates.AC.getPlayableAreaX(), AreaCoordinates.AC.getPlayableAreaY());
+
+        for (Star thisStar : StarPosition) {//tegn og flyt stjerner
+
+            g2.setColor(thisStar.getStarColor());
+            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 2, 2);
+
             thisStar.move();
-             
+
         }
 
+    }
+
+    public void moveStartsFast(boolean highspeed) {
+        for (Star thisStar : StarPosition) {
+        thisStar.setSpeedUp(highspeed);
+        }
     }
 
 }
