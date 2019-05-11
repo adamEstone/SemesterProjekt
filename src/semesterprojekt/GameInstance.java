@@ -31,56 +31,57 @@ public class GameInstance {
 
     public gameState mygamestate;
 
-
-    boolean ResartGame = false;
-    
-        private long millis = 0;
+    private long millis = 0;
 
     GameCalculations GC = new GameCalculations();
-
 
     Graphics2D g2;
 
     private PlayerShip myPlayerShip = new PlayerShip(300, 600);
 
     private AktivVisning gameWindow;
-    
+
     private Backgrounds theBackground = new Backgrounds();
 
-    
-    
-    
-    
-    
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
-        
 
+        GC.spawnEnemies(10, 2);
 
-        GC.spawnEnemies(10,2);
-        
         System.out.println(GC.enemies.size());
 
     }
 
+    long tempMillis = 0;
 
     public void tickGame() {
 
         var today = new Date();
 
         millis = System.currentTimeMillis();
-        System.out.println(millis);
-
-
+        //System.out.println(millis);
 
         GC.update(millis, myPlayerShip);
 
-
         //animation?
-        if (GC.enemies.isEmpty()) {
-            System.out.println("NEXT LEVEL");
-        } //next level
+        
+        if (GC.enemies.isEmpty()) { //if no more enemies is left
+            
+            theBackground.moveStartsFast(true);
+            
+            if (tempMillis + 3000 < millis) {
+                tempMillis = millis;
+                System.out.println("NEXT LEVEL BEGINS");
+                 Random r = new Random();
+                
+                theBackground.moveStartsFast(false);
+                //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
+                GC.spawnEnemies(r.nextInt(8), r.nextInt(8));
+            }
+            
+            //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
+        }else{tempMillis = millis;} //next level
 
     }
 
@@ -92,7 +93,7 @@ public class GameInstance {
     //DRAW GAME
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
-        
+
         //DrawBackground(g2);//temporary solution
         theBackground.draw(g2);
 
@@ -113,7 +114,6 @@ public class GameInstance {
             drawObj(shot);
         }
 
-        
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
     }
 
@@ -165,5 +165,5 @@ public class GameInstance {
         mygamestate = btnQuit.buttonPressedAction(mygamestate, gameState.QuitGame);
 
     }
-  
+
 }

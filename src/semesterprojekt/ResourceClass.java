@@ -39,8 +39,8 @@ public class ResourceClass {
             System.out.println("LOADED: " + spriteString);
 
         } catch (IOException e) {
-            System.out.println("ERROR LOADING IMAGE: " + spriteString);
-
+            System.out.println("ERROR WHILE TYRING LOADING IMAGE: " + spriteString);
+            e.printStackTrace();
         }
 
     }
@@ -57,8 +57,8 @@ public class ResourceClass {
             System.out.println("LOADED: " + spriteString);
 
         } catch (IOException e) {
-            System.out.println("ERROR LOADING IMAGE: " + spriteString);
-
+            System.out.println("ERROR WHILE TYRING LOADING IMAGE: " + spriteString);
+            e.printStackTrace();
         }
 
     }

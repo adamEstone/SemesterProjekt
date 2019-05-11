@@ -7,7 +7,6 @@ package semesterprojekt;
 
 import java.awt.Graphics2D;
 import java.awt.*;
-import java.util.Random;
 
 /**
  *
@@ -18,7 +17,9 @@ public class EnemyShot extends Enemy {
     int spriteID = 2;
     
     private int speedY;
-   SoundPlayer shotSound = new SoundPlayer("EnemyShot1.wav");
+    
+    public SoundPlayer shotSound = new SoundPlayer("EnemyShot1.wav");
+    
     EnemyShot(int Xpos_in, int Ypos_in) {
         this.xPos = Xpos_in;
         this.yPos = Ypos_in;

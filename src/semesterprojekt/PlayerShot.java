@@ -17,7 +17,6 @@ public class PlayerShot extends Enemy {
     
     int spriteID = 3;
 
-    
     private int speedY;
     SoundPlayer shotSound = new SoundPlayer("LaserGun1.wav");
 

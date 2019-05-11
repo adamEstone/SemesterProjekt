@@ -21,6 +21,7 @@ public class SoundPlayer {
             soundClip = this.soundClip;
             soundClip.addLineListener(audioListener);
             
+           
         } catch (Exception sp) {
             sp.printStackTrace();
         }
@@ -29,11 +30,21 @@ public class SoundPlayer {
     LineListener audioListener = new LineListener() {
 
         public void update(LineEvent event) {
+            
             if (event.getType() == LineEvent.Type.START) {
-
+                
+            }
+            
+            if (event.getType() == LineEvent.Type.STOP) {
+                //System.out.println("Lyd er slut!");
+                //remove();
             }
         }
     };
+    
+    public void remove() {
+        this.soundClip.close();
+    }
 
     public void play(int framePos) {
 
@@ -48,6 +59,7 @@ public class SoundPlayer {
         soundClip.start();
 
     }
+
 
     public void pause() {
 
