@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Adam
+ * @author Adam & Farzad
  */
 public class Backgrounds
 {
@@ -30,6 +30,34 @@ public class Backgrounds
             StarPosition.add(new Star());
         }
 
+    }
+    
+        public void draw(Graphics2D g2)
+    {
+
+        g2.setColor(Color.BLACK);//tegn sort skærm
+        g2.fillRect(0, 0, AreaCoordinates.AC.getPlayableAreaX()
+                + AreaCoordinates.AC.getInfoAreaX(),
+                AreaCoordinates.AC.getPlayableAreaY());
+
+        for (Star thisStar : StarPosition)//tegn og flyt stjerner
+        {
+
+            g2.setColor(thisStar.getStarColor());
+            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 1, 2);
+
+            thisStar.move();
+
+        }
+
+    }
+
+    public void moveStarsFast(boolean highspeed)
+    {
+        for (Star thisStar : StarPosition)
+        {
+            thisStar.setSpeedUp(highspeed);
+        }
     }
 
     public void drawDivider(Graphics2D g2)
@@ -137,32 +165,6 @@ public class Backgrounds
 
     }
 
-    public void draw(Graphics2D g2)
-    {
 
-        g2.setColor(Color.BLACK);//tegn sort skærm
-        g2.fillRect(0, 0, AreaCoordinates.AC.getPlayableAreaX()
-                + AreaCoordinates.AC.getInfoAreaX(),
-                AreaCoordinates.AC.getPlayableAreaY());
-
-        for (Star thisStar : StarPosition)//tegn og flyt stjerner
-        {
-
-            g2.setColor(thisStar.getStarColor());
-            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 1, 2);
-
-            thisStar.move();
-
-        }
-
-    }
-
-    public void moveStartsFast(boolean highspeed)
-    {
-        for (Star thisStar : StarPosition)
-        {
-            thisStar.setSpeedUp(highspeed);
-        }
-    }
 
 }
