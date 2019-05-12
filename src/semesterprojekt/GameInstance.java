@@ -68,12 +68,15 @@ public class GameInstance {
         
         if (GC.enemies.isEmpty()) { //if no more enemies is left
             
+            //if(levelChanged){ //only run once
             theBackground.moveStartsFast(true);
             winSound.playOnce(0);
-            
+            //initNextLevelFX=false;
+            //}
             
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
+                
                 winSound.playOnceReset();
                 
                 Stats.stats.nextLevel();
@@ -115,7 +118,7 @@ public class GameInstance {
                             (myPlayerShip.width / 2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
-
+        
         for (Enemy enemy : GC.enemies) {
             drawObj(enemy);
         }
