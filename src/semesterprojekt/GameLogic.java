@@ -70,7 +70,7 @@ public class GameLogic {
 
             switch (myGameInstance.mygamestate) {
                 case Ingame:
-
+                    backgroundMusic.resume();
                     if (Tastetryk.escapeTast) {
 
                         myGameInstance.mygamestate = myGameInstance.mygamestate.Menu;
