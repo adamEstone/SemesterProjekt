@@ -15,7 +15,7 @@ public class MenuButton extends BaseObject {
 
     private boolean mouseAlreadyEntered = false;
 
-    SoundPlayer hoverSound = new SoundPlayer("ButtonSound.wav");
+    SoundPlayer hoverSound;
 
     //simpel
     public MenuButton(int posX_in, int posY_in, int Width_in, int Height_in, String text_in) {
@@ -57,6 +57,8 @@ public class MenuButton extends BaseObject {
                 && MultiMuselytter.mouseY > yPos && MultiMuselytter.mouseY < yPos + height) { //hvis musen rammer
 
             if (!mouseAlreadyEntered) {  //if the mouse has not aleready entered play sound.
+                
+                hoverSound = new SoundPlayer("ButtonSound.wav");
                 hoverSound.play(0);
                 mouseAlreadyEntered = true;
             }
