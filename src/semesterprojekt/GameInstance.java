@@ -47,6 +47,7 @@ public class GameInstance {
     
     private boolean levelHasChanged = false;//
 
+    
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
         gameWindow = theWindow;
@@ -116,7 +117,8 @@ public class GameInstance {
         theBackground.drawText(g2);
         /////////////don't change the order/////////////
         
-        myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
+        myPlayerShip.setXpos(MultiMuselytter.mouseX - 
+                            (myPlayerShip.width / 2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
         
@@ -136,19 +138,35 @@ public class GameInstance {
     }
 
     //DRAW MENU
-    private int menuWidth = 300;
-    private int menuHeight = 400;
+    private final int menuButtonWidth = 
+            AreaCoordinates.AC.getMenuButtonWidth();
+    
+    private final int menuButtonHeight = 
+            AreaCoordinates.AC.getMenuButtonHeight();
 
-    private Point menuLocation = new Point(150, 100);
+    private final MenuButton btnResume = new MenuButton(
+                AreaCoordinates.AC.getA(),
+                AreaCoordinates.AC.getB(50),
+                menuButtonWidth,
+                menuButtonHeight,
+                "Resume",
+                38);
 
-    private int menuButtonWidth = 200;
-    private int menuButtonHeight = 50;
+    private final MenuButton btnNewGame = new MenuButton(
+                AreaCoordinates.AC.getA(),
+                AreaCoordinates.AC.getB(120),
+                menuButtonWidth,
+                menuButtonHeight,
+                "New Game",
+                48);
 
-    private MenuButton btnResume = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 50, menuButtonWidth, menuButtonHeight, "Resume", 38);
-
-    private MenuButton btnNewGame = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 120, menuButtonWidth, menuButtonHeight, "New Game", 48);
-
-    private MenuButton btnQuit = new MenuButton(menuLocation.x + (menuWidth / 2) - (menuButtonWidth / 2), menuLocation.y + 100 + 190, menuButtonWidth, menuButtonHeight, "Quit", 20);
+    private final MenuButton btnQuit = new MenuButton(
+                AreaCoordinates.AC.getA(),
+                AreaCoordinates.AC.getB(190),
+                menuButtonWidth,
+                menuButtonHeight,
+                "Quit",
+                20);
 
     private void drawMenuBackground(Graphics2D bufferedGraphics) {
 
@@ -158,12 +176,22 @@ public class GameInstance {
         g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight()); //tegn overlay så man ikke kan se spillet
 
         g2.setColor(Color.GRAY);
-        g2.fillRect(menuLocation.x, menuLocation.y, menuWidth, menuHeight);
+        g2.fillRect(
+                AreaCoordinates.AC.getMenuLocX(),
+                AreaCoordinates.AC.getMenuLocY(),
+                AreaCoordinates.AC.getMenuWidth(),
+                AreaCoordinates.AC.getMenuHeight());
 
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("default", Font.BOLD, 50));
-        g2.drawString("Menu", menuLocation.x + (menuWidth / 2) - 65, menuLocation.y + 90);//Menu Tekst
+        g2.drawString(
+                "Menu",
+                //TODO fix dynamicly - see AreaCoordinates.java
+                //menuLocation.x + (menuWidth / 2) - 65,
+                AreaCoordinates.AC.getStrLocX("Menu"),
+                AreaCoordinates.AC.getStrLocY(90));         //Menu Tekst
 
+        //int t = g2.getFontMetrics().stringWidth("Menu") / 2;
     }
 
     public void drawMenu(Graphics2D bufferedGraphics) {
