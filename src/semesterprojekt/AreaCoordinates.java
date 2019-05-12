@@ -14,7 +14,7 @@ public class AreaCoordinates {
     //TODO rykkes ind i AreaCoordinates for at lave en singleton, næst bedst metode
     static AreaCoordinates AC = new AreaCoordinates();
 
-    private int WindowTopOffset = 30;//toppen af vinduet (Title Bar )
+    private int windowTopOffset = 30;//toppen af vinduet (Title Bar )
 
     private int playableAreaX = 600;
     private int playableAreaY = 700;
@@ -33,11 +33,11 @@ public class AreaCoordinates {
     }
 
     public int getWindowTopOffset() {
-        return WindowTopOffset;
+        return windowTopOffset;
     }
 
     public void setWindowTopOffset(int WindowTopOffset) {
-        this.WindowTopOffset = WindowTopOffset;
+        this.windowTopOffset = WindowTopOffset;
     }
 
     public void setPlayableAreaY(int playableAreaY) {
