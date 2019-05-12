@@ -9,16 +9,13 @@ public class PlayerShip extends BaseObject {
     public int spriteID = 0;
     private BufferedImage TheImage;
 
-    private double lives = 0;
-    private int weapon = 0;
-
     
-    public PlayerShip(int x, int y,int w,int h) {
+    public PlayerShip(int x, int y, int w, int h) {
 
         xPos = x;
         yPos = y;
         width = w;
-        height=h;
+        height = h;
 
     }
 
@@ -31,7 +28,7 @@ public class PlayerShip extends BaseObject {
 
     public void loseLife() {
 
-        lives--;
+        //lives--;
 
     }
     
@@ -42,7 +39,7 @@ public class PlayerShip extends BaseObject {
 
     public void gainLife() {
 
-        lives++;
+        //lives++;
 
     }
 
@@ -65,14 +62,4 @@ public class PlayerShip extends BaseObject {
     public int getYpos() {
         return yPos;
     }
-
-    public void setLives(double value) {
-        lives = value;
-    }
-
-    public double getLives() {
-        return lives;
-    }
-    
-
 }
