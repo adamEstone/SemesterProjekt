@@ -22,6 +22,19 @@ public class Stats
     {
         this.score += score;
     }
+    
+    public void resetScore(){
+        score = 0;
+    }
+    
+    public void resetLevel(){
+        level = 1;
+    }
+    
+    //TODO burde bruge en enum af en slags over våben typer
+    public void resetWeapon(){
+        weapon = 0;
+    }
 
     public int getScore()
     {
