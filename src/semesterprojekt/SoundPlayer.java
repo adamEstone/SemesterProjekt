@@ -7,7 +7,7 @@ public class SoundPlayer {
 
     private Clip soundClip;
     private long currFramePos;
-    private boolean playOnceVariable = true;
+    private boolean waitingForResume = false;
 
     public SoundPlayer(String filename) {
 
@@ -37,13 +37,15 @@ public class SoundPlayer {
 
             if (event.getType() == LineEvent.Type.STOP) {
                 //System.out.println("Lyd er slut!");
-               remove();
+                if (!waitingForResume) {
+                    remove();
+                }
             }
         }
     };
 
     public void remove() {
-        if(playOnceVariable){this.soundClip.close();}
+        this.soundClip.close();
     }
 
     public void play(int framePos) {
@@ -63,28 +65,8 @@ public class SoundPlayer {
 
     }
 
-    public void playOnce(int framePos) {
-        if (playOnceVariable) {
-            if (soundClip == null) {
-                while (true) {
-                    System.out.println("STOOOP!");
-                }
-                //return;
-            }
-            
-            playOnceVariable = false;
-
-            soundClip.setFramePosition(framePos);
-            soundClip.start();
-        }
-    }
-    
-    public void playOnceReset() {
-        playOnceVariable=true;
-
-    }
-
     public void pause() {
+        waitingForResume = true;//soundclip will not be removed by remove()
 
         if (soundClip == null) {
             currFramePos = 0;
@@ -96,9 +78,10 @@ public class SoundPlayer {
     }
 
     public void resume() {
-
-        soundClip.setMicrosecondPosition(currFramePos);
-        soundClip.start();
+        if (!soundClip.isRunning()) {
+            soundClip.setMicrosecondPosition(currFramePos);
+            soundClip.start();
+        }
 
     }
 
