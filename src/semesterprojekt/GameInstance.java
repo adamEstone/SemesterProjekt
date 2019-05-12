@@ -43,7 +43,9 @@ public class GameInstance {
 
     private Backgrounds theBackground = new Backgrounds();
     
-    private SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
+    private Random r = new Random();
+    
+    private boolean levelHasChanged = false;//
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
@@ -67,26 +69,27 @@ public class GameInstance {
         
         if (GC.enemies.isEmpty()) { //if no more enemies is left
             
-            //if(levelChanged){ //only run once
-            theBackground.moveStartsFast(true);
-            winSound.playOnce(0);
-            //initNextLevelFX=false;
-            //}
+            if(!levelHasChanged){ //only run once due to levelHasChanged variable
+            levelHasChanged=true;//level just changed
+            
+            theBackground.moveStarsFast(true);
+            SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
+            winSound.play(0);
+            
+            }
             
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
-                
-                winSound.playOnceReset();
+                levelHasChanged=false;
+                //winSound.playOnceReset();
                 
                 Stats.stats.nextLevel();
                 
-                System.out.println("NEXT LEVEL BEGINS");
+                System.out.println("NEXT LEVEL BEGINS");           
                 
-                Random r = new Random();
-                
-                theBackground.moveStartsFast(false);
+                theBackground.moveStarsFast(false);
                 //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
-                GC.spawnEnemies(r.nextInt(8), r.nextInt(8));
+                GC.spawnEnemies(1+r.nextInt(7), r.nextInt(8));
                 
             }
             
