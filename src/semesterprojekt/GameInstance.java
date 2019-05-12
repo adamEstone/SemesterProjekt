@@ -37,12 +37,12 @@ public class GameInstance {
 
     Graphics2D g2;
 
-    private PlayerShip myPlayerShip = new PlayerShip(300, 600,60,70);
+    private PlayerShip myPlayerShip = new PlayerShip(300, 600, 60, 70);
 
     private AktivVisning gameWindow;
 
     private Backgrounds theBackground = new Backgrounds();
-    
+
     private SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
 
     GameInstance(AktivVisning theWindow) {//constructor  or new game
@@ -62,33 +62,37 @@ public class GameInstance {
         millis = System.currentTimeMillis();
 
         GC.update(millis, myPlayerShip);
-        
+
         //animation?
-        
-        if (GC.enemies.isEmpty()) { //if no more enemies is left
-            
-            theBackground.moveStartsFast(true);
-            winSound.playOnce(0);
-            
-            
+        if (GC.enemies.isEmpty()) { //if no more enemies is left        
+
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
+
                 winSound.playOnceReset();
-                
+
                 Stats.stats.nextLevel();
-                
+
                 System.out.println("NEXT LEVEL BEGINS");
-                
+
                 Random r = new Random();
-                
+
                 theBackground.moveStartsFast(false);
                 //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
                 GC.spawnEnemies(r.nextInt(8), r.nextInt(8));
-                
+
             }
-            
+
+            /*if (levelJustChanged) { //only run once
+                theBackground.moveStartsFast(true);
+                winSound.playOnce(0);
+                initNextLevelFX = false;
+            }*/
+
             //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
-        }else{tempMillis = millis;} //next level
+        } else {
+            tempMillis = millis;
+        } //next level
 
     }
 
@@ -100,7 +104,7 @@ public class GameInstance {
     //DRAW GAME
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
-        
+
         /////////////don't change the order/////////////
         theBackground.draw(g2);
         theBackground.drawLives(g2);
@@ -109,11 +113,11 @@ public class GameInstance {
         theBackground.drawDivider(g2);
         theBackground.drawText(g2);
         /////////////don't change the order/////////////
-        
-        myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
+
+        myPlayerShip.setXpos(MultiMuselytter.mouseX - (myPlayerShip.width / 2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
-        
+
         for (Enemy enemy : GC.enemies) {
             drawObj(enemy);
         }

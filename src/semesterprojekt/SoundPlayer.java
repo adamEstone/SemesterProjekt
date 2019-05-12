@@ -71,6 +71,7 @@ public class SoundPlayer {
                 }
                 //return;
             }
+            
             playOnceVariable = false;
 
             soundClip.setFramePosition(framePos);
