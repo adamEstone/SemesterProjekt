@@ -128,11 +128,13 @@ public class GameLogic {
                     myGameInstance = new GameInstance(theWindow);//new bame
 
                     backgroundMusic.play(0);
-
+                    
+                    Stats.stats.resetLives();
+                    
                     System.out.println("-- New Game started --");
-
+                    
                     myGameInstance.mygamestate = myGameInstance.mygamestate.Ingame;
-
+                    
                     break;
             }
 

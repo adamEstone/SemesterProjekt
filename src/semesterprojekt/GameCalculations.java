@@ -77,6 +77,9 @@ public class GameCalculations {
                         enemies.remove(i);
                         
                         playerShots.remove(j);
+                        
+                        // semi random score
+                        Stats.stats.addScore(75 * (i + j + 1) + 15);
 
                     }
                     //enemiesRemove.add(i);
@@ -103,9 +106,16 @@ public class GameCalculations {
             try {
 
                 if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-                    myPlayerShip.loseLife();
-                    enemyShots.get(i).shotSound.remove();
-                    enemyShots.remove(i);
+                    if (Stats.stats.getLives() == 0){
+                        System.out.println("Game Over");
+                        //TODO: game over scene.
+                        //gameOver();
+                    }
+                    else{
+                        Stats.stats.loseLife();
+                        enemyShots.get(i).shotSound.remove();
+                        enemyShots.remove(i);
+                    }
                 }
 
                 if (enemyShots.get(i).yPos > AreaCoordinates.AC.getPlayableAreaY()) {

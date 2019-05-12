@@ -62,7 +62,7 @@ public class GameInstance {
         millis = System.currentTimeMillis();
 
         GC.update(millis, myPlayerShip);
-
+        
         //animation?
         
         if (GC.enemies.isEmpty()) { //if no more enemies is left
@@ -74,6 +74,8 @@ public class GameInstance {
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
                 winSound.playOnceReset();
+                
+                Stats.stats.nextLevel();
                 
                 System.out.println("NEXT LEVEL BEGINS");
                 
@@ -101,6 +103,11 @@ public class GameInstance {
 
         theBackground.draw(g2);
 
+        Stats.stats.drawText(g2);
+        Stats.stats.drawLives(g2);
+        Stats.stats.drawScore(g2);
+        Stats.stats.drawLevel(g2);
+        
         myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);

@@ -10,6 +10,12 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     public static int mouseY = 0;
     public static boolean leftButtonDown = false;
     public static boolean rightButtonDown = false;
+    
+    //TODO: 30/40 should be half the width from the playership in a dynamic way
+    // gives the min and max X position
+    private final int minX = 40;
+    private final int maxX = AreaCoordinates.AC.getPlayableAreaX() - 30;
+    
 
     @Override
     public void mousePressed(MouseEvent hændelse) // kræves af MouseListener
@@ -62,10 +68,13 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mouseDragged(MouseEvent hændelse) {
-        int x = AreaCoordinates.AC.getPlayableAreaX();
-        if (hændelse.getX() >= x)
+        
+        if (hændelse.getX() >= maxX)
         {
-            mouseX = x;
+            mouseX = maxX;
+        }
+        else if(hændelse.getX() <= minX){
+            mouseX = minX;
         }
         else
         {
@@ -77,10 +86,12 @@ public class MultiMuselytter extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseMoved(MouseEvent hændelse) {
         //mousePos.x = hændelse.getX();
-        int x = AreaCoordinates.AC.getPlayableAreaX();
-        if (hændelse.getX() >= x)
+        if (hændelse.getX() >= maxX)
         {
-            mouseX = x;
+            mouseX = maxX;
+        }
+        else if(hændelse.getX() <= minX){
+            mouseX = minX;
         }
         else
         {

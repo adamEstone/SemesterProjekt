@@ -11,18 +11,15 @@ package semesterprojekt;
  */
 public class AreaCoordinates {
 
-    //TODO rykkes ind i AreaCoordinates for at lave en singleton, næst bedst metode
+    //rykkes ind i AreaCoordinates for at lave en singleton, næst bedst metode
     static AreaCoordinates AC = new AreaCoordinates();
 
     private int WindowTopOffset = 30;//toppen af vinduet (Title Bar )
 
     private int playableAreaX = 600;
     private int playableAreaY = 700;
-    private int infoAreaX = 200;
+    private int infoAreaX = 230;
     private int infoAreaY = 700;
-
-    AreaCoordinates() {
-    }
 
     public void setPlayableAreaX(int x) {
         playableAreaX = x;
@@ -42,10 +39,6 @@ public class AreaCoordinates {
 
     public void setPlayableAreaY(int playableAreaY) {
         this.playableAreaY = playableAreaY;
-    }
-
-    public void setPlayableAreay(int y) {
-        playableAreaY = y;
     }
 
     public int getPlayableAreaY() {
