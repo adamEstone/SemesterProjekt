@@ -100,10 +100,12 @@ public class GameInstance {
     //DRAW GAME
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
-
-        theBackground.draw(g2);
-
+        
+        //TODO fix
         Stats.stats.drawText(g2);
+        
+        theBackground.draw(g2);
+        
         Stats.stats.drawLives(g2);
         Stats.stats.drawScore(g2);
         Stats.stats.drawLevel(g2);
