@@ -6,14 +6,20 @@ package semesterprojekt;
  */
 public class Stats
 {
-    private int lives = 3;
-    private int weapon = 0;
-    private int level = 1;
-    private int score = 0;
+    // initial values for the player
+    private final int startLevel = 1;
+    private final int startLives = 3;
+    private final int startWeapon = 0;
+    private final int startScore = 0;
+    
+    private int lives = startLives;
+    private int weapon = startWeapon;
+    private int level = startLevel;
+    private int score = startScore;
 
     static Stats stats = new Stats();
 
-    public void setLives(int value)
+    private void setLives(int value)
     {
         lives = value;
     }
@@ -24,16 +30,16 @@ public class Stats
     }
     
     public void resetScore(){
-        score = 0;
+        score = startScore;
     }
     
     public void resetLevel(){
-        level = 1;
+        level = startLevel;
     }
     
     //TODO burde bruge en enum af en slags over våben typer
     public void resetWeapon(){
-        weapon = 0;
+        weapon = startWeapon;
     }
 
     public int getScore()
@@ -43,7 +49,7 @@ public class Stats
 
     public void resetLives()
     {
-        setLives(3);
+        setLives(startLives);
     }
 
     public void loseLife()
