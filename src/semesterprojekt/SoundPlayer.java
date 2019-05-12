@@ -37,13 +37,13 @@ public class SoundPlayer {
 
             if (event.getType() == LineEvent.Type.STOP) {
                 //System.out.println("Lyd er slut!");
-                remove();
+               remove();
             }
         }
     };
 
     public void remove() {
-        this.soundClip.close();
+        if(playOnceVariable){this.soundClip.close();}
     }
 
     public void play(int framePos) {
@@ -78,8 +78,9 @@ public class SoundPlayer {
         }
     }
     
-    public void playOnceReset() {
+    public void playOnceReset() throws LineUnavailableException {
         playOnceVariable=true;
+
     }
 
     public void pause() {
