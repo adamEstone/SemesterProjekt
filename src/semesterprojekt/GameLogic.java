@@ -130,6 +130,9 @@ public class GameLogic {
                     backgroundMusic.play(0);
                     
                     Stats.stats.resetLives();
+                    Stats.stats.resetScore();
+                    Stats.stats.resetLevel();
+                    Stats.stats.resetWeapon();
                     
                     System.out.println("-- New Game started --");
                     
