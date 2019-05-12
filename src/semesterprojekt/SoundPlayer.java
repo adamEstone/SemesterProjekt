@@ -78,7 +78,7 @@ public class SoundPlayer {
         }
     }
     
-    public void playOnceReset() throws LineUnavailableException {
+    public void playOnceReset() {
         playOnceVariable=true;
 
     }

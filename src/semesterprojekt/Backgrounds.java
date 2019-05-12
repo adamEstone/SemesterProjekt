@@ -20,12 +20,12 @@ public class Backgrounds
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
-    private int numberOfStart = 75;
+    private int numberOfStart = 100;
 
     Backgrounds()
     {//cons
 
-        for (int i = 0; i < numberOfStart; i++)
+        for (int i = 0; i < numberOfStart; i++) //opret stjerne objekter
         { //make star objects
             StarPosition.add(new Star());
         }
@@ -145,11 +145,11 @@ public class Backgrounds
                 + AreaCoordinates.AC.getInfoAreaX(),
                 AreaCoordinates.AC.getPlayableAreaY());
 
-        for (Star thisStar : StarPosition)
-        {//tegn og flyt stjerner
+        for (Star thisStar : StarPosition)//tegn og flyt stjerner
+        {
 
             g2.setColor(thisStar.getStarColor());
-            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 2, 2);
+            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 1, 2);
 
             thisStar.move();
 
