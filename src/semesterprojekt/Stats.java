@@ -28,7 +28,7 @@ public class Stats
     }
     
     public void resetLevel(){
-        level = 0;
+        level = 1;
     }
     
     //TODO burde bruge en enum af en slags over våben typer
