@@ -101,14 +101,14 @@ public class GameInstance {
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         
-        //TODO fix
-        Stats.stats.drawText(g2);
-        
+        /////////////don't change the order/////////////
         theBackground.draw(g2);
-        
-        Stats.stats.drawLives(g2);
-        Stats.stats.drawScore(g2);
-        Stats.stats.drawLevel(g2);
+        theBackground.drawLives(g2);
+        theBackground.drawScore(g2);
+        theBackground.drawLevel(g2);
+        theBackground.drawDivider(g2);
+        theBackground.drawText(g2);
+        /////////////don't change the order/////////////
         
         myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
 

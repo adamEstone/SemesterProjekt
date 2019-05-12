@@ -38,7 +38,8 @@ public class Star {
         setBrightness(r.nextInt(255));//random value
         setStarColor(new Color(255, 200, 255, brightness));
 
-        location.x = r.nextInt(AreaCoordinates.AC.getPlayableAreaX());
+        location.x = r.nextInt(AreaCoordinates.AC.getPlayableAreaX() +
+                               AreaCoordinates.AC.getInfoAreaX());
         location.y = r.nextInt(AreaCoordinates.AC.getPlayableAreaY());
 
     }
