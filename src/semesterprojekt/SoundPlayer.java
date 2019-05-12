@@ -37,7 +37,7 @@ public class SoundPlayer {
 
             if (event.getType() == LineEvent.Type.STOP) {
                 //System.out.println("Lyd er slut!");
-                //remove();
+                remove();
             }
         }
     };

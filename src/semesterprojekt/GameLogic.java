@@ -124,7 +124,7 @@ public class GameLogic {
                     break;
 
                 case RestartGameState:
-                    myGameInstance = null;
+                    //myGameInstance = null;
                     myGameInstance = new GameInstance(theWindow);//new bame
 
                     backgroundMusic.play(0);

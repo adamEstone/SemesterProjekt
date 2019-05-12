@@ -104,7 +104,7 @@ public class GameInstance {
         myPlayerShip.setXpos(MultiMuselytter.mouseX-(myPlayerShip.width/2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
-
+        
         for (Enemy enemy : GC.enemies) {
             drawObj(enemy);
         }
