@@ -6,6 +6,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -116,7 +117,7 @@ public class EnemyMoonShooting extends Enemy {
     public void draw(Graphics2D a) {//ryk fjende
         //AffineTransform orgTrans = a.getTransform();
         //a.scale(2,1);          // flyt, skaler og roté
-        BufferedImage theImage = ResourceClass.LoadedSprites.get(spriteID);
+        Image theImage = ResourceClass.LoadedSprites.get(spriteID);
         if (imageDirection == 1) {
             a.drawImage(theImage, this.xPos, this.yPos, this.width, this.height, null);
         } else {

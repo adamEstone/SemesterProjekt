@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Adam & Farzad
  */
-public class Backgrounds
+public class Backgrounds extends BaseObject
 {
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
@@ -50,7 +50,12 @@ public class Backgrounds
             thisStar.move();
 
         }
-
+        
+        drawLives(g2, stats);
+        drawScore(g2);
+        drawLevel(g2);
+        drawDivider(g2);
+        drawText(g2);
     }
 
     public void moveStarsFast(boolean highspeed)

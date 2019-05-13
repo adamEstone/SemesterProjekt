@@ -69,6 +69,9 @@ public class GameInstance {
 
     public void tickGame() {
 
+        myPlayerShip.setXpos(MultiMuselytter.mouseX - 
+                            (myPlayerShip.width / 2));//opdatere rumskibet
+        
         millis = System.currentTimeMillis();
 
         GC.update(millis, myPlayerShip);
@@ -115,17 +118,9 @@ public class GameInstance {
     public void drawGame(Graphics2D bufferedGraphics) {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         
-        /////////////don't change the order/////////////
-        theBackground.draw(g2);
-        Backgrounds.drawLives(g2, stats);
-        theBackground.drawScore(g2);
-        theBackground.drawLevel(g2);
-        theBackground.drawDivider(g2);
-        theBackground.drawText(g2);
-        /////////////don't change the order/////////////
+        drawObj(theBackground);
         
-        myPlayerShip.setXpos(MultiMuselytter.mouseX - 
-                            (myPlayerShip.width / 2));//opdatere rumskibet 
+         
 
         drawObj(myPlayerShip);
         
