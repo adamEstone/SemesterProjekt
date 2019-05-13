@@ -16,8 +16,7 @@ import java.util.ArrayList;
  *
  * @author Adam & Farzad
  */
-public class Backgrounds extends BaseObject
-{
+public class Backgrounds extends BaseObject {
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
