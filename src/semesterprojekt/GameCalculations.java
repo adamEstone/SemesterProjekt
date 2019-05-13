@@ -14,6 +14,8 @@ public class GameCalculations {
     public java.util.List<Enemy> enemies = new ArrayList<>();
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
     public java.util.List<PlayerShot> playerShots = new ArrayList<>();
+    
+    PlayerShip myPlayerShip;
 
     public enum enemyTypes { //mulige typer af fjender
         Ghost,
@@ -76,7 +78,7 @@ public class GameCalculations {
                         playerShots.remove(j);
 
                         // semi random score
-                        Stats.stats.addScore(75 * (i + j + 1) + 15);
+                        myPlayerShip.statsRef.addScore(75 * (i + j + 1) + 15);
 
                     }
 
@@ -88,7 +90,7 @@ public class GameCalculations {
     }
 
     //Objekter der er "døde" bliver fjernet
-    private void removeDeadObjects(PlayerShip myPlayerShip) {
+    private void removeDeadObjects() {
 
         for (int i = 0; i < playerShots.size(); i++) {
 
@@ -102,13 +104,12 @@ public class GameCalculations {
             try {
 
                 if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-                    // rykkes over til playerShip.java
-                    if (Stats.stats.getLives() == 0){
+                    if (myPlayerShip.statsRef.getLives() == 0){
                         System.out.println("Game Over");
                         //TODO: game over scene.
                         //gameOver();
                     } else {
-                        Stats.stats.loseLife();
+                        myPlayerShip.statsRef.loseLife();
                         enemyShots.get(i).shotSound.remove();
                         enemyShots.remove(i);
                     }
@@ -121,6 +122,7 @@ public class GameCalculations {
 
             } catch (Exception e) {
                 System.out.println("Out of bounds");
+                e.printStackTrace();
             }
 
         }
@@ -205,7 +207,7 @@ public class GameCalculations {
             checkEnemyCollision();
             enemyShoot();
             checkEnemyPlayerShotCollision();
-            removeDeadObjects(player);
+            removeDeadObjects();
             
         }
     }

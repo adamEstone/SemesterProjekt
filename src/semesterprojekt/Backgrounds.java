@@ -21,6 +21,7 @@ public class Backgrounds
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
     private int numberOfStart = 100;
+    Stats stats;
 
     Backgrounds()
     {//cons
@@ -105,7 +106,7 @@ public class Backgrounds
     {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
-        g2.drawString(String.valueOf(Stats.stats.getScore()),
+        g2.drawString(String.valueOf(stats.getScore()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 70);
     }
@@ -114,18 +115,18 @@ public class Backgrounds
     {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
-        g2.drawString(String.valueOf(Stats.stats.getLevel()),
+        g2.drawString(String.valueOf(stats.getLevel()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
     }
 
-    public void drawLives(Graphics2D g2)
+    public static void drawLives(Graphics2D g2, Stats stats)
     {
         final int L1 = 20;
         final int L2 = 90;
         final int L3 = 160;
 
-        switch (Stats.stats.getLives())
+        switch (stats.getLives())
         {
             case 1:
                 drawShipLives(g2, L1);
@@ -144,7 +145,7 @@ public class Backgrounds
         }
     }
 
-    protected void drawShipLives(Graphics2D g2, int offset)
+    protected static void drawShipLives(Graphics2D g2, int offset)
     {
         BufferedImage image = new BufferedImage(80, 60, BufferedImage.TYPE_INT_ARGB);
 

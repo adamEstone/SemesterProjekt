@@ -47,14 +47,18 @@ public class GameInstance {
     
     private Stats stats = new Stats();
     
+    
+    
     private boolean levelHasChanged = false;//
 
     
-    GameInstance(AktivVisning theWindow) {//constructor  or new game
+    GameInstance (AktivVisning theWindow) {//constructor  or new game
 
         myPlayerShip.statsRef = stats;
         gameWindow = theWindow;
-
+        GC.myPlayerShip = myPlayerShip;
+        theBackground.stats = stats;
+        
         GC.spawnEnemies(6, 0);
 
         System.out.println(GC.enemies.size());
@@ -113,7 +117,7 @@ public class GameInstance {
         
         /////////////don't change the order/////////////
         theBackground.draw(g2);
-        theBackground.drawLives(g2);
+        Backgrounds.drawLives(g2, stats);
         theBackground.drawScore(g2);
         theBackground.drawLevel(g2);
         theBackground.drawDivider(g2);
