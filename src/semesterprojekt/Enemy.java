@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class Enemy extends BaseObject {
 
-    public int spriteID = 0;
+    private int spriteID = 0;
     private BufferedImage TheImage;
 
     private double lives = 1.0;
@@ -59,6 +59,26 @@ public class Enemy extends BaseObject {
 
     public void setLives(double lives) {
         this.lives = lives;
+    }
+    
+    public int getXpos(){
+        return xPos;
+    }
+    
+    public int getYpos(){
+        return yPos;
+    }
+    
+        public void setxPos(int x){
+        xPos = x;
+    }
+    
+    public void setyPos(int y){
+        yPos = y;
+    }
+    
+    public int getSpriteID(){
+        return spriteID;
     }
 
 }
