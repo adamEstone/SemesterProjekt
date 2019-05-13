@@ -58,20 +58,14 @@ public class Animation extends BaseObject {
         currentMillis = System.currentTimeMillis();
         millisPrFrame = millisPrFrame_in;
 
-        try {
-
-            spriteSheet = ImageIO.read(new File("src/semesterprojekt/sprites/exp0.png"));
-            spriteSheet = spriteSheet.getScaledInstance(width * framesX, width * framesY, 0);
-
-        } catch (Exception e) {
-            System.out.println("EEEEEERRRRRRROOOOOOORRRRRRR!!!!!");
-        }
+        spriteSheet = ResourceClass.LoadedSprites.get(5);//get spritesheet
+        spriteSheet = spriteSheet.getScaledInstance(width * framesX, width * framesY, 0); //change to size of explosion
 
     }
 
     public boolean hasEnded() {
         if (currentFrame == (framesX * framesY)) {
-             System.out.println("DOOONEE!!");
+            System.out.println("DOOONEE!!");
             return true;
         }
         return false;
@@ -83,7 +77,7 @@ public class Animation extends BaseObject {
 
         if (millis > millisPrFrame + currentMillis) {
             currentMillis = millis;
-                        currentFrame++;
+            currentFrame++;
             currentFrameXpos++;
 
             if (currentFrameXpos % 4 == 0) {
@@ -91,16 +85,14 @@ public class Animation extends BaseObject {
                 currentFrameYpos++;
             }
 
-
-            
         }
 
     }
 
     public void draw(Graphics2D g2) {
-        
-        run();
-        
+
+        run(); //Update currentFrameXpos, currentFrameYpos if time has passed
+
         g2.drawImage(spriteSheet,
                 xPos, yPos,
                 xPos + width, yPos + height,
