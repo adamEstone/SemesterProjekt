@@ -10,7 +10,7 @@ public class PlayerShip extends BaseObject {
 
     public int spriteID = 0;
     private Image theImage=ResourceClass.LoadedSprites.get(spriteID);
-
+    public Stats statsRef;
     
     public PlayerShip(int x, int y, int w, int h) {
 

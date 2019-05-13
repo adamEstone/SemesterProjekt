@@ -17,7 +17,12 @@ public class Stats
     private int level = startLevel;
     private int score = startScore;
 
-    static Stats stats = new Stats();
+    Stats(){
+        resetLevel();
+        resetLives();
+        resetScore();
+        resetWeapon();
+    }
 
     private void setLives(int value)
     {

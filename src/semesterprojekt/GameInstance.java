@@ -48,13 +48,21 @@ public class GameInstance {
     private Backgrounds theBackground = new Backgrounds();
 
     private Random r = new Random();
-
+    
+    private Stats stats = new Stats();
+    
+    
+    
     private boolean levelHasChanged = false;//
 
-    GameInstance(AktivVisning theWindow) {//constructor  or new game
+    
+    GameInstance (AktivVisning theWindow) {//constructor  or new game
 
+        myPlayerShip.statsRef = stats;
         gameWindow = theWindow;
-
+        GC.myPlayerShipRef = myPlayerShip;
+        theBackground.stats = stats;
+        
         GC.spawnEnemies(6, 0);
 
         System.out.println(GC.enemies.size());
@@ -85,11 +93,11 @@ public class GameInstance {
                 tempMillis = millis;
                 levelHasChanged = false;
                 //winSound.playOnceReset();
-
-                Stats.stats.nextLevel();
-
-                System.out.println("NEXT LEVEL BEGINS");
-
+                
+                stats.nextLevel();
+                
+                System.out.println("NEXT LEVEL BEGINS");           
+                
                 theBackground.moveStarsFast(false);
                 //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
                 GC.spawnEnemies(1 + r.nextInt(7), r.nextInt(8));
@@ -113,18 +121,8 @@ public class GameInstance {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         
         drawObj(theBackground);
-        
-        /////////////don't change the order/////////////
-        theBackground.draw(g2);
-        theBackground.drawLives(g2);
-        theBackground.drawScore(g2);
-        theBackground.drawLevel(g2);
-        theBackground.drawDivider(g2);
-        theBackground.drawText(g2);
-        /////////////don't change the order/////////////
 
-        myPlayerShip.setXpos(MultiMuselytter.mouseX
-                - (myPlayerShip.width / 2));//opdatere rumskibet 
+        myPlayerShip.setXpos(MultiMuselytter.mouseX  - (myPlayerShip.width / 2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
 

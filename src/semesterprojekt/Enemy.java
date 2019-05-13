@@ -14,8 +14,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends BaseObject {
-    
-    public int spriteID = 0;
+
+    private int spriteID = 0;
     private BufferedImage TheImage;
 
     private double lives = 1.0;
@@ -61,6 +61,26 @@ public class Enemy extends BaseObject {
 
     public void setLives(double lives) {
         this.lives = lives;
+    }
+    
+    public int getXpos(){
+        return xPos;
+    }
+    
+    public int getYpos(){
+        return yPos;
+    }
+    
+        public void setXpos(int x){
+        xPos = x;
+    }
+    
+    public void setYpos(int y){
+        yPos = y;
+    }
+    
+    public int getSpriteID(){
+        return spriteID;
     }
 
 }

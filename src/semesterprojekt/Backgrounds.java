@@ -21,6 +21,7 @@ public class Backgrounds extends BaseObject {
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
     private int numberOfStart = 100;
+    Stats stats;
 
     Backgrounds() {//cons
 
@@ -47,6 +48,15 @@ public class Backgrounds extends BaseObject {
             thisStar.move();
 
         }
+        
+        /////////////don't change the order/////////////
+        //draw(g2);
+        drawLives(g2, stats);
+        drawScore(g2);
+        drawLevel(g2);
+        drawDivider(g2);
+        drawText(g2);
+        /////////////don't change the order/////////////
 
     }
 
@@ -98,7 +108,7 @@ public class Backgrounds extends BaseObject {
     public void drawScore(Graphics2D g2) {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
-        g2.drawString(String.valueOf(Stats.stats.getScore()),
+        g2.drawString(String.valueOf(stats.getScore()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 70);
     }
@@ -106,17 +116,19 @@ public class Backgrounds extends BaseObject {
     public void drawLevel(Graphics2D g2) {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
-        g2.drawString(String.valueOf(Stats.stats.getLevel()),
+        g2.drawString(String.valueOf(stats.getLevel()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
     }
 
-    public void drawLives(Graphics2D g2) {
+    public void drawLives(Graphics2D g2, Stats stats)
+    {
         final int L1 = 20;
         final int L2 = 90;
         final int L3 = 160;
 
-        switch (Stats.stats.getLives()) {
+        switch (stats.getLives())
+        {
             case 1:
                 drawShipLives(g2, L1);
                 break;
