@@ -1,12 +1,12 @@
 package semesterprojekt;
 
 import java.util.Random;
-
 import java.util.ArrayList;
 
 /**
+ * Denne klasse står for beregninger af Collision detection mellem fjender og
+ * skud, samt deres bevægelse
  *
- * @author Mads
  */
 public class GameCalculations {
 
@@ -23,7 +23,7 @@ public class GameCalculations {
     long oldMillisShoot = 0;
     long oldMillisMove = 0;
 
-    //GameObjects functions
+    //Collision detection mellem fjender
     private void checkEnemyCollision() {
         for (int i = 0; i < enemies.size(); i++) {
 
@@ -31,39 +31,35 @@ public class GameCalculations {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                   //if (enemies.get(i).bounds().x != enemies.get(j).bounds().x && enemies.get(i).bounds().y != enemies.get(j).bounds().y) {
-                    //System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOF");
-                    
-                    if (enemies.get(i).spriteID != 4) {
-                        enemies.get(i).changeDirection();    
+                    if (enemies.get(i).getSpriteID() != 4) {
+                        enemies.get(i).changeDirection();
                     }
-                    
-                    if (enemies.get(j).spriteID != 4) {
-                        enemies.get(j).changeDirection();    
+
+                    if (enemies.get(j).getSpriteID() != 4) {
+                        enemies.get(j).changeDirection();
                     }
-                    
-                    if ( enemies.get(i).xPos < enemies.get(j).xPos) {
-                        enemies.get(i).xPos = enemies.get(i).xPos -2;
-                        enemies.get(j).xPos = enemies.get(j).xPos +2;
-                    } else{
-                        enemies.get(i).xPos = enemies.get(i).xPos +2;
-                        enemies.get(j).xPos = enemies.get(j).xPos -2;
+
+                    if (enemies.get(i).getXpos() < enemies.get(j).getXpos()) {
+                        enemies.get(i).setxPos(enemies.get(i).getXpos() - 2);
+                        enemies.get(j).setxPos(enemies.get(j).getXpos() + 2);
+                    } else {
+                        enemies.get(i).setxPos(enemies.get(i).getXpos() + 2);
+                        enemies.get(j).setxPos(enemies.get(j).getXpos() - 2);
                     }
-                    
-                    if ( enemies.get(i).yPos < enemies.get(j).yPos) {
-                        enemies.get(i).yPos = enemies.get(i).yPos -2;
-                        enemies.get(j).yPos = enemies.get(j).yPos +2;
-                    } else{
-                        enemies.get(i).yPos = enemies.get(i).yPos +2;
-                        enemies.get(j).yPos = enemies.get(j).yPos -2;
+
+                    if (enemies.get(i).getYpos() < enemies.get(j).getYpos()) {
+                        enemies.get(i).setyPos(enemies.get(i).getYpos() - 2);
+                        enemies.get(j).setyPos(enemies.get(j).getYpos() + 2);
+                    } else {
+                        enemies.get(i).setyPos(enemies.get(i).getYpos() + 2);
+                        enemies.get(j).setyPos(enemies.get(j).getYpos() - 2);
                     }
-                    
-                    //}
                 }
             }
         }
     }
 
+    //Collision detection mellem fjender og spillerens skud
     private void checkEnemyPlayerShotCollision() {
 
         for (int i = 0; i < enemies.size(); i++) {
@@ -72,18 +68,17 @@ public class GameCalculations {
                 try {
 
                     if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-                        
+
                         enemies.get(i).explode();
+
                         enemies.remove(i);
-                        
+
                         playerShots.remove(j);
-                        
+
                         // semi random score
                         Stats.stats.addScore(75 * (i + j + 1) + 15);
 
                     }
-                    //enemiesRemove.add(i);
-                    //shotsRemove.add(j);
 
                 } catch (Exception e) {
                     System.out.println("Et skud ramte 2 fjender, eller en fjende ramte 2 skud. Out of bounds bliver ignoreret.");
@@ -92,13 +87,14 @@ public class GameCalculations {
         }
     }
 
+    //Objekter der er "døde" bliver fjernet
     private void removeDeadObjects(PlayerShip myPlayerShip) {
 
         for (int i = 0; i < playerShots.size(); i++) {
 
-            if (playerShots.get(i).yPos < 0) {
-               playerShots.get(i).shotSound.remove();
-               playerShots.remove(i);
+            if (playerShots.get(i).getYpos() < 0) {
+                playerShots.get(i).shotSound.remove();
+                playerShots.remove(i);
             }
         }
 
@@ -111,15 +107,14 @@ public class GameCalculations {
                         System.out.println("Game Over");
                         //TODO: game over scene.
                         //gameOver();
-                    }
-                    else{
+                    } else {
                         Stats.stats.loseLife();
                         enemyShots.get(i).shotSound.remove();
                         enemyShots.remove(i);
                     }
                 }
 
-                if (enemyShots.get(i).yPos > AreaCoordinates.AC.getPlayableAreaY()) {
+                if (enemyShots.get(i).getYpos() > AreaCoordinates.AC.getPlayableAreaY()) {
                     enemyShots.get(i).shotSound.remove();
                     enemyShots.remove(i);
                 }
@@ -132,19 +127,22 @@ public class GameCalculations {
 
     }
 
+    //Tilføjelse af skud fra en fjende
     private void enemyShoot() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).shoot() == true) {
-                enemyShots.add(new EnemyShot(enemies.get(i).xPos+(25/2), enemies.get(i).yPos,25,40));
+                enemyShots.add(new EnemyShot(enemies.get(i).getXpos() + (25 / 2), enemies.get(i).getYpos(), 25, 40));
             }
         }
     }
 
+    //Spawn fjender ind i start af en level
     public void spawnEnemies(int i, int j) {
         generateEnemies(i, enemyTypes.Ghost);
         generateEnemies(j, enemyTypes.Moon);
     }
 
+    //Generere fjender tilfældigt på skærmen
     public void generateEnemies(int numberOfEnemies, enemyTypes typeOfEnemy) {
 
         int minX = 2;
@@ -161,8 +159,8 @@ public class GameCalculations {
 
                     randX = r.nextInt(maxX - minX) + minX;
                     randY = r.nextInt(maxY - minY) + minY;
-                    int size = r.nextInt(20);           
-                    enemies.add(new EnemyGhostShooting(randX, randY,30+size,30+size));//add the enemy to the array of enemies
+                    int size = r.nextInt(20);
+                    enemies.add(new EnemyGhostShooting(randX, randY, 30 + size, 30 + size));//add the enemy to the array of enemies
                 }
 
                 break;
@@ -173,35 +171,37 @@ public class GameCalculations {
 
                     randX = r.nextInt(maxX - minX) + minX;
                     randY = r.nextInt(maxY - minY) + minY;
-                    
+
                     int size = r.nextInt(20);
 
-                    enemies.add(new EnemyMoonShooting(randX, randY,30+size,30+size));//add the enemy to the array of enemies
+                    enemies.add(new EnemyMoonShooting(randX, randY, 30 + size, 30 + size));//add the enemy to the array of enemies
                 }
 
                 break;
         }
     }
 
+    //Generere spillerens skud
     private void playerShoot(int delayms, long millis, int xPos, int yPos) {
 
         if (MultiMuselytter.leftButtonDown == true) {
 
             if ((oldMillisShoot + delayms) <= millis) {
                 oldMillisShoot = millis;
-                playerShots.add(new PlayerShot(xPos-(30/2), yPos,30,40));
+                playerShots.add(new PlayerShot(xPos - (30 / 2), yPos, 30, 40));
             }
         }
     }
-        
+
+    //Kalder divers funktioner hvert game tick
     void update(long millis, PlayerShip player) {
         if ((oldMillisMove + 8) <= millis) {
-            oldMillisMove=millis;
+            oldMillisMove = millis;
             enemies.forEach((enemy) -> enemy.move());
             enemyShots.forEach((EnemyShot) -> EnemyShot.move());
             playerShots.forEach((playerShot) -> playerShot.move());
 
-            playerShoot(250, millis, player.xPos+(player.width/2), player.yPos);
+            playerShoot(250, millis, player.getXpos() + (player.width / 2), player.getYpos());
             checkEnemyCollision();
             enemyShoot();
             checkEnemyPlayerShotCollision();
