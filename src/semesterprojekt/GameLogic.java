@@ -49,7 +49,6 @@ public class GameLogic {
         Calendar calendar = Calendar.getInstance(); //bruges til at aflæse tid
 
         theGame();
-
     }
 
     private void theGame() {

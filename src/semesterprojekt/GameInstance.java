@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.WindowConstants;
 
 /**
@@ -37,12 +41,12 @@ public class GameInstance {
 
     Graphics2D g2;
 
-    private PlayerShip myPlayerShip = new PlayerShip(300, 600,60,70);
+    private PlayerShip myPlayerShip = new PlayerShip(300, 600, 60, 70);
 
     private AktivVisning gameWindow;
 
     private Backgrounds theBackground = new Backgrounds();
-    
+
     private Random r = new Random();
     
     private Stats stats = new Stats();
@@ -56,7 +60,7 @@ public class GameInstance {
 
         myPlayerShip.statsRef = stats;
         gameWindow = theWindow;
-        GC.myPlayerShip = myPlayerShip;
+        GC.myPlayerShipRef = myPlayerShip;
         theBackground.stats = stats;
         
         GC.spawnEnemies(6, 0);
@@ -75,23 +79,22 @@ public class GameInstance {
         millis = System.currentTimeMillis();
 
         GC.update(millis, myPlayerShip);
-        
+
         //animation?
-        
         if (GC.enemies.isEmpty()) { //if no more enemies is left
-            
-            if(!levelHasChanged){ //only run once due to levelHasChanged variable
-            levelHasChanged=true;//level just changed
-            
-            theBackground.moveStarsFast(true);
-            SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
-            winSound.play(0);
-            
+
+            if (!levelHasChanged) { //only run once due to levelHasChanged variable
+                levelHasChanged = true;//level just changed
+
+                theBackground.moveStarsFast(true);
+                SoundPlayer winSound = new SoundPlayer("WinLevel.wav");
+                winSound.play(0);
+
             }
-            
+
             if (tempMillis + 3000 < millis) {
                 tempMillis = millis;
-                levelHasChanged=false;
+                levelHasChanged = false;
                 //winSound.playOnceReset();
                 
                 stats.nextLevel();
@@ -100,12 +103,14 @@ public class GameInstance {
                 
                 theBackground.moveStarsFast(false);
                 //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
-                GC.spawnEnemies(1+r.nextInt(7), r.nextInt(8));
-                
+                GC.spawnEnemies(1 + r.nextInt(7), r.nextInt(8));
+
             }
-            
+
             //GC.generateEnemies(2, GameCalculations.enemyTypes.Moon);
-        }else{tempMillis = millis;} //next level
+        } else {
+            tempMillis = millis;
+        } //next level
 
     }
 
@@ -119,11 +124,11 @@ public class GameInstance {
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
         
         drawObj(theBackground);
-        
-         
+
+        myPlayerShip.setXpos(MultiMuselytter.mouseX  - (myPlayerShip.width / 2));//opdatere rumskibet 
 
         drawObj(myPlayerShip);
-        
+
         for (Enemy enemy : GC.enemies) {
             drawObj(enemy);
         }
@@ -136,39 +141,60 @@ public class GameInstance {
             drawObj(shot);
         }
 
+        /*if(!exlosion.hasEnded()){
+            exlosion.run();
+            drawObj(exlosion);
+        }*/
+ /*for (Animation thisExplosion : GC.explotions) {///!! ny
+
+            if (!thisExplosion.hasEnded()) {
+                drawObj(thisExplosion);
+            }
+            GC.explotions.remove();
+
+        }*/
+        Iterator<Animation> iterator = GC.explotions.iterator();
+        while (iterator.hasNext()) {
+            Animation next = iterator.next();
+            if (!next.hasEnded()) {
+                drawObj(next);
+            } else {
+                iterator.remove();
+            }
+        }
         //enemies.forEach((enemy) -> enemy.draw(tempG2D));
     }
 
     //DRAW MENU
-    private final int menuButtonWidth = 
-            AreaCoordinates.AC.getMenuButtonWidth();
-    
-    private final int menuButtonHeight = 
-            AreaCoordinates.AC.getMenuButtonHeight();
+    private final int menuButtonWidth
+            = AreaCoordinates.AC.getMenuButtonWidth();
+
+    private final int menuButtonHeight
+            = AreaCoordinates.AC.getMenuButtonHeight();
 
     private final MenuButton btnResume = new MenuButton(
-                AreaCoordinates.AC.getA(),
-                AreaCoordinates.AC.getB(50),
-                menuButtonWidth,
-                menuButtonHeight,
-                "Resume",
-                38);
+            AreaCoordinates.AC.getA(),
+            AreaCoordinates.AC.getB(50),
+            menuButtonWidth,
+            menuButtonHeight,
+            "Resume",
+            38);
 
     private final MenuButton btnNewGame = new MenuButton(
-                AreaCoordinates.AC.getA(),
-                AreaCoordinates.AC.getB(120),
-                menuButtonWidth,
-                menuButtonHeight,
-                "New Game",
-                48);
+            AreaCoordinates.AC.getA(),
+            AreaCoordinates.AC.getB(120),
+            menuButtonWidth,
+            menuButtonHeight,
+            "New Game",
+            48);
 
     private final MenuButton btnQuit = new MenuButton(
-                AreaCoordinates.AC.getA(),
-                AreaCoordinates.AC.getB(190),
-                menuButtonWidth,
-                menuButtonHeight,
-                "Quit",
-                20);
+            AreaCoordinates.AC.getA(),
+            AreaCoordinates.AC.getB(190),
+            menuButtonWidth,
+            menuButtonHeight,
+            "Quit",
+            20);
 
     private void drawMenuBackground(Graphics2D bufferedGraphics) {
 

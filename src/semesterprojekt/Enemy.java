@@ -22,6 +22,8 @@ public class Enemy extends BaseObject {
     private int weapon = 0;
 
     public int moveSpeed = 1;
+    
+    public int explosionSize=10;
 
     public void move() {//ryk fjende
 
@@ -32,9 +34,9 @@ public class Enemy extends BaseObject {
         return null;
     }
     
-    public void explode() {
+    public Animation explode() {
         
-        
+        return null;
     }
 
     public Boolean shoot() {
@@ -69,11 +71,11 @@ public class Enemy extends BaseObject {
         return yPos;
     }
     
-        public void setxPos(int x){
+        public void setXpos(int x){
         xPos = x;
     }
     
-    public void setyPos(int y){
+    public void setYpos(int y){
         yPos = y;
     }
     

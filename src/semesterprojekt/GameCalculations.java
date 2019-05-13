@@ -14,9 +14,10 @@ public class GameCalculations {
     public java.util.List<Enemy> enemies = new ArrayList<>();
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
     public java.util.List<PlayerShot> playerShots = new ArrayList<>();
-    
-    PlayerShip myPlayerShip;
+    public java.util.List<Animation> explotions = new ArrayList<>();
 
+    public PlayerShip myPlayerShipRef;
+    
     public enum enemyTypes { //mulige typer af fjender
         Ghost,
         Moon,
@@ -42,19 +43,19 @@ public class GameCalculations {
                     }
 
                     if (enemies.get(i).getXpos() < enemies.get(j).getXpos()) {
-                        enemies.get(i).setxPos(enemies.get(i).getXpos() - 2);
-                        enemies.get(j).setxPos(enemies.get(j).getXpos() + 2);
+                        enemies.get(i).setXpos(enemies.get(i).getXpos() - 2);
+                        enemies.get(j).setXpos(enemies.get(j).getXpos() + 2);
                     } else {
-                        enemies.get(i).setxPos(enemies.get(i).getXpos() + 2);
-                        enemies.get(j).setxPos(enemies.get(j).getXpos() - 2);
+                        enemies.get(i).setXpos(enemies.get(i).getXpos() + 2);
+                        enemies.get(j).setXpos(enemies.get(j).getXpos() - 2);
                     }
 
                     if (enemies.get(i).getYpos() < enemies.get(j).getYpos()) {
-                        enemies.get(i).setyPos(enemies.get(i).getYpos() - 2);
-                        enemies.get(j).setyPos(enemies.get(j).getYpos() + 2);
+                        enemies.get(i).setYpos(enemies.get(i).getYpos() - 2);
+                        enemies.get(j).setYpos(enemies.get(j).getYpos() + 2);
                     } else {
-                        enemies.get(i).setyPos(enemies.get(i).getYpos() + 2);
-                        enemies.get(j).setyPos(enemies.get(j).getYpos() - 2);
+                        enemies.get(i).setYpos(enemies.get(i).getYpos() + 2);
+                        enemies.get(j).setYpos(enemies.get(j).getYpos() - 2);
                     }
                 }
             }
@@ -70,15 +71,13 @@ public class GameCalculations {
                 try {
 
                     if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-
-                        enemies.get(i).explode();
-
+                        
+                        explotions.add(enemies.get(i).explode());
                         enemies.remove(i);
-
                         playerShots.remove(j);
 
                         // semi random score
-                        myPlayerShip.statsRef.addScore(75 * (i + j + 1) + 15);
+                        myPlayerShipRef.statsRef.addScore(75 * (i + j + 1) + 15);
 
                     }
 
@@ -103,13 +102,13 @@ public class GameCalculations {
         for (int i = 0; i < enemyShots.size(); i++) {
             try {
 
-                if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
-                    if (myPlayerShip.statsRef.getLives() == 0){
+                if (myPlayerShipRef.bounds().intersects(enemyShots.get(i).bounds())) {
+                    if (myPlayerShipRef.statsRef.getLives() == 0){
                         System.out.println("Game Over");
                         //TODO: game over scene.
                         //gameOver();
                     } else {
-                        myPlayerShip.statsRef.loseLife();
+                        myPlayerShipRef.statsRef.loseLife();
                         enemyShots.get(i).shotSound.remove();
                         enemyShots.remove(i);
                     }
@@ -208,6 +207,7 @@ public class GameCalculations {
             enemyShoot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects();
+            
             
         }
     }
