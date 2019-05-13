@@ -40,19 +40,19 @@ public class GameCalculations {
                     }
 
                     if (enemies.get(i).getXpos() < enemies.get(j).getXpos()) {
-                        enemies.get(i).setxPos(enemies.get(i).getXpos() - 2);
-                        enemies.get(j).setxPos(enemies.get(j).getXpos() + 2);
+                        enemies.get(i).setXpos(enemies.get(i).getXpos() - 2);
+                        enemies.get(j).setXpos(enemies.get(j).getXpos() + 2);
                     } else {
-                        enemies.get(i).setxPos(enemies.get(i).getXpos() + 2);
-                        enemies.get(j).setxPos(enemies.get(j).getXpos() - 2);
+                        enemies.get(i).setXpos(enemies.get(i).getXpos() + 2);
+                        enemies.get(j).setXpos(enemies.get(j).getXpos() - 2);
                     }
 
                     if (enemies.get(i).getYpos() < enemies.get(j).getYpos()) {
-                        enemies.get(i).setyPos(enemies.get(i).getYpos() - 2);
-                        enemies.get(j).setyPos(enemies.get(j).getYpos() + 2);
+                        enemies.get(i).setYpos(enemies.get(i).getYpos() - 2);
+                        enemies.get(j).setYpos(enemies.get(j).getYpos() + 2);
                     } else {
-                        enemies.get(i).setyPos(enemies.get(i).getYpos() + 2);
-                        enemies.get(j).setyPos(enemies.get(j).getYpos() - 2);
+                        enemies.get(i).setYpos(enemies.get(i).getYpos() + 2);
+                        enemies.get(j).setYpos(enemies.get(j).getYpos() - 2);
                     }
                 }
             }
@@ -206,6 +206,7 @@ public class GameCalculations {
             enemyShoot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects(player);
+            
             
         }
     }

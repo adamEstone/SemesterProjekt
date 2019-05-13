@@ -69,11 +69,11 @@ public class Enemy extends BaseObject {
         return yPos;
     }
     
-        public void setxPos(int x){
+        public void setXpos(int x){
         xPos = x;
     }
     
-    public void setyPos(int y){
+    public void setYpos(int y){
         yPos = y;
     }
     
