@@ -52,9 +52,14 @@ public class EnemyMoonShooting extends Enemy {
     }
 
     @Override
-    public void explode() {
+    public Animation explode() {
+        
         SoundPlayer ExplosionSound = new SoundPlayer("Explosion.wav");
         ExplosionSound.play(0);
+        
+        Animation explosion = new Animation(xPos-20,yPos-20,width+40,height+40,4,4,20);
+                
+        return explosion;
     }
 
     @Override
@@ -113,10 +118,9 @@ public class EnemyMoonShooting extends Enemy {
     }
 
     @Override
-    public void draw(Graphics2D a) {//ryk fjende
-        //AffineTransform orgTrans = a.getTransform();
-        //a.scale(2,1);          // flyt, skaler og roté
-        BufferedImage theImage = ResourceClass.LoadedSprites.get(spriteID);
+    public void draw(Graphics2D a) {//tegn
+
+        BufferedImage theImage = (BufferedImage)ResourceClass.LoadedSprites.get(spriteID);
         if (imageDirection == 1) {
             a.drawImage(theImage, this.xPos, this.yPos, this.width, this.height, null);
         } else {

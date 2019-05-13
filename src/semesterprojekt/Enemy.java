@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends BaseObject {
-
+    
     public int spriteID = 0;
     private BufferedImage TheImage;
 
@@ -22,6 +22,8 @@ public class Enemy extends BaseObject {
     private int weapon = 0;
 
     public int moveSpeed = 1;
+    
+    public int explosionSize=10;
 
     public void move() {//ryk fjende
 
@@ -32,9 +34,9 @@ public class Enemy extends BaseObject {
         return null;
     }
     
-    public void explode() {
+    public Animation explode() {
         
-        
+        return null;
     }
 
     public Boolean shoot() {

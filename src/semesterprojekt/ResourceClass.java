@@ -1,6 +1,7 @@
 package semesterprojekt;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,16 +17,19 @@ import javax.sound.sampled.Clip;
  */
 public class ResourceClass {
 
-    public static java.util.List<BufferedImage> LoadedSprites = new ArrayList<>();
+    public static java.util.List<Image> LoadedSprites = new ArrayList<>();
     public static java.util.List<Clip> LoadedSounds = new ArrayList<>();
+    public String spriteSti = "src/semesterprojekt/sprites/"; //mappen stien med sprites
 
     ResourceClass() {
         System.out.println("LOADING:");
-        LoadSprite("shipA1.png");
-        LoadSprite("EnemyShip1.png",48,48);
-        LoadSprite("Beam1.png",30,60);
-        LoadSprite("Beam2.png",30,60);
-        LoadSprite("moon_look_rightV2.png",48,48);
+        LoadSprite(spriteSti+"shipA1.png");
+        LoadSprite(spriteSti+"EnemyShip1.png",48,48);
+        LoadSprite(spriteSti+"Beam1.png",30,60);
+        LoadSprite(spriteSti+"Beam2.png",30,60);
+        LoadSprite(spriteSti+"moon_look_rightV2.png",48,48);
+        LoadSprite(spriteSti+"exp0.png");
+        
     }
     
     public static void LoadSprite(String spriteString) {//læg
@@ -47,7 +51,6 @@ public class ResourceClass {
 
     public static void LoadSprite(String spriteString,int spriteWidth,int spriteHeight) {//læg
 
-        
         try {//prøv at hente billede fra disken
 
             BufferedImage TempImg = ImageIO.read(new File(spriteString));
@@ -66,7 +69,6 @@ public class ResourceClass {
     public static void LoadSound(String soundString) {//læg
 
     }
-    
     
     //http://www.java2s.com/Tutorials/Java/Graphics_How_to/Image/Resize_image.htm
     public static BufferedImage resize(int targetWidth, int targetHeight,

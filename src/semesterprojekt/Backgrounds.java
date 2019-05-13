@@ -8,6 +8,7 @@ package semesterprojekt;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -15,15 +16,13 @@ import java.util.ArrayList;
  *
  * @author Adam & Farzad
  */
-public class Backgrounds
-{
+public class Backgrounds extends BaseObject {
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
     private int numberOfStart = 100;
 
-    Backgrounds()
-    {//cons
+    Backgrounds() {//cons
 
         for (int i = 0; i < numberOfStart; i++) //opret stjerne objekter
         { //make star objects
@@ -31,9 +30,8 @@ public class Backgrounds
         }
 
     }
-    
-        public void draw(Graphics2D g2)
-    {
+
+    public void draw(Graphics2D g2) {
 
         g2.setColor(Color.BLACK);//tegn sort skærm
         g2.fillRect(0, 0, AreaCoordinates.AC.getPlayableAreaX()
@@ -52,16 +50,13 @@ public class Backgrounds
 
     }
 
-    public void moveStarsFast(boolean highspeed)
-    {
-        for (Star thisStar : StarPosition)
-        {
+    public void moveStarsFast(boolean highspeed) {
+        for (Star thisStar : StarPosition) {
             thisStar.setSpeedUp(highspeed);
         }
     }
 
-    public void drawDivider(Graphics2D g2)
-    {
+    public void drawDivider(Graphics2D g2) {
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(AreaCoordinates.AC.getPlayableAreaX(),
                 0,
@@ -69,8 +64,7 @@ public class Backgrounds
                 AreaCoordinates.AC.getInfoAreaY());
     }
 
-    public void drawText(Graphics2D g2)
-    {
+    public void drawText(Graphics2D g2) {
         // score
         g2.setColor(Color.RED);
         g2.setFont(new Font("Algerian", Font.PLAIN, 40));
@@ -101,8 +95,7 @@ public class Backgrounds
 
     }
 
-    public void drawScore(Graphics2D g2)
-    {
+    public void drawScore(Graphics2D g2) {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
         g2.drawString(String.valueOf(Stats.stats.getScore()),
@@ -110,8 +103,7 @@ public class Backgrounds
                 AreaCoordinates.AC.getWindowTopOffset() + 70);
     }
 
-    public void drawLevel(Graphics2D g2)
-    {
+    public void drawLevel(Graphics2D g2) {
         g2.setColor(Color.LIGHT_GRAY);
         g2.setFont(new Font("Algerian", Font.PLAIN, 25));
         g2.drawString(String.valueOf(Stats.stats.getLevel()),
@@ -119,14 +111,12 @@ public class Backgrounds
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
     }
 
-    public void drawLives(Graphics2D g2)
-    {
+    public void drawLives(Graphics2D g2) {
         final int L1 = 20;
         final int L2 = 90;
         final int L3 = 160;
 
-        switch (Stats.stats.getLives())
-        {
+        switch (Stats.stats.getLives()) {
             case 1:
                 drawShipLives(g2, L1);
                 break;
@@ -144,27 +134,17 @@ public class Backgrounds
         }
     }
 
-    protected void drawShipLives(Graphics2D g2, int offset)
-    {
-        BufferedImage image = new BufferedImage(80, 60, BufferedImage.TYPE_INT_ARGB);
+    protected void drawShipLives(Graphics2D g2, int offset) {
 
-        try
-        {
-            image = ResourceClass.LoadedSprites.get(0);
-            image = ResourceClass.resize(60, 70, image);
-
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        Image image = (BufferedImage) ResourceClass.LoadedSprites.get(0);
+        //image = ResourceClass.resize(60, 70, image);
 
         g2.drawImage(image,
                 AreaCoordinates.AC.getPlayableAreaX() + offset,
                 AreaCoordinates.AC.getInfoAreaY() - 100,
+                60/2,70/2, //half size as original
                 null);
 
     }
-
-
 
 }

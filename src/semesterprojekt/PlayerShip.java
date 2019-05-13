@@ -1,13 +1,15 @@
 package semesterprojekt;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+
 
 public class PlayerShip extends BaseObject {
 
     public int spriteID = 0;
-    private BufferedImage TheImage;
+    private Image theImage=ResourceClass.LoadedSprites.get(spriteID);
 
     
     public PlayerShip(int x, int y, int w, int h) {
@@ -18,12 +20,9 @@ public class PlayerShip extends BaseObject {
         height = h;
 
     }
-
-    @Override
-    public void draw(Graphics2D G2D) {
-
-        G2D.drawImage(ResourceClass.LoadedSprites.get(spriteID), xPos, yPos,width,height, null);
-        
+    
+    public void draw(Graphics2D G2D) {                        
+        G2D.drawImage(theImage, xPos, yPos, width, height, null);
     }
 
     public void loseLife() {
@@ -43,8 +42,8 @@ public class PlayerShip extends BaseObject {
 
     }
 
-    public BufferedImage getImage() {
-        return TheImage;
+    public Image getImage() {
+        return theImage;
     }
 
     public void setXpos(int x) {

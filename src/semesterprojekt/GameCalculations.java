@@ -14,6 +14,7 @@ public class GameCalculations {
     public java.util.List<Enemy> enemies = new ArrayList<>();
     public java.util.List<EnemyShot> enemyShots = new ArrayList<>();
     public java.util.List<PlayerShot> playerShots = new ArrayList<>();
+    public java.util.List<Animation> explotions = new ArrayList<>();
 
     public enum enemyTypes { //mulige typer af fjender
         Ghost,
@@ -73,9 +74,8 @@ public class GameCalculations {
 
                     if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
                         
-                        enemies.get(i).explode();
+                        explotions.add(enemies.get(i).explode());
                         enemies.remove(i);
-                        
                         playerShots.remove(j);
                         
                         // semi random score

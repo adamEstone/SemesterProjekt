@@ -38,6 +38,21 @@ public class EnemyGhostShooting extends Enemy {
     }
 
     @Override
+    public Animation explode() {
+        
+        SoundPlayer ExplosionSound = new SoundPlayer("Explosion.wav");
+        ExplosionSound.play(0);
+        
+        Animation explosion = new Animation(
+                xPos-explosionSize,
+                yPos-explosionSize,
+                width+explosionSize*2,
+                height+explosionSize*2,4,4,20);
+                
+        return explosion;
+    }
+    
+    @Override
     public void move() {//ryk fjende
         //System.out.println("HALLO!!!!!");
 
