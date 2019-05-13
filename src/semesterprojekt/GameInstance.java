@@ -45,11 +45,14 @@ public class GameInstance {
     
     private Random r = new Random();
     
+    private Stats stats = new Stats();
+    
     private boolean levelHasChanged = false;//
 
     
     GameInstance(AktivVisning theWindow) {//constructor  or new game
 
+        myPlayerShip.statsRef = stats;
         gameWindow = theWindow;
 
         GC.spawnEnemies(6, 0);
@@ -84,7 +87,7 @@ public class GameInstance {
                 levelHasChanged=false;
                 //winSound.playOnceReset();
                 
-                Stats.stats.nextLevel();
+                stats.nextLevel();
                 
                 System.out.println("NEXT LEVEL BEGINS");           
                 

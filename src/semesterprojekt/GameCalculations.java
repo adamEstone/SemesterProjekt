@@ -106,6 +106,7 @@ public class GameCalculations {
             try {
 
                 if (myPlayerShip.bounds().intersects(enemyShots.get(i).bounds())) {
+                    // rykkes over til playerShip.java
                     if (Stats.stats.getLives() == 0){
                         System.out.println("Game Over");
                         //TODO: game over scene.
@@ -205,7 +206,7 @@ public class GameCalculations {
             enemyShoot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects(player);
-
+            
         }
     }
 }
