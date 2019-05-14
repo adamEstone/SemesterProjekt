@@ -25,8 +25,8 @@ public class Backgrounds extends BaseObject
     Stats stats;
     GameFonts fonts = new GameFonts();
     
-    private Font myFontBig;
-    private Font myFontSmall;
+    private Font gameFontBig;
+    private Font gameFontSmall;
     
     
     Backgrounds()
@@ -36,8 +36,8 @@ public class Backgrounds extends BaseObject
         { //make star objects
             StarPosition.add(new Star());
         }
-        myFontBig = fonts.LoadFont("ALGER.TTF", 40);
-        myFontSmall = fonts.LoadFont("ALGER.TTF", 25);
+        gameFontBig = fonts.LoadFont("ALGER.TTF", 40);
+        gameFontSmall = fonts.LoadFont("ALGER.TTF", 25);
     }
     
     
@@ -93,28 +93,28 @@ public class Backgrounds extends BaseObject
     {
         // score
         g2.setColor(Color.RED);
-        g2.setFont(myFontBig);
+        g2.setFont(gameFontBig);
         g2.drawString("SCORE",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 40);
 
         // level
         g2.setColor(Color.RED);
-        g2.setFont(myFontBig);
+        g2.setFont(gameFontBig);
         g2.drawString("LEVEL",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 175);
 
         //Weapon
         g2.setColor(Color.RED);
-        g2.setFont(myFontBig);
+        g2.setFont(gameFontBig);
         g2.drawString("WEAPON",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 280);
 
         // lives tekst
         g2.setColor(Color.RED);
-        g2.setFont(myFontBig);
+        g2.setFont(gameFontBig);
         g2.drawString("LIVES",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 575);
@@ -124,7 +124,7 @@ public class Backgrounds extends BaseObject
     public void drawScore(Graphics2D g2)
     {
         g2.setColor(Color.LIGHT_GRAY);
-        g2.setFont(myFontSmall);
+        g2.setFont(gameFontSmall);
         g2.drawString(String.valueOf(stats.getScore()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 70);
@@ -134,7 +134,6 @@ public class Backgrounds extends BaseObject
     {
         int currentWeapon = 3;
         Image image = (BufferedImage) ResourceClass.LoadedSprites.get(currentWeapon);
-        //image = ResourceClass.resize(60, 70, image);
 
         g2.drawImage(image,
                 AreaCoordinates.AC.getPlayableAreaX() + 90,
@@ -146,7 +145,7 @@ public class Backgrounds extends BaseObject
     public void drawLevel(Graphics2D g2)
     {
         g2.setColor(Color.LIGHT_GRAY);
-        g2.setFont(myFontSmall);
+        g2.setFont(gameFontSmall);
         g2.drawString(String.valueOf(stats.getLevel()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
