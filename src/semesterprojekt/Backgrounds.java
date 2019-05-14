@@ -16,23 +16,34 @@ import java.util.ArrayList;
  *
  * @author Adam & Farzad
  */
-public class Backgrounds extends BaseObject {
+public class Backgrounds extends BaseObject
+{
 
     ArrayList<Star> StarPosition = new ArrayList<Star>();
 
     private int numberOfStart = 100;
     Stats stats;
-
-    Backgrounds() {//cons
+    GameFonts fonts = new GameFonts();
+    
+    private Font gameFontBig;
+    private Font gameFontSmall;
+    
+    
+    Backgrounds()
+    {//cons
 
         for (int i = 0; i < numberOfStart; i++) //opret stjerne objekter
         { //make star objects
             StarPosition.add(new Star());
         }
-
+        gameFontBig = fonts.LoadFont("ALGER.TTF", 40);
+        gameFontSmall = fonts.LoadFont("ALGER.TTF", 25);
     }
+    
+    
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2)
+    {
 
         g2.setColor(Color.BLACK);//tegn sort skærm
         g2.fillRect(0, 0, AreaCoordinates.AC.getPlayableAreaX()
@@ -54,19 +65,23 @@ public class Backgrounds extends BaseObject {
         drawLives(g2, stats);
         drawScore(g2);
         drawLevel(g2);
+        drawWeapon(g2);
         drawDivider(g2);
         drawText(g2);
         /////////////don't change the order/////////////
 
     }
 
-    public void moveStarsFast(boolean highspeed) {
-        for (Star thisStar : StarPosition) {
+    public void moveStarsFast(boolean highspeed)
+    {
+        for (Star thisStar : StarPosition)
+        {
             thisStar.setSpeedUp(highspeed);
         }
     }
 
-    public void drawDivider(Graphics2D g2) {
+    public void drawDivider(Graphics2D g2)
+    {
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(AreaCoordinates.AC.getPlayableAreaX(),
                 0,
@@ -74,48 +89,63 @@ public class Backgrounds extends BaseObject {
                 AreaCoordinates.AC.getInfoAreaY());
     }
 
-    public void drawText(Graphics2D g2) {
+    public void drawText(Graphics2D g2)
+    {
         // score
         g2.setColor(Color.RED);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 40));
+        g2.setFont(gameFontBig);
         g2.drawString("SCORE",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 40);
 
         // level
         g2.setColor(Color.RED);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 40));
+        g2.setFont(gameFontBig);
         g2.drawString("LEVEL",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 175);
 
         //Weapon
         g2.setColor(Color.RED);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 40));
+        g2.setFont(gameFontBig);
         g2.drawString("WEAPON",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 280);
 
         // lives tekst
         g2.setColor(Color.RED);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 40));
+        g2.setFont(gameFontBig);
         g2.drawString("LIVES",
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 575);
 
     }
 
-    public void drawScore(Graphics2D g2) {
+    public void drawScore(Graphics2D g2)
+    {
         g2.setColor(Color.LIGHT_GRAY);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 25));
+        g2.setFont(gameFontSmall);
         g2.drawString(String.valueOf(stats.getScore()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 70);
     }
 
-    public void drawLevel(Graphics2D g2) {
+    public void drawWeapon(Graphics2D g2)
+    {
+        int currentWeapon = 3;
+        Image image = (BufferedImage) ResourceClass.LoadedSprites.get(currentWeapon);
+
+        g2.drawImage(image,
+                AreaCoordinates.AC.getPlayableAreaX() + 90,
+                AreaCoordinates.AC.getInfoAreaY() - 320,
+                60 / 2, 70 / 2, //half size as original
+                null);
+    }
+
+    public void drawLevel(Graphics2D g2)
+    {
         g2.setColor(Color.LIGHT_GRAY);
-        g2.setFont(new Font("Algerian", Font.PLAIN, 25));
+        g2.setFont(gameFontSmall);
         g2.drawString(String.valueOf(stats.getLevel()),
                 AreaCoordinates.AC.getPlayableAreaX() + 10,
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
@@ -144,7 +174,8 @@ public class Backgrounds extends BaseObject {
         }
     }
 
-    protected void drawShipLives(Graphics2D g2, int offset) {
+    protected void drawShipLives(Graphics2D g2, int offset)
+    {
 
         Image image = (BufferedImage) ResourceClass.LoadedSprites.get(0);
         //image = ResourceClass.resize(60, 70, image);

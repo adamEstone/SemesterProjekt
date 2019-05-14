@@ -67,6 +67,9 @@ public class GameInstance {
 
     public void tickGame() {
 
+        myPlayerShip.setXpos(MultiMuselytter.mouseX - 
+                            (myPlayerShip.width / 2));//opdatere rumskibet
+        
         millis = System.currentTimeMillis();
 
         GC.update(millis, myPlayerShip);
