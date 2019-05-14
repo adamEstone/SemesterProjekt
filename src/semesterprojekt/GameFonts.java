@@ -13,7 +13,7 @@ import java.io.File;
  */
 public class GameFonts
 {
-    private String fontSti = "src/semesterprojekt/Fonts/"; //mappe stien med fonts
+    private String fontSti = "src/semesterprojekt/Fonts"; //mappe stien med fonts
     private Font myFont;
 
     
