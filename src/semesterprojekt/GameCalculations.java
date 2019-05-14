@@ -17,7 +17,7 @@ public class GameCalculations {
     public java.util.List<Animation> explotions = new ArrayList<>();
 
     public PlayerShip myPlayerShipRef;
-    
+
     public enum enemyTypes { //mulige typer af fjender
         Ghost,
         Moon,
@@ -34,13 +34,9 @@ public class GameCalculations {
 
                 if (enemies.get(i).bounds().intersects(enemies.get(j).bounds())) {
 
-                    if (enemies.get(i).getSpriteID() != 4) {
-                        enemies.get(i).changeDirection();
-                    }
+                    enemies.get(i).changeDirection();
 
-                    if (enemies.get(j).getSpriteID() != 4) {
-                        enemies.get(j).changeDirection();
-                    }
+                    enemies.get(j).changeDirection();
 
                     if (enemies.get(i).getXpos() < enemies.get(j).getXpos()) {
                         enemies.get(i).setXpos(enemies.get(i).getXpos() - 2);
@@ -71,7 +67,7 @@ public class GameCalculations {
                 try {
 
                     if (enemies.get(i).bounds().intersects(playerShots.get(j).bounds())) {
-                        
+
                         explotions.add(enemies.get(i).explode());
                         enemies.remove(i);
                         playerShots.remove(j);
@@ -103,7 +99,7 @@ public class GameCalculations {
             try {
 
                 if (myPlayerShipRef.bounds().intersects(enemyShots.get(i).bounds())) {
-                    if (myPlayerShipRef.statsRef.getLives() == 0){
+                    if (myPlayerShipRef.statsRef.getLives() == 0) {
                         System.out.println("Game Over");
                         //TODO: game over scene.
                         //gameOver();
@@ -207,8 +203,7 @@ public class GameCalculations {
             enemyShoot();
             checkEnemyPlayerShotCollision();
             removeDeadObjects();
-            
-            
+
         }
     }
 }
