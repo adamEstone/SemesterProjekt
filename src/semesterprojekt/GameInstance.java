@@ -138,18 +138,7 @@ public class GameInstance {
             drawObj(shot);
         }
 
-        /*if(!exlosion.hasEnded()){
-            exlosion.run();
-            drawObj(exlosion);
-        }*/
- /*for (Animation thisExplosion : GC.explotions) {///!! ny
 
-            if (!thisExplosion.hasEnded()) {
-                drawObj(thisExplosion);
-            }
-            GC.explotions.remove();
-
-        }*/
         Iterator<Animation> iterator = GC.explotions.iterator();
         while (iterator.hasNext()) {
             Animation next = iterator.next();
@@ -197,7 +186,7 @@ public class GameInstance {
 
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
 
-        g2.setColor(Color.LIGHT_GRAY);
+        g2.setColor(Color.darkGray);
         g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight()); //tegn overlay så man ikke kan se spillet
 
         g2.setColor(Color.GRAY);
