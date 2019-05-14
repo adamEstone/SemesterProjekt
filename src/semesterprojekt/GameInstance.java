@@ -1,18 +1,12 @@
 package semesterprojekt;
 
 import java.awt.Color;
-import java.awt.Dimension;
+
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.Iterator;
 import java.util.Random;
-import javax.imageio.ImageIO;
-import javax.swing.WindowConstants;
 
 /**
  *
@@ -141,18 +135,7 @@ public class GameInstance {
             drawObj(shot);
         }
 
-        /*if(!exlosion.hasEnded()){
-            exlosion.run();
-            drawObj(exlosion);
-        }*/
- /*for (Animation thisExplosion : GC.explotions) {///!! ny
 
-            if (!thisExplosion.hasEnded()) {
-                drawObj(thisExplosion);
-            }
-            GC.explotions.remove();
-
-        }*/
         Iterator<Animation> iterator = GC.explotions.iterator();
         while (iterator.hasNext()) {
             Animation next = iterator.next();
@@ -200,7 +183,7 @@ public class GameInstance {
 
         g2 = bufferedGraphics;//vigtig! overføre bufferen til g2
 
-        g2.setColor(Color.LIGHT_GRAY);
+        g2.setColor(Color.darkGray);
         g2.fillRect(0, 0, gameWindow.getWidth(), gameWindow.getHeight()); //tegn overlay så man ikke kan se spillet
 
         g2.setColor(Color.GRAY);

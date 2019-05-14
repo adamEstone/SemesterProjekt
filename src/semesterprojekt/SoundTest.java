@@ -26,7 +26,7 @@ public class SoundTest {
 
         Scanner keyboard = new Scanner(System.in);
 
-        backgroundMusic = new SoundPlayer("Wii.wav");
+        backgroundMusic = new SoundPlayer("LaserGun1.wav");
         char i = 0;
 
         while (true) {
