@@ -22,25 +22,25 @@ public class Enemy extends BaseObject {
     private int weapon = 0;
 
     public int moveSpeed = 1;
-    
-    public int explosionSize=10;
+
+    public int explosionSize = 10;
 
     public void move() {//ryk fjende
 
     }
-    
-    public Rectangle bounds(){ //Bruges til Collision detection
-        
+
+    public Rectangle bounds() { //Bruges til Collision detection
+
         return null;
     }
-    
+
     public Animation explode() {
-        
+
         return null;
     }
 
     public Boolean shoot() {
-        
+
         return false;
     }
 
@@ -55,32 +55,28 @@ public class Enemy extends BaseObject {
     public double getLives() {
         return lives;
     }
-    
-    public void changeDirection(){
+
+    public void changeDirection() {
     }
 
     public void setLives(double lives) {
         this.lives = lives;
     }
-    
-    public int getXpos(){
+
+    public int getXpos() {
         return xPos;
     }
-    
-    public int getYpos(){
+
+    public int getYpos() {
         return yPos;
     }
-    
-        public void setXpos(int x){
+
+    public void setXpos(int x) {
         xPos = x;
     }
-    
-    public void setYpos(int y){
+
+    public void setYpos(int y) {
         yPos = y;
-    }
-    
-    public int getSpriteID(){
-        return spriteID;
     }
 
 }
