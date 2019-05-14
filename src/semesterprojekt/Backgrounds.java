@@ -43,12 +43,12 @@ public class Backgrounds extends BaseObject {
         {
 
             g2.setColor(thisStar.getStarColor());
-            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 1, 2);
+            g2.fillRect(thisStar.getLocation().x, thisStar.getLocation().y, 2, 2);
 
             thisStar.move();
 
         }
-        
+
         /////////////don't change the order/////////////
         //draw(g2);
         drawLives(g2, stats);
@@ -121,14 +121,12 @@ public class Backgrounds extends BaseObject {
                 AreaCoordinates.AC.getWindowTopOffset() + 175);
     }
 
-    public void drawLives(Graphics2D g2, Stats stats)
-    {
+    public void drawLives(Graphics2D g2, Stats stats) {
         final int L1 = 20;
         final int L2 = 90;
         final int L3 = 160;
 
-        switch (stats.getLives())
-        {
+        switch (stats.getLives()) {
             case 1:
                 drawShipLives(g2, L1);
                 break;
@@ -154,7 +152,7 @@ public class Backgrounds extends BaseObject {
         g2.drawImage(image,
                 AreaCoordinates.AC.getPlayableAreaX() + offset,
                 AreaCoordinates.AC.getInfoAreaY() - 100,
-                60/2,70/2, //half size as original
+                60 / 2, 70 / 2, //half size as original
                 null);
 
     }

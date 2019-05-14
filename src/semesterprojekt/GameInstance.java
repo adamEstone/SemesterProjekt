@@ -106,8 +106,8 @@ public class GameInstance {
     }
 
     /////////////////////////  Drawing Calls///////////////////////////////
-    void drawObj(BaseObject b) {                                                //tegner det objekt som er parameter i drawObj på g2    
-        b.draw(g2);                                                             //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
+    void drawObj(BaseObject b) {     //tegner det objekt som er parameter i drawObj på g2    
+        b.draw(g2);                  //(g2 er grafik objektet til vores Jframe. Dette variablen g2 følger med constructoren)
     }
 
     //DRAW GAME
@@ -131,7 +131,6 @@ public class GameInstance {
         for (PlayerShot shot : GC.playerShots) {
             drawObj(shot);
         }
-
 
         Iterator<Animation> iterator = GC.explotions.iterator();
         while (iterator.hasNext()) {
